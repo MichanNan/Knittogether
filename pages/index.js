@@ -1,11 +1,22 @@
 import Heading from "../components/Heading";
-import SubHeading from "../components/SubHeading";
+import Projects from "../components/Projects";
+import Navigation from "../components/Layout/index";
+import styled from "styled-components";
 
 export default function Home() {
   return (
-    <main>
-      <Heading>🐬 Capstone Template 🐬</Heading>
-      <SubHeading>We dolphinitely love coding!</SubHeading>
-    </main>
+    <Main>
+      <Heading>My Projects</Heading>
+
+      <Projects />
+
+      <Navigation />
+    </Main>
   );
 }
+
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
