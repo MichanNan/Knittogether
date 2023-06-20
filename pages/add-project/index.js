@@ -1,20 +1,33 @@
 import Heading from "../../components/Heading";
 import AddProjectForm from "../../components/AddProjectForm";
 import styled from "styled-components";
-export default function AddProjectPage({ projectName }) {
-  console.log(projectName);
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import Navigation from "../../components/Layout";
+import { useRouter } from "next/router";
+
+export default function AddProjectPage({
+  projectName,
+  handleAddProjectSubmit,
+}) {
+  const router = useRouter();
+
+  function handleGoBack() {
+    router.push("/");
+  }
+
   return (
     <>
       <Main>
-        <Heading>{projectName}</Heading>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <AddProjectForm />
+        <Heading>
+          <FontAwesomeIcon icon={faChevronLeft} onClick={handleGoBack} />
+          {projectName}
+        </Heading>
+        <AddProjectForm
+          onCancel={handleGoBack}
+          handleAddProjectSubmit={handleAddProjectSubmit}
+        />
+        <Navigation />
       </Main>
     </>
   );

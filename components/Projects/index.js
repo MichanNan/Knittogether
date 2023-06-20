@@ -13,9 +13,10 @@ export default function Projects() {
 }
 
 const ProjectContainer = styled.div`
+  position: absolute;
   top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-bottom: 10rem;
+  padding-bottom: 5rem;
 `;

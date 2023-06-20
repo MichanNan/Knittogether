@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-export default function PreAddProject({ onCancel, handleSubmit }) {
+export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
   const [inputName, setInputName] = useState("");
 
   return (
-    <AddProjectNameForm onSubmit={(e) => handleSubmit(e)}>
+    <AddProjectNameForm onSubmit={(e) => handlePreAddSubmit(e)}>
       <label htmlFor="name">Add the Project Name</label>
       <input
         name="name"

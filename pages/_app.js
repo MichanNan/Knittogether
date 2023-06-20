@@ -6,12 +6,21 @@ import { useState } from "react";
 export default function App({ Component, pageProps }) {
   const [projectName, setProjectName] = useState("");
   const router = useRouter();
-  function handleSubmit(e) {
+
+  function handlePreAddSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     setProjectName(data.name);
     router.push("/add-project");
+  }
+
+  function handleAddProjectSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+    router.push("/");
   }
   return (
     <>
@@ -21,8 +30,9 @@ export default function App({ Component, pageProps }) {
       </Head>
       <Component
         {...pageProps}
-        handleSubmit={handleSubmit}
+        handlePreAddSubmit={handlePreAddSubmit}
         projectName={projectName}
+        handleAddProjectSubmit={handleAddProjectSubmit}
       />
     </>
   );
