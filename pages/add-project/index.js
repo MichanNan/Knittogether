@@ -1,14 +1,15 @@
 import Heading from "../../components/Heading";
 import AddProjectForm from "../../components/AddProjectForm";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import BackIcon from "../../components/Icon/Back";
 import Navigation from "../../components/Layout";
 import { useRouter } from "next/router";
 
 export default function AddProjectPage({
   projectName,
   handleAddProjectSubmit,
+  handleChangeProjectStatus,
+  handleChangeProjectFeeling,
 }) {
   const router = useRouter();
 
@@ -20,12 +21,14 @@ export default function AddProjectPage({
     <>
       <Main>
         <Heading>
-          <FontAwesomeIcon icon={faChevronLeft} onClick={handleGoBack} />
+          <BackIcon handleGoBack={handleGoBack} />
           {projectName}
         </Heading>
         <AddProjectForm
           onCancel={handleGoBack}
           handleAddProjectSubmit={handleAddProjectSubmit}
+          handleChangeProjectStatus={handleChangeProjectStatus}
+          handleChangeProjectFeeling={handleChangeProjectFeeling}
         />
         <Navigation />
       </Main>

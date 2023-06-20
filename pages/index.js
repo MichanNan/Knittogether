@@ -7,7 +7,7 @@ import PreAddProject from "../components/PreAddProject";
 
 import { useState } from "react";
 
-export default function Home({ handlePreAddSubmit }) {
+export default function Home({ handlePreAddSubmit, projectsList }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
 
   function handleAddNewProject() {
@@ -35,7 +35,7 @@ export default function Home({ handlePreAddSubmit }) {
           handlePreAddSubmit={handlePreAddSubmit}
         />
       )}
-      <Projects />
+      <Projects projectsList={projectsList} />
       <Navigation />
     </Main>
   );

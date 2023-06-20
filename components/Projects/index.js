@@ -1,11 +1,11 @@
-import { mockProjects } from "../../db/projects";
+// import { mockProjects } from "../../db/projects";
 import ProjectPreview from "../ProjectPreview";
 import styled from "styled-components";
 
-export default function Projects() {
+export default function Projects({ projectsList }) {
   return (
     <ProjectContainer>
-      {mockProjects.map((project) => {
+      {projectsList.map((project) => {
         return <ProjectPreview key={project.id} project={project} />;
       })}
     </ProjectContainer>

@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import { StyledButton } from "../styles";
 
-export default function AddProjectForm({ onCancel, handleAddProjectSubmit }) {
+export default function AddProjectForm({
+  onCancel,
+  handleAddProjectSubmit,
+  handleChangeProjectStatus,
+  handleChangeProjectFeeling,
+}) {
   return (
     <>
       <ProjectForm onSubmit={(e) => handleAddProjectSubmit(e)}>
         <RowSection>
           <label htmlFor="status">status</label>
-          <select id="status">
+          <select id="status" onChange={(e) => handleChangeProjectStatus(e)}>
             <option>--status--</option>
             <option value="planning">Planning</option>
             <option value="active">Active</option>
@@ -15,7 +20,7 @@ export default function AddProjectForm({ onCancel, handleAddProjectSubmit }) {
             <option value="hibernating">Hibernating</option>
           </select>
           <label htmlFor="happiness">Feeling</label>
-          <select id="status">
+          <select id="feeling" onChange={(e) => handleChangeProjectFeeling(e)}>
             <option>--feeling--</option>
             <option value="excited">Excited</option>
             <option value="happy">Happy</option>
@@ -31,8 +36,8 @@ export default function AddProjectForm({ onCancel, handleAddProjectSubmit }) {
           <input name="size" type="text" />
           <label htmlFor="gauge">Gauge</label>
           <input name="gauge" type="text" />
-          <label htmlFor="needle-size">Needel Size</label>
-          <input name="needle-size" type="text" />
+          <label htmlFor="needlesize">Needel Size</label>
+          <input name="needlesize" type="text" />
           <label htmlFor="start">Start at</label>
           <input name="start" type="date" />
           <label htmlFor="end">End at</label>
