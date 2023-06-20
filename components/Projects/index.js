@@ -13,7 +13,6 @@ export default function Projects() {
 }
 
 const ProjectContainer = styled.div`
-  position: relative;
   top: 5rem;
   display: flex;
   flex-direction: column;
