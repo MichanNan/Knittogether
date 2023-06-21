@@ -31,36 +31,36 @@ export default function AddProjectForm({
             <option value="bad">Bad</option>
           </select>
         </RowSection>
-        <ColumnSection>Upload Photo here</ColumnSection>
+        {/* <ColumnSection>Upload Photo here</ColumnSection> */}
         <ColumnSection>
-          <label htmlFor="recipient">To</label>
-          <input name="recipient" type="text" />
+          <label htmlFor="recipient">The project is for</label>
+          <input name="recipient" type="text" maxLength="20" />
           <label htmlFor="size">Size</label>
-          <input name="size" type="text" />
+          <input name="size" type="text" maxLength="5" />
           <label htmlFor="gauge">Gauge</label>
-          <input name="gauge" type="text" />
+          <input name="gauge" type="text" maxLength="10" />
           <label htmlFor="needlesize">Needel Size</label>
-          <input name="needlesize" type="text" />
+          <input name="needlesize" type="text" maxLength="10" />
           <label htmlFor="start">Start at</label>
           <input name="start" type="date" />
           <label htmlFor="end">End at</label>
           <input name="end" type="date" />
         </ColumnSection>
-        <ColumnSection>Upload Pattern here</ColumnSection>
+        {/* <ColumnSection>Upload Pattern here</ColumnSection> */}
 
         <ColumnSection>
           <label htmlFor="brand">Brand</label>
-          <input name="brand" type="text" />
+          <input name="brand" type="text" maxLength="20" />
           <label htmlFor="skeins">Skeins</label>
-          <input name="skeins" type="text" />
+          <input name="skeins" type="text" maxLength="5" />
           <label htmlFor="type">Type</label>
-          <input name="type" type="text" />
+          <input name="type" type="text" maxLength="20" />
           <label htmlFor="gramm">Gramm</label>
-          <input name="gramm" type="text" />
+          <input name="gramm" type="text" maxLength="5" />
           <label htmlFor="color">Color</label>
-          <input name="color" type="text" />
+          <input name="color" type="text" maxLength="20" />
           <label htmlFor="meter">Meter</label>
-          <input name="meter" type="text" />
+          <input name="meter" type="text" maxLength="10" />
         </ColumnSection>
         <ColumnSection>
           <label htmlFor="note">Note</label>

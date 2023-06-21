@@ -51,7 +51,7 @@ const Main = styled.main`
 `;
 
 const BackDrop = styled.div`
-  position: absolute;
+  position: fixed;
   float: right;
   width: 375px;
   height: 100%;
