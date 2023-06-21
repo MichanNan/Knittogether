@@ -1,11 +1,11 @@
-import { mockProjects } from "../../db/projects";
+// import { mockProjects } from "../../db/projects";
 import ProjectPreview from "../ProjectPreview";
 import styled from "styled-components";
 
-export default function Projects() {
+export default function Projects({ projectsList }) {
   return (
     <ProjectContainer>
-      {mockProjects.map((project) => {
+      {projectsList.map((project) => {
         return <ProjectPreview key={project.id} project={project} />;
       })}
     </ProjectContainer>
@@ -13,10 +13,10 @@ export default function Projects() {
 }
 
 const ProjectContainer = styled.div`
-  position: relative;
+  position: absolute;
   top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-bottom: 10rem;
+  padding-bottom: 5rem;
 `;
