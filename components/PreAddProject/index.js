@@ -7,6 +7,7 @@ export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
     <AddProjectNameForm onSubmit={(e) => handlePreAddSubmit(e)}>
       <label htmlFor="name">Add the Project Name</label>
       <input
+        maxLength="30"
         name="name"
         value={inputName}
         onChange={(e) => setInputName(e.target.value)}
