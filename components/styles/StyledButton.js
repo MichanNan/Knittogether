@@ -9,8 +9,8 @@ export default function StyledButton({
 }) {
   return (
     <ButtonItem
-      $width={width}
-      $height={height}
+      width={width}
+      height={height}
       onClick={onClick}
       className={className}
     >
@@ -20,8 +20,8 @@ export default function StyledButton({
 }
 
 const ButtonItem = styled.button`
-  width: ${(props) => props.$width};
-  height: ${(props) => props.$height};
+  width: ${({ width }) => width};
+  height: ${(height) => height};
   border: none;
   border-radius: 1rem;
   box-shadow: 0.1rem 0.1rem 0.5 #cccccc;

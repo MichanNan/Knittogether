@@ -1,20 +1,35 @@
 import styled from "styled-components";
-
-export default function Categories({ handleClick }) {
+export default function Categories({ handleClick, selectedProjectStatus }) {
   return (
     <>
       <CategoriyContainer>
-        <CategoryCard className="planned" onClick={(e) => handleClick(e)}>
+        <CategoryCard
+          className="planned"
+          selectedProjectStatus={selectedProjectStatus}
+          onClick={(e) => handleClick(e)}
+        >
           Planned
         </CategoryCard>
-        <CategoryCard className="active" onClick={(e) => handleClick(e)}>
+        <CategoryCard
+          className="active"
+          selectedProjectStatus={selectedProjectStatus}
+          onClick={(e) => handleClick(e)}
+        >
           Active
         </CategoryCard>
-        <CategoryCard className="completed" onClick={(e) => handleClick(e)}>
+        <CategoryCard
+          className="completed"
+          selectedProjectStatus={selectedProjectStatus}
+          onClick={(e) => handleClick(e)}
+        >
           Completed
         </CategoryCard>
-        <CategoryCard className="hibernating" onClick={(e) => handleClick(e)}>
-          Hibernating
+        <CategoryCard
+          className="hibernated"
+          selectedProjectStatus={selectedProjectStatus}
+          onClick={(e) => handleClick(e)}
+        >
+          Hibernated
         </CategoryCard>
       </CategoriyContainer>
     </>
@@ -32,5 +47,6 @@ const CategoryCard = styled.span`
   padding: 0 0.5rem;
   border: 0.1rem solid #f5f5f5;
   line-height: 3rem;
-  background-color: #f5f5f5;
+  background-color: ${({ className, selectedProjectStatus }) =>
+    className.includes(selectedProjectStatus) ? "#999999" : "f5f5f5"};
 `;

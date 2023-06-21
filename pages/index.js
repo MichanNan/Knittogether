@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export default function Home({ handlePreAddSubmit, projectsList }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
-  const [selectedProjectStatus, setSelectedProjectStatus] = useState("planned");
+  const [selectedProjectStatus, setSelectedProjectStatus] = useState("active");
 
   function handleAddNewProject() {
     setAddNewProjectStatus(!addNewProjectStatus);
@@ -19,21 +19,15 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
     setAddNewProjectStatus(false);
   }
 
-  function filterProject(status) {
-    const filteredProjects = projectsList.filter((project) => {
-      return project.status === status;
-    });
-    return filteredProjects;
-  }
-  const plannedProject = filterProject("planned");
-  const activeProject = filterProject("active");
-  const completedProject = filterProject("completed");
-  const hibernatedProject = filterProject("hibernating");
-
   function handleStatusClick(e) {
     const selectedButtonClassName = e.target.className;
-    setSelectedProjectStatus(selectedButtonClassName);
+    const projectStatus = selectedButtonClassName.split(" ")[2];
+    setSelectedProjectStatus(projectStatus);
   }
+
+  const seletedProjects = projectsList.filter((project) => {
+    return project.status === selectedProjectStatus;
+  });
 
   return (
     <Main>
@@ -45,27 +39,25 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
         />
       )}
       <Heading>My Projects</Heading>
-      <Categories handleClick={handleStatusClick} />
+      <Categories
+        handleClick={handleStatusClick}
+        selectedProjectStatus={selectedProjectStatus}
+      />
       <AddButton handleClick={handleAddNewProject} />
-
       {addNewProjectStatus && (
         <PreAddProject
           onCancel={handleCancel}
           handlePreAddSubmit={handlePreAddSubmit}
         />
       )}
-      {selectedProjectStatus.includes("planned") && (
-        <Projects projectsList={plannedProject} />
-      )}
-      {selectedProjectStatus.includes("active") && (
-        <Projects projectsList={activeProject} />
-      )}
-      {selectedProjectStatus.includes("completed") && (
-        <Projects projectsList={completedProject} />
-      )}
-      {selectedProjectStatus.includes("hibernating") && (
-        <Projects projectsList={hibernatedProject} />
-      )}
+      <ProjectSumInfo>
+        {`You have ${seletedProjects.length}
+       ${selectedProjectStatus} ${
+          seletedProjects.length === 1 ? "project" : "projects"
+        }`}
+      </ProjectSumInfo>
+
+      <Projects projectsList={seletedProjects} />
 
       <Navigation />
     </Main>
@@ -91,4 +83,9 @@ const BackDrop = styled.div`
   background-color: #cccccc;
   opacity: 0.4;
   z-index: 99;
+`;
+
+const ProjectSumInfo = styled.p`
+  position: absolute;
+  top: 10rem;
 `;

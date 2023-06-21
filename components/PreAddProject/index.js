@@ -15,13 +15,21 @@ export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
         name="name"
         value={inputName}
         onChange={(e) => setInputName(e.target.value)}
+        required="required"
       />
-      <div>
-        <button type="cancel" onClick={onCancel}>
+      <ButtonContainer>
+        <StyledButton
+          width="5rem"
+          height="2rem"
+          type="cancel"
+          onClick={onCancel}
+        >
           Cancel
-        </button>
-        <button type="submit">Create</button>
-      </div>
+        </StyledButton>
+        <StyledButton width="5rem" height="2rem" type="submit">
+          Create
+        </StyledButton>
+      </ButtonContainer>
     </AddProjectNameForm>
   );
 }
@@ -43,5 +51,5 @@ const AddProjectNameForm = styled.form`
 const ButtonContainer = styled.div`
   width: 15rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;

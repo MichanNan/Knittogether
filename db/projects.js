@@ -27,7 +27,7 @@ export const mockProjects = [
   {
     id: 2,
     name: " Sophie Scarf",
-    status: "completed",
+    status: "planned",
     happiness: "happy",
     image: "/sophiescarf.jpg",
     details: {

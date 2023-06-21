@@ -13,37 +13,41 @@ export default function AddProjectForm({
       <ProjectForm onSubmit={(e) => handleAddProjectSubmit(e)}>
         <RowSection>
           <label htmlFor="status">status</label>
-          <select name="status" onChange={(e) => handleChangeProjectStatus(e)}>
-            <option>--status--</option>
-            <option value="planning">Planning</option>
+          <StyledSelect
+            name="status"
+            onChange={(e) => handleChangeProjectStatus(e)}
+            required
+          >
+            <option value="">--status--</option>
+            <option value="planned">Planned</option>
             <option value="active">Active</option>
             <option value="completed">Completed</option>
-            <option value="hibernating">Hibernating</option>
-          </select>
+            <option value="hibernating">Hibernated</option>
+          </StyledSelect>
           <label htmlFor="happiness">Feeling</label>
-          <select
+          <StyledSelect
             name="feeling"
             onChange={(e) => handleChangeProjectFeeling(e)}
           >
-            <option>--feeling--</option>
+            <option value="">--feeling--</option>
             <option value="excited">Excited</option>
             <option value="happy">Happy</option>
             <option value="normal">Normal</option>
             <option value="bad">Bad</option>
-          </select>
+          </StyledSelect>
         </RowSection>
         {/* <ColumnSection>Upload Photo here</ColumnSection> */}
         <ColumnSection>
-          <label htmlFor="recipient">The project is for</label>
-          <input name="recipient" type="text" maxLength="20" />
+          <label htmlFor="recipient" required="required">
+            The project is for
+          </label>
+          <StyledInput name="recipient" type="text" maxLength="20" />
           <label htmlFor="recipient">To</label>
           <StyledInput name="recipient" type="text" />
           <label htmlFor="size">Size</label>
-          <input name="size" type="text" maxLength="5" />
-          <StyledInput name="size" type="text" />
+          <StyledInput name="size" type="text" maxLength="5" />
           <label htmlFor="gauge">Gauge</label>
-          <input name="gauge" type="text" maxLength="10" />
-          <StyledInput name="gauge" type="text" />
+          <StyledInput name="gauge" type="text" maxLength="10" />
           <label htmlFor="needlesize">Needel Size</label>
           <StyledInput name="needlesize" type="text" />
           <label htmlFor="start">Start at</label>
@@ -57,20 +61,15 @@ export default function AddProjectForm({
           <label htmlFor="brand">Brand</label>
           <StyledInput name="brand" type="text" />
           <label htmlFor="skeins">Skeins</label>
-          <input name="skeins" type="text" maxLength="5" />
-          <StyledInput name="skeins" type="text" />
+          <StyledInput name="skeins" type="text" maxLength="5" />
           <label htmlFor="type">Type</label>
-          <input name="type" type="text" maxLength="20" />
-          <StyledInput name="type" type="text" />
+          <StyledInput name="type" type="text" maxLength="20" />
           <label htmlFor="gramm">Gramm</label>
-          <input name="gramm" type="text" maxLength="5" />
-          <StyledInput name="gramm" type="text" />
+          <StyledInput name="gramm" type="text" maxLength="5" />
           <label htmlFor="color">Color</label>
-          <input name="color" type="text" maxLength="20" />
-          <StyledInput name="color" type="text" />
+          <StyledInput name="color" type="text" maxLength="20" />
           <label htmlFor="meter">Meter</label>
-          <input name="meter" type="text" maxLength="10" />
-          <StyledInput name="meter" type="text" />
+          <StyledInput name="meter" type="text" maxLength="10" />
         </ColumnSection>
         <ColumnSection>
           <label htmlFor="note">Note</label>
@@ -107,6 +106,7 @@ const RowSection = styled.section`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   gap: 0.5rem;
 `;
 const ColumnSection = styled.section`
@@ -122,4 +122,9 @@ const StyledTextArea = styled.textarea`
   background-color: #f5f5f5;
   box-shadow: 0.1rem 0.1rem 0.4rem #cccccc;
   font-size: 1.5rem;
+`;
+
+const StyledSelect = styled.select`
+  width: 6rem;
+  height: 2rem;
 `;
