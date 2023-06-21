@@ -4,11 +4,12 @@ import Navigation from "../components/Layout/index";
 import AddButton from "../components/AddButton";
 import styled from "styled-components";
 import PreAddProject from "../components/PreAddProject";
-
+import Categories from "../components/Categories";
 import { useState } from "react";
 
 export default function Home({ handlePreAddSubmit, projectsList }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
+  const [selectedProjectStatus, setSelectedProjectStatus] = useState("planned");
 
   function handleAddNewProject() {
     setAddNewProjectStatus(!addNewProjectStatus);
@@ -18,10 +19,24 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
     setAddNewProjectStatus(false);
   }
 
+  function filterProject(status) {
+    const filteredProjects = projectsList.filter((project) => {
+      return project.status === status;
+    });
+    return filteredProjects;
+  }
+  const plannedProject = filterProject("planned");
+  const activeProject = filterProject("active");
+  const completedProject = filterProject("completed");
+  const hibernatedProject = filterProject("hibernating");
+
+  function handleStatusClick(e) {
+    const selectedButtonClassName = e.target.className;
+    setSelectedProjectStatus(selectedButtonClassName);
+  }
+
   return (
-    <Main addNewProjectStatus={addNewProjectStatus}>
-      <Heading>My Projects</Heading>
-      <AddButton handleClick={handleAddNewProject} />
+    <Main>
       {addNewProjectStatus && (
         <BackDrop
           onClick={() => {
@@ -29,13 +44,29 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
           }}
         />
       )}
+      <Heading>My Projects</Heading>
+      <Categories handleClick={handleStatusClick} />
+      <AddButton handleClick={handleAddNewProject} />
+
       {addNewProjectStatus && (
         <PreAddProject
           onCancel={handleCancel}
           handlePreAddSubmit={handlePreAddSubmit}
         />
       )}
-      <Projects projectsList={projectsList} />
+      {selectedProjectStatus.includes("planned") && (
+        <Projects projectsList={plannedProject} />
+      )}
+      {selectedProjectStatus.includes("active") && (
+        <Projects projectsList={activeProject} />
+      )}
+      {selectedProjectStatus.includes("completed") && (
+        <Projects projectsList={completedProject} />
+      )}
+      {selectedProjectStatus.includes("hibernating") && (
+        <Projects projectsList={hibernatedProject} />
+      )}
+
       <Navigation />
     </Main>
   );
@@ -52,10 +83,12 @@ const Main = styled.main`
 
 const BackDrop = styled.div`
   position: fixed;
+  top: 0;
+  left: 0;
   float: right;
   width: 375px;
   height: 100%;
   background-color: #cccccc;
   opacity: 0.4;
-  z-index: 5;
+  z-index: 99;
 `;

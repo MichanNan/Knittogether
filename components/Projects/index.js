@@ -14,7 +14,7 @@ export default function Projects({ projectsList }) {
 
 const ProjectContainer = styled.div`
   position: absolute;
-  top: 5rem;
+  top: 10rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
