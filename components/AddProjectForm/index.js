@@ -12,7 +12,7 @@ export default function AddProjectForm({
       <ProjectForm onSubmit={(e) => handleAddProjectSubmit(e)}>
         <RowSection>
           <label htmlFor="status">status</label>
-          <select id="status" onChange={(e) => handleChangeProjectStatus(e)}>
+          <select name="status" onChange={(e) => handleChangeProjectStatus(e)}>
             <option>--status--</option>
             <option value="planning">Planning</option>
             <option value="active">Active</option>
@@ -20,7 +20,10 @@ export default function AddProjectForm({
             <option value="hibernating">Hibernating</option>
           </select>
           <label htmlFor="happiness">Feeling</label>
-          <select id="feeling" onChange={(e) => handleChangeProjectFeeling(e)}>
+          <select
+            name="feeling"
+            onChange={(e) => handleChangeProjectFeeling(e)}
+          >
             <option>--feeling--</option>
             <option value="excited">Excited</option>
             <option value="happy">Happy</option>

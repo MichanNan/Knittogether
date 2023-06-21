@@ -4,12 +4,12 @@ import styled from "styled-components";
 
 export default function BackIcon({ handleGoBack }) {
   return (
-    <BackIcom onClick={handleGoBack}>
+    <BackItem onClick={handleGoBack}>
       <FontAwesomeIcon icon={faChevronLeft} />
-    </BackIcom>
+    </BackItem>
   );
 }
-const BackIcom = styled.div`
+const BackItem = styled.div`
   position: absolute;
   left: 2.5rem;
   top: 0.5rem;

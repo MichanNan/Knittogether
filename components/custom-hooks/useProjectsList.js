@@ -18,7 +18,7 @@ export function useProjectsList(projectName, projectStatus, feeling) {
       id: uid(),
       name: projectName,
       status: projectStatus,
-      happnisse: feeling,
+      happiness: feeling,
       image: "/cumulustee.jpg",
       details: {
         recipient: data.recipient,
@@ -32,7 +32,7 @@ export function useProjectsList(projectName, projectStatus, feeling) {
       yarn: {
         brand: data.brand,
         skeins: data.skeins,
-        Type: data.type,
+        type: data.type,
         gramm: data.gramm,
         color: data.color,
         meter: data.meter,

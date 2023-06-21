@@ -3,7 +3,7 @@ export const mockProjects = [
     id: 1,
     name: " Cumulus Tee",
     status: "active",
-    happnisse: "happy",
+    happiness: "happy",
     image: "/cumulustee.jpg",
     details: {
       recipient: "myself",
@@ -28,7 +28,7 @@ export const mockProjects = [
     id: 2,
     name: " Sophie Scarf",
     status: "completed",
-    happnisse: "happy",
+    happiness: "happy",
     image: "/sophiescarf.jpg",
     details: {
       recipient: "myself",
@@ -53,7 +53,7 @@ export const mockProjects = [
     id: 3,
     name: "Socks",
     status: "completed",
-    happnisse: "happy",
+    happiness: "happy",
     image: "/socks.jpg",
     details: {
       recipient: "Papa",
