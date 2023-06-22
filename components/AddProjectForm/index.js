@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import StyledButton from "../StyledButton";
 import StyledInput from "../StyledInput";
+import Upload from "../Upload";
 
 export default function AddProjectForm({
   onCancel,
@@ -36,7 +37,7 @@ export default function AddProjectForm({
             <option value="bad">Bad</option>
           </StyledSelect>
         </RowSection>
-
+        <Upload />
         <ColumnSection>
           <label htmlFor="recipient" required="required">
             The project is for

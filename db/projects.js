@@ -29,7 +29,7 @@ export const mockProjects = [
     name: " Sophie Scarf",
     status: "planned",
     happiness: "happy",
-    image: "/sophiescarf.jpg",
+    image: "/cumulustee.jpg",
     details: {
       recipient: "myself",
       size: "",
