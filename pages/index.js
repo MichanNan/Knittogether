@@ -29,6 +29,19 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
     return project.status === selectedProjectStatus;
   });
 
+  let subTitle = "";
+  if (seletedProjects.length === 0) {
+    subTitle = `You have no
+  ${selectedProjectStatus} projects`;
+  } else if (seletedProjects.length === 1) {
+    subTitle = `You have ${seletedProjects.length}
+    ${selectedProjectStatus} ${"project"}
+     `;
+  } else {
+    subTitle = `You have ${seletedProjects.length}
+  ${selectedProjectStatus} projects
+   `;
+  }
   return (
     <Main>
       {addNewProjectStatus && (
@@ -50,12 +63,7 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
           handlePreAddSubmit={handlePreAddSubmit}
         />
       )}
-      <ProjectSumInfo>
-        {`You have ${seletedProjects.length}
-       ${selectedProjectStatus} ${
-          seletedProjects.length === 1 ? "project" : "projects"
-        }`}
-      </ProjectSumInfo>
+      <ProjectSumInfo>{subTitle}</ProjectSumInfo>
 
       <Projects projectsList={seletedProjects} />
 
