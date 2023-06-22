@@ -1,6 +1,6 @@
 import Heading from "../components/Heading";
 import Projects from "../components/Projects";
-import Navigation from "../components/Layout/index";
+import Navigation from "../components/Navigation/index";
 import AddButton from "../components/AddButton";
 import styled from "styled-components";
 import PreAddProject from "../components/PreAddProject";
@@ -19,8 +19,8 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
     setAddNewProjectStatus(false);
   }
 
-  function handleStatusClick(e) {
-    const selectedButtonClassName = e.target.className;
+  function handleStatusClick(event) {
+    const selectedButtonClassName = event.target.className;
     const projectStatus = selectedButtonClassName.split(" ")[2];
     setSelectedProjectStatus(projectStatus);
   }

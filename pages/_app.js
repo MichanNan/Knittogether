@@ -18,20 +18,20 @@ export default function App({ Component, pageProps }) {
     newProjectFeeling
   );
 
-  function handlePreAddSubmit(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
+  function handlePreAddSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     setProjectName(data.name);
     router.push("/add-project");
   }
-  function handleChangeProjectStatus(e) {
-    e.preventDefault();
-    setNewProjectStatus(e.target.value);
+  function handleChangeProjectStatus(event) {
+    event.preventDefault();
+    setNewProjectStatus(event.target.value);
   }
-  function handleChangeProjectFeeling(e) {
-    e.preventDefault();
-    setNewProjectFeeling(e.target.value);
+  function handleChangeProjectFeeling(event) {
+    event.preventDefault();
+    setNewProjectFeeling(event.target.value);
   }
 
   handleAddProjectSubmit;

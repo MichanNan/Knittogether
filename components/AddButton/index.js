@@ -5,7 +5,7 @@ import styled from "styled-components";
 export default function AddButton({ handleClick }) {
   return (
     <AddProjectButton onClick={handleClick}>
-      <FontAwesomeIcon icon={faCirclePlus} style={{ float: "left" }} />
+      <FontAwesomeIcon icon={faCirclePlus} />
     </AddProjectButton>
   );
 }

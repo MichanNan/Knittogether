@@ -18,7 +18,7 @@ export default function StyledInput({
       radius={radius}
       name={name}
       type={type}
-      onChange={(e) => setInputName(e.target.value)}
+      onChange={(event) => setInputName(event.target.value)}
       value={inputName}
       maxLength={maxLength}
       required={required}

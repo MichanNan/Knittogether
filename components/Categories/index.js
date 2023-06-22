@@ -6,28 +6,28 @@ export default function Categories({ handleClick, selectedProjectStatus }) {
         <CategoryCard
           className="planned"
           selectedProjectStatus={selectedProjectStatus}
-          onClick={(e) => handleClick(e)}
+          onClick={(event) => handleClick(event)}
         >
           Planned
         </CategoryCard>
         <CategoryCard
           className="active"
           selectedProjectStatus={selectedProjectStatus}
-          onClick={(e) => handleClick(e)}
+          onClick={(event) => handleClick(event)}
         >
           Active
         </CategoryCard>
         <CategoryCard
           className="completed"
           selectedProjectStatus={selectedProjectStatus}
-          onClick={(e) => handleClick(e)}
+          onClick={(event) => handleClick(event)}
         >
           Completed
         </CategoryCard>
         <CategoryCard
           className="hibernated"
           selectedProjectStatus={selectedProjectStatus}
-          onClick={(e) => handleClick(e)}
+          onClick={(event) => handleClick(event)}
         >
           Hibernated
         </CategoryCard>

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-import StyledButton from "../styles/StyledButton";
-import StyledInput from "../styles/StyledInput";
+import StyledButton from "../StyledButton/";
+import StyledInput from "../StyledInput/";
 
 export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
   const [inputName, setInputName] = useState("");
   return (
-    <AddProjectNameForm onSubmit={(e) => handlePreAddSubmit(e)}>
+    <AddProjectNameForm onSubmit={(event) => handlePreAddSubmit(event)}>
       <label htmlFor="name">Add the Project Name</label>
       <StyledInput
         width="15rem"
@@ -14,7 +14,7 @@ export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
         radius="1rem"
         name="name"
         value={inputName}
-        onChange={(e) => setInputName(e.target.value)}
+        onChange={(event) => setInputName(event.target.value)}
         required="required"
       />
       <ButtonContainer>

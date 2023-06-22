@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import StyledButton from "../styles/StyledButton";
-import StyledInput from "../styles/StyledInput";
+import StyledButton from "../StyledButton";
+import StyledInput from "../StyledInput";
 
 export default function AddProjectForm({
   onCancel,
@@ -10,24 +10,24 @@ export default function AddProjectForm({
 }) {
   return (
     <>
-      <ProjectForm onSubmit={(e) => handleAddProjectSubmit(e)}>
+      <ProjectForm onSubmit={(event) => handleAddProjectSubmit(event)}>
         <RowSection>
           <label htmlFor="status">status</label>
           <StyledSelect
             name="status"
-            onChange={(e) => handleChangeProjectStatus(e)}
+            onChange={(event) => handleChangeProjectStatus(event)}
             required
           >
             <option value="">--status--</option>
             <option value="planned">Planned</option>
             <option value="active">Active</option>
             <option value="completed">Completed</option>
-            <option value="hibernating">Hibernated</option>
+            <option value="hibernated">Hibernated</option>
           </StyledSelect>
           <label htmlFor="happiness">Feeling</label>
           <StyledSelect
             name="feeling"
-            onChange={(e) => handleChangeProjectFeeling(e)}
+            onChange={(event) => handleChangeProjectFeeling(event)}
           >
             <option value="">--feeling--</option>
             <option value="excited">Excited</option>
@@ -36,7 +36,7 @@ export default function AddProjectForm({
             <option value="bad">Bad</option>
           </StyledSelect>
         </RowSection>
-        {/* <ColumnSection>Upload Photo here</ColumnSection> */}
+
         <ColumnSection>
           <label htmlFor="recipient" required="required">
             The project is for
@@ -55,7 +55,6 @@ export default function AddProjectForm({
           <label htmlFor="end">End at</label>
           <StyledInput name="end" type="date" />
         </ColumnSection>
-        {/* <ColumnSection>Upload Pattern here</ColumnSection> */}
 
         <ColumnSection>
           <label htmlFor="brand">Brand</label>
