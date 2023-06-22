@@ -42,34 +42,92 @@ export default function AddProjectForm({
           <label htmlFor="recipient" required="required">
             The project is for
           </label>
-          <StyledInput name="recipient" type="text" maxLength="20" />
+          <StyledInput
+            name="recipient"
+            type="text"
+            maxLength="20"
+            radius="1rem"
+            height="2rem"
+          />
           <label htmlFor="recipient">To</label>
-          <StyledInput name="recipient" type="text" />
+          <StyledInput
+            name="recipient"
+            type="text"
+            radius="1rem"
+            height="2rem"
+          />
           <label htmlFor="size">Size</label>
-          <StyledInput name="size" type="text" maxLength="5" />
+          <StyledInput
+            name="size"
+            type="text"
+            maxLength="5"
+            radius="1rem"
+            height="2rem"
+          />
           <label htmlFor="gauge">Gauge</label>
-          <StyledInput name="gauge" type="text" maxLength="10" />
+          <StyledInput
+            name="gauge"
+            type="text"
+            maxLength="10"
+            radius="1rem"
+            height="2rem"
+          />
           <label htmlFor="needlesize">Needel Size</label>
-          <StyledInput name="needlesize" type="text" />
+          <StyledInput
+            name="needlesize"
+            type="text"
+            radius="1rem"
+            height="2rem"
+          />
           <label htmlFor="start">Start at</label>
-          <StyledInput name="start" type="date" />
+          <StyledInput name="start" type="date" radius="1rem" height="2rem" />
           <label htmlFor="end">End at</label>
-          <StyledInput name="end" type="date" />
+          <StyledInput name="end" type="date" radius="1rem" height="2rem" />
         </ColumnSection>
 
         <ColumnSection>
           <label htmlFor="brand">Brand</label>
-          <StyledInput name="brand" type="text" />
+          <StyledInput name="brand" type="text" radius="1rem" height="2rem" />
           <label htmlFor="skeins">Skeins</label>
-          <StyledInput name="skeins" type="text" maxLength="5" />
+          <StyledInput
+            name="skeins"
+            type="text"
+            maxLength="5"
+            radius="1rem"
+            height="2rem"
+          />
           <label htmlFor="type">Type</label>
-          <StyledInput name="type" type="text" maxLength="20" />
+          <StyledInput
+            name="type"
+            type="text"
+            maxLength="20"
+            radius="1rem"
+            height="2rem"
+          />
           <label htmlFor="gramm">Gramm</label>
-          <StyledInput name="gramm" type="text" maxLength="5" />
+          <StyledInput
+            name="gramm"
+            type="text"
+            maxLength="5"
+            radius="1rem"
+            height="2rem"
+          />
           <label htmlFor="color">Color</label>
-          <StyledInput name="color" type="text" maxLength="20" />
+          <StyledInput
+            name="color"
+            type="text"
+            maxLength="20"
+            radius="1rem"
+            height="2rem"
+          />
           <label htmlFor="meter">Meter</label>
-          <StyledInput name="meter" type="text" maxLength="10" />
+          <StyledInput
+            name="meter"
+            type="text"
+            maxLength="10"
+            radius="1rem"
+            height="2rem"
+          />
         </ColumnSection>
         <ColumnSection>
           <label htmlFor="note">Note</label>
@@ -120,7 +178,6 @@ const StyledTextArea = styled.textarea`
   border-radius: 0.6rem;
   border: none;
   background-color: #f5f5f5;
-  box-shadow: 0.1rem 0.1rem 0.4rem #cccccc;
   font-size: 1.5rem;
 `;
 

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 
 export default function StyledInput({
   width,
@@ -9,8 +8,8 @@ export default function StyledInput({
   type,
   maxLength,
   required,
+  onChange,
 }) {
-  const [inputName, setInputName] = useState("");
   return (
     <InputItem
       width={width}
@@ -18,8 +17,7 @@ export default function StyledInput({
       radius={radius}
       name={name}
       type={type}
-      onChange={(event) => setInputName(event.target.value)}
-      value={inputName}
+      onChange={onChange}
       maxLength={maxLength}
       required={required}
     ></InputItem>
@@ -31,6 +29,9 @@ const InputItem = styled.input`
   border-radius: ${({ radius }) => radius};
   border: none;
   background-color: #f5f5f5;
-  box-shadow: 0.1rem 0.1rem 0.4rem #cccccc;
   font-size: 1.5rem;
+  &:focus {
+    outline: none;
+  }
+  text-indent: 1rem;
 `;
