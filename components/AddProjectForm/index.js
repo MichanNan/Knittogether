@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { StyledButton } from "../styles";
+import StyledButton from "../StyledButton";
+import StyledInput from "../StyledInput";
+import Upload from "../Upload";
 
 export default function AddProjectForm({
   onCancel,
@@ -9,68 +11,82 @@ export default function AddProjectForm({
 }) {
   return (
     <>
-      <ProjectForm onSubmit={(e) => handleAddProjectSubmit(e)}>
+      <ProjectForm onSubmit={(event) => handleAddProjectSubmit(event)}>
         <RowSection>
           <label htmlFor="status">status</label>
-          <select name="status" onChange={(e) => handleChangeProjectStatus(e)}>
-            <option>--status--</option>
-            <option value="planning">Planning</option>
+          <StyledSelect
+            name="status"
+            onChange={(event) => handleChangeProjectStatus(event)}
+            required
+          >
+            <option value="">--status--</option>
+            <option value="planned">Planned</option>
             <option value="active">Active</option>
             <option value="completed">Completed</option>
-            <option value="hibernating">Hibernating</option>
-          </select>
+            <option value="hibernated">Hibernated</option>
+          </StyledSelect>
           <label htmlFor="happiness">Feeling</label>
-          <select
+          <StyledSelect
             name="feeling"
-            onChange={(e) => handleChangeProjectFeeling(e)}
+            onChange={(event) => handleChangeProjectFeeling(event)}
           >
-            <option>--feeling--</option>
+            <option value="">--feeling--</option>
             <option value="excited">Excited</option>
             <option value="happy">Happy</option>
             <option value="normal">Normal</option>
             <option value="bad">Bad</option>
-          </select>
+          </StyledSelect>
         </RowSection>
-        {/* <ColumnSection>Upload Photo here</ColumnSection> */}
+        <Upload />
         <ColumnSection>
-          <label htmlFor="recipient">The project is for</label>
-          <input name="recipient" type="text" maxLength="20" />
+          <label htmlFor="recipient" required="required">
+            The project is for
+          </label>
+          <StyledInput name="recipient" type="text" maxLength="20" />
+          <label htmlFor="recipient">To</label>
+          <StyledInput name="recipient" type="text" />
           <label htmlFor="size">Size</label>
-          <input name="size" type="text" maxLength="5" />
+          <StyledInput name="size" type="text" maxLength="5" />
           <label htmlFor="gauge">Gauge</label>
-          <input name="gauge" type="text" maxLength="10" />
+          <StyledInput name="gauge" type="text" maxLength="10" />
           <label htmlFor="needlesize">Needel Size</label>
-          <input name="needlesize" type="text" maxLength="10" />
+          <StyledInput name="needlesize" type="text" />
           <label htmlFor="start">Start at</label>
-          <input name="start" type="date" />
+          <StyledInput name="start" type="date" />
           <label htmlFor="end">End at</label>
-          <input name="end" type="date" />
+          <StyledInput name="end" type="date" />
         </ColumnSection>
-        {/* <ColumnSection>Upload Pattern here</ColumnSection> */}
 
         <ColumnSection>
           <label htmlFor="brand">Brand</label>
-          <input name="brand" type="text" maxLength="20" />
+          <StyledInput name="brand" type="text" />
           <label htmlFor="skeins">Skeins</label>
-          <input name="skeins" type="text" maxLength="5" />
+          <StyledInput name="skeins" type="text" maxLength="5" />
           <label htmlFor="type">Type</label>
-          <input name="type" type="text" maxLength="20" />
+          <StyledInput name="type" type="text" maxLength="20" />
           <label htmlFor="gramm">Gramm</label>
-          <input name="gramm" type="text" maxLength="5" />
+          <StyledInput name="gramm" type="text" maxLength="5" />
           <label htmlFor="color">Color</label>
-          <input name="color" type="text" maxLength="20" />
+          <StyledInput name="color" type="text" maxLength="20" />
           <label htmlFor="meter">Meter</label>
-          <input name="meter" type="text" maxLength="10" />
+          <StyledInput name="meter" type="text" maxLength="10" />
         </ColumnSection>
         <ColumnSection>
           <label htmlFor="note">Note</label>
-          <textarea name="note" />
+          <StyledTextArea name="note" />
         </ColumnSection>
         <RowSection>
-          <StyledButton type="cancel" onClick={onCancel}>
+          <StyledButton
+            type="cancel"
+            width="8rem"
+            height="3rem"
+            onClick={onCancel}
+          >
             Cancel
           </StyledButton>
-          <StyledButton type="submit">Save</StyledButton>
+          <StyledButton type="submit" width="8rem" height="3rem">
+            Save
+          </StyledButton>
         </RowSection>
       </ProjectForm>
     </>
@@ -90,6 +106,7 @@ const RowSection = styled.section`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   gap: 0.5rem;
 `;
 const ColumnSection = styled.section`
@@ -98,4 +115,16 @@ const ColumnSection = styled.section`
   flex-direction: column;
   justify-content: space-between;
   gap: 0.5rem;
+`;
+const StyledTextArea = styled.textarea`
+  border-radius: 0.6rem;
+  border: none;
+  background-color: #f5f5f5;
+  box-shadow: 0.1rem 0.1rem 0.4rem #cccccc;
+  font-size: 1.5rem;
+`;
+
+const StyledSelect = styled.select`
+  width: 6rem;
+  height: 2rem;
 `;

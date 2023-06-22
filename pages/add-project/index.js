@@ -2,7 +2,7 @@ import Heading from "../../components/Heading";
 import AddProjectForm from "../../components/AddProjectForm";
 import styled from "styled-components";
 import BackIcon from "../../components/Icon/Back";
-import Navigation from "../../components/Layout";
+import Navigation from "../../components/Navigation";
 import { useRouter } from "next/router";
 
 export default function AddProjectPage({

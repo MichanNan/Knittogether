@@ -3,38 +3,35 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useProjectsList } from "../components/custom-hooks/useProjectsList";
-import { mockProjects } from "../db/projects";
-import { uid } from "uid";
-import dayjs from "dayjs";
 
 export default function App({ Component, pageProps }) {
   const [projectName, setProjectName] = useState("");
 
-  const [projectStatus, setProjectStatus] = useState("");
-  const [feeling, setFeeling] = useState("");
+  const [newProjectStatus, setNewProjectStatus] = useState("");
+  const [newProjectFeeling, setNewProjectFeeling] = useState("");
 
   const router = useRouter();
 
   const { handleAddProjectSubmit, projectsList } = useProjectsList(
     projectName,
-    projectStatus,
-    feeling
+    newProjectStatus,
+    newProjectFeeling
   );
 
-  function handlePreAddSubmit(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
+  function handlePreAddSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     setProjectName(data.name);
     router.push("/add-project");
   }
-  function handleChangeProjectStatus(e) {
-    e.preventDefault();
-    setProjectStatus(e.target.value);
+  function handleChangeProjectStatus(event) {
+    event.preventDefault();
+    setNewProjectStatus(event.target.value);
   }
-  function handleChangeProjectFeeling(e) {
-    e.preventDefault();
-    setFeeling(e.target.value);
+  function handleChangeProjectFeeling(event) {
+    event.preventDefault();
+    setNewProjectFeeling(event.target.value);
   }
 
   handleAddProjectSubmit;

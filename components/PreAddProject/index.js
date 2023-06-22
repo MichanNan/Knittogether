@@ -1,23 +1,35 @@
 import { useState } from "react";
 import styled from "styled-components";
+import StyledButton from "../StyledButton/";
+import StyledInput from "../StyledInput/";
+
 export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
   const [inputName, setInputName] = useState("");
-
   return (
-    <AddProjectNameForm onSubmit={(e) => handlePreAddSubmit(e)}>
+    <AddProjectNameForm onSubmit={(event) => handlePreAddSubmit(event)}>
       <label htmlFor="name">Add the Project Name</label>
-      <input
-        maxLength="30"
+      <StyledInput
+        width="15rem"
+        height="3rem"
+        radius="1rem"
         name="name"
         value={inputName}
-        onChange={(e) => setInputName(e.target.value)}
+        onChange={(event) => setInputName(event.target.value)}
+        required="required"
       />
-      <div>
-        <button type="cancel" onClick={onCancel}>
+      <ButtonContainer>
+        <StyledButton
+          width="5rem"
+          height="2rem"
+          type="cancel"
+          onClick={onCancel}
+        >
           Cancel
-        </button>
-        <button type="submit">Create</button>
-      </div>
+        </StyledButton>
+        <StyledButton width="5rem" height="2rem" type="submit">
+          Create
+        </StyledButton>
+      </ButtonContainer>
     </AddProjectNameForm>
   );
 }
@@ -34,4 +46,10 @@ const AddProjectNameForm = styled.form`
   align-items: center;
   border-radius: 2rem;
   z-index: 99;
+`;
+
+const ButtonContainer = styled.div`
+  width: 15rem;
+  display: flex;
+  justify-content: space-evenly;
 `;

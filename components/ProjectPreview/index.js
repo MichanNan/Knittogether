@@ -7,7 +7,11 @@ export default function ProjectPreview({ project }) {
       <h3>{project.name}</h3>
       <Image src={project.image} alt="project-image" width={375} height={375} />
       <ProjectPrevInfo>
-        <span>{`Started at:${project.details.startDate}`}</span>
+        {project.status === "planned" ? (
+          <span>not started yet</span>
+        ) : (
+          <span>{`Started at:${project.details.startDate}`}</span>
+        )}
         <span> {`For ${project.details.recipient}`}</span>
       </ProjectPrevInfo>
     </ProjectItem>

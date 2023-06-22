@@ -8,9 +8,9 @@ export function useProjectsList(projectName, projectStatus, feeling) {
   const [projectsList, setProjectsList] = useState(mockProjects);
   const router = useRouter();
 
-  function handleAddProjectSubmit(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
+  function handleAddProjectSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     const newStartDate = new Date(data.start);
     const newEndDate = new Date(data.end);
