@@ -30,7 +30,7 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
     } else setSelectedProjectStatus(projectStatus);
   }
 
-  let selectedProjects = "";
+  let selectedProjects = projectsList;
 
   selectedProjectStatus === ""
     ? (selectedProjects = projectsList)
@@ -53,9 +53,12 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
   });
 
   let subTitle = "";
-  if (seletedProjects.length === 0) {
+  if (seletedProjects.length === 0 && selectedProjectStatus) {
     subTitle = `You have no
   ${selectedProjectStatus} projects`;
+  } else if (!selectedProjectStatus) {
+    subTitle = `You have totally
+    ${projectsList.length} projects`;
   } else if (seletedProjects.length === 1) {
     subTitle = `You have ${seletedProjects.length}
     ${selectedProjectStatus} ${"project"}
@@ -65,6 +68,7 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
   ${selectedProjectStatus} projects
    `;
   }
+
   return (
     <Main>
       {addNewProjectStatus && (
