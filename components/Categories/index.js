@@ -38,7 +38,7 @@ export default function Categories({ handleClick, selectedProjectStatus }) {
 
 const CategoriyContainer = styled.div`
   position: absolute;
-  top: 6rem;
+  top: 5rem;
   display: flex;
   justify-content: center;
 `;
@@ -48,5 +48,7 @@ const CategoryCard = styled.span`
   border: 0.1rem solid #f5f5f5;
   line-height: 3rem;
   background-color: ${({ className, selectedProjectStatus }) =>
-    className.includes(selectedProjectStatus) ? "#999999" : "f5f5f5"};
+    selectedProjectStatus && className.includes(selectedProjectStatus)
+      ? "#999999"
+      : "f5f5f5"};
 `;

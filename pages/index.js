@@ -5,11 +5,13 @@ import AddButton from "../components/AddButton";
 import styled from "styled-components";
 import PreAddProject from "../components/PreAddProject";
 import Categories from "../components/Categories";
+import SearchBar from "../components/SearchBar";
 import { useState } from "react";
 
 export default function Home({ handlePreAddSubmit, projectsList }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
   const [selectedProjectStatus, setSelectedProjectStatus] = useState("active");
+  const [inputQuery, setInputQuery] = useState();
 
   function handleAddNewProject() {
     setAddNewProjectStatus(!addNewProjectStatus);
@@ -22,8 +24,29 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
   function handleStatusClick(event) {
     const selectedButtonClassName = event.target.className;
     const projectStatus = selectedButtonClassName.split(" ")[2];
-    setSelectedProjectStatus(projectStatus);
+
+    if (projectStatus == selectedProjectStatus) {
+      setSelectedProjectStatus("");
+    } else setSelectedProjectStatus(projectStatus);
   }
+
+  let selectedProjects = "";
+
+  selectedProjectStatus === ""
+    ? (selectedProjects = projectsList)
+    : (selectedProjects = projectsList.filter((project) => {
+        return project.status === selectedProjectStatus;
+      }));
+
+  function handleProjectSearch(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    setInputQuery(data["project-search"]);
+  }
+  const searchedProject = selectedProjects.filter((project) => {
+    return project.name.toLowerCase().includes(inputQuery);
+  });
 
   const seletedProjects = projectsList.filter((project) => {
     return project.status === selectedProjectStatus;
@@ -65,7 +88,14 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
       )}
       <ProjectSumInfo>{subTitle}</ProjectSumInfo>
 
-      <Projects projectsList={seletedProjects} />
+      <SearchBar
+        handleProjectSearch={handleProjectSearch}
+        inputQuery={inputQuery}
+        setInputQuery={setInputQuery}
+      />
+
+      {!inputQuery && <Projects projectsList={selectedProjects} />}
+      {inputQuery && <Projects projectsList={searchedProject} />}
 
       <Navigation />
     </Main>
@@ -83,8 +113,7 @@ const Main = styled.main`
 
 const BackDrop = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
+
   float: right;
   width: 375px;
   height: 100%;
@@ -95,5 +124,5 @@ const BackDrop = styled.div`
 
 const ProjectSumInfo = styled.p`
   position: absolute;
-  top: 10rem;
+  top: 8.5rem;
 `;

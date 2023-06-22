@@ -40,7 +40,7 @@ export default function Upload() {
 
   return (
     <div className="App">
-      <h2>Add Image:</h2>
+      <h4>Add Image:</h4>
       <input type="file" onChange={handleChange} />
       {file && (
         <Image src={file} alt="project-image" width={350} height={350} />
