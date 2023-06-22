@@ -53,7 +53,7 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
       <ProjectSumInfo>
         {`You have ${seletedProjects.length}
        ${selectedProjectStatus} ${
-          seletedProjects.length < 2 ? "project" : "projects"
+          seletedProjects.length === 1 ? "project" : "projects"
         }`}
       </ProjectSumInfo>
 
