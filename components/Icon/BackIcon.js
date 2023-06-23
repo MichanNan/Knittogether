@@ -12,5 +12,4 @@ export default function BackIcon({ handleGoBack }) {
 const BackItem = styled.div`
   position: absolute;
   left: 2.5rem;
-  top: 0.5rem;
 `;

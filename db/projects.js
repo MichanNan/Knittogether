@@ -1,6 +1,6 @@
 export const mockProjects = [
   {
-    id: 1,
+    id: "1",
     name: " Cumulus Tee",
     status: "active",
     happiness: "happy",
@@ -10,14 +10,14 @@ export const mockProjects = [
       size: "M",
       gauge: "28/10",
       needleSize: "3.0mm",
-      startDate: "03-03-2023",
-      endDate: "",
+      start: "03-03-2023",
+      end: "",
     },
     pattern: "",
     yarn: {
       brand: "kfo",
       skeins: 4,
-      Type: "silk",
+      type: "silk",
       gramm: 300,
       color: "green",
       meter: 1000,
@@ -25,7 +25,7 @@ export const mockProjects = [
     note: "",
   },
   {
-    id: 2,
+    id: "2",
     name: " Sophie Scarf",
     status: "planned",
     happiness: "happy",
@@ -35,8 +35,8 @@ export const mockProjects = [
       size: "",
       gauge: "10/10",
       needleSize: "5.0mm",
-      startDate: "01-03-2023",
-      endDate: "20-03-2023",
+      start: "01-03-2023",
+      end: "20-03-2023",
     },
     pattern: "",
     yarn: {
@@ -50,7 +50,7 @@ export const mockProjects = [
     note: "",
   },
   {
-    id: 3,
+    id: "3",
     name: "Socks",
     status: "completed",
     happiness: "happy",
@@ -60,8 +60,8 @@ export const mockProjects = [
       size: "",
       gauge: "10/10",
       needleSize: "5.0mm",
-      startDate: "01-03-2023",
-      endDate: "20-03-2023",
+      start: "01-03-2023",
+      end: "20-03-2023",
     },
     pattern: "",
     yarn: {

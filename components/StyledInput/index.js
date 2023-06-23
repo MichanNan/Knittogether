@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export default function StyledInput({
+  defaultValue,
   width,
   height,
   radius,
@@ -20,6 +21,7 @@ export default function StyledInput({
       onChange={onChange}
       maxLength={maxLength}
       required={required}
+      defaultValue={defaultValue}
     ></InputItem>
   );
 }

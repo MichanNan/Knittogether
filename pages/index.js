@@ -10,7 +10,7 @@ import { useState } from "react";
 
 export default function Home({ handlePreAddSubmit, projectsList }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
-  const [selectedProjectStatus, setSelectedProjectStatus] = useState("active");
+  const [selectedProjectStatus, setSelectedProjectStatus] = useState("");
   const [inputQuery, setInputQuery] = useState();
 
   function handleAddNewProject() {
@@ -44,12 +44,13 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
     const data = Object.fromEntries(formData);
     setInputQuery(data["project-search"]);
   }
-  const searchedProject = selectedProjects.filter((project) => {
-    return project.name.toLowerCase().includes(inputQuery);
-  });
 
   const seletedProjects = projectsList.filter((project) => {
     return project.status === selectedProjectStatus;
+  });
+
+  const searchedProject = selectedProjects.filter((project) => {
+    return project.name.toLowerCase().includes(inputQuery);
   });
 
   let subTitle = "";
