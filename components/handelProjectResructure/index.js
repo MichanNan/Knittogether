@@ -1,17 +1,11 @@
 import dayjs from "dayjs";
-import { useRouter } from "next/router";
-
-export default function useRestructureProject(
-  data,
-  projectName,
-  projectStatus,
-  newStart,
-  newEnd
-) {
+export function handleProjectRestructure(data, projectName) {
+  const newStart = new Date(data.start);
+  const newEnd = new Date(data.end);
   const newProject = {
     name: projectName,
-    status: projectStatus,
-    happiness: feeling,
+    status: data.status,
+    happiness: data.happiness,
     image: "/cumulustee.jpg",
     details: [
       {
@@ -34,7 +28,7 @@ export default function useRestructureProject(
         meter: data.meter,
       },
     ],
-    note: "",
+    note: data.note,
   };
   return newProject;
 }

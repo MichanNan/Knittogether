@@ -10,15 +10,15 @@ export default function SearchBar({
 }) {
   return (
     <SearchbarForm onSubmit={(event) => handleProjectSearch(event)}>
-      <FontAwesomeIcon icon={faMagnifyingGlass} />
       <label htmlFor="project-search"></label>
       <StyledInput
-        width="20rem"
+        width="18rem"
         height="2rem"
         name="project-search"
         value={inputQuery}
         onChange={(event) => setInputQuery(event.target.value)}
       ></StyledInput>
+      <FontAwesomeIcon icon={faMagnifyingGlass} />
     </SearchbarForm>
   );
 }

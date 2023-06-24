@@ -31,7 +31,7 @@ const InputItem = styled.input`
   border-radius: ${({ radius }) => radius};
   border: none;
   background-color: #f5f5f5;
-  font-size: 1.5rem;
+  font-size: 1rem;
   &:focus {
     outline: none;
   }

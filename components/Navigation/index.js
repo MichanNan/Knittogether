@@ -20,5 +20,4 @@ const Nav = styled.nav`
   text-align: center;
   background-color: #ffffff;
   font-weight: 100;
-  padding: 1rem;
 `;

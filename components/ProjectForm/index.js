@@ -10,11 +10,11 @@ export default function ProjectForm({
   defaultValue,
   onCancel,
   onSubmit,
-  handleChangeProjectStatus,
-  handleChangeProjectFeeling,
   buttonContentLeft,
   buttonContentRight,
+  projectName,
 }) {
+  console.log(projectName);
   return (
     <>
       <ProjectItemForm onSubmit={onSubmit}>
@@ -23,7 +23,6 @@ export default function ProjectForm({
           <StyledSelect
             name="status"
             defaultValue={isEdit ? defaultValue.status : ""}
-            onChange={(event) => handleChangeProjectStatus(event)}
             required
           >
             <option value="">--status--</option>
@@ -34,9 +33,8 @@ export default function ProjectForm({
           </StyledSelect>
           <label htmlFor="happiness">Feeling</label>
           <StyledSelect
-            name="feeling"
+            name="happiness"
             defaultValue={isEdit ? defaultValue.happiness : ""}
-            onChange={(event) => handleChangeProjectFeeling(event)}
           >
             <option value="">--feeling--</option>
             <option value="excited">Excited</option>
@@ -47,23 +45,18 @@ export default function ProjectForm({
         </RowSection>
         <Upload />
         <ColumnSection>
-          {isEdit ? (
-            <>
-              <label htmlFor="name" required="required">
-                Name
-              </label>
-              <StyledInput
-                name="name"
-                type="text"
-                maxLength="20"
-                radius="1rem"
-                height="2rem"
-                defaultValue={isEdit ? defaultValue.name : ""}
-              />
-            </>
-          ) : (
-            ""
-          )}
+          <label htmlFor="name" required="required">
+            Name
+          </label>
+          <StyledInput
+            name="name"
+            type="text"
+            maxLength="20"
+            radius="1rem"
+            height="2rem"
+            defaultValue={isEdit ? defaultValue.name : projectName}
+          />
+
           <label htmlFor="recipient" required="required">
             The project is for
           </label>
@@ -193,7 +186,7 @@ export default function ProjectForm({
 }
 const ProjectItemForm = styled.form`
   position: absolute;
-  top: 3rem;
+  top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;

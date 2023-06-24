@@ -2,17 +2,8 @@ import Heading from "../../components/Heading";
 import ProjectForm from "../../components/ProjectForm";
 import BackIcon from "../../components/Icon/BackIcon";
 import Navigation from "../../components/Navigation";
-import { useRouter } from "next/router";
 import { Main } from "../../styles";
-export default function AddProjectPage({
-  onCancel,
-  projectName,
-  onSubmit,
-  handleChangeProjectStatus,
-  handleChangeProjectFeeling,
-}) {
-  const router = useRouter();
-
+export default function AddProjectPage({ onCancel, projectName, onSubmit }) {
   return (
     <>
       <Main>
@@ -21,11 +12,10 @@ export default function AddProjectPage({
           {projectName}
         </Heading>
         <ProjectForm
+          projectName={projectName}
           shouldUseDefaultValue={false}
           onCancel={onCancel}
           onSubmit={onSubmit}
-          handleChangeProjectStatus={handleChangeProjectStatus}
-          handleChangeProjectFeeling={handleChangeProjectFeeling}
           buttonContentLeft="Cancel"
           buttonContentRight="Create"
         />

@@ -1,5 +1,5 @@
 import Heading from "../Heading";
-import { ColumnSection } from "../../styles";
+import { ColoredFont, HeavyFont, LightFont } from "../../styles";
 import { RowSection } from "../../styles";
 import Image from "next/image";
 import BackIcon from "../Icon/BackIcon";
@@ -7,19 +7,17 @@ import { useRouter } from "next/router";
 import StyledButton from "../StyledButton";
 import ProjectForm from "../ProjectForm";
 import { useState } from "react";
-import dayjs from "dayjs";
 import useSWR from "swr";
 import { Main } from "../../styles";
+import styled from "styled-components";
+import { handleProjectRestructure } from "../handelProjectResructure";
+import { ImageWrapper } from "../../styles";
+import ConfirmDeleteProject from "../ComfirmDeleteProject";
 
-export default function ProjectDetail({
-  project,
-  onDelete,
-  onCancel,
-  handleChangeProjectStatus,
-  handleChangeProjectFeeling,
-  id,
-}) {
+export default function ProjectDetail({ project, onDelete, id }) {
   const [isEdit, setIsEdit] = useState(false);
+  const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
+    useState(false);
   const { mutate } = useSWR("/api/project");
   function onEdit() {
     setIsEdit(true);
@@ -31,36 +29,7 @@ export default function ProjectDetail({
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    const newStart = new Date(data.start);
-    const newEnd = new Date(data.end);
-    const newProject = {
-      name: data.name,
-      status: data.status,
-      happiness: data.happiness,
-      image: "/cumulustee.jpg",
-      details: [
-        {
-          recipient: data.recipient,
-          size: data.size,
-          gauge: data.gauge,
-          needleSize: data.needlesize,
-          start: dayjs(newStart).format("DD-MM-YYYY"),
-          end: dayjs(newEnd).format("DD-MM-YYYY"),
-        },
-      ],
-      pattern: "",
-      yarn: [
-        {
-          brand: data.brand,
-          skeins: data.skeins,
-          type: data.type,
-          gramm: data.gramm,
-          color: data.color,
-          meter: data.meter,
-        },
-      ],
-      note: "",
-    };
+    const newProject = handleProjectRestructure(data);
     const response = await fetch(`/api/project?id=${id}`, {
       method: "PUT",
 
@@ -73,6 +42,16 @@ export default function ProjectDetail({
     setIsEdit(!isEdit);
     mutate();
   }
+  function cancelEdit() {
+    setIsEdit(false);
+  }
+  function cancelDelete() {
+    setConfirmDeleteProjectStatus(false);
+    router.push(`/${id}`);
+  }
+  function confirmDelete() {
+    setConfirmDeleteProjectStatus(true);
+  }
   return (
     <>
       {isEdit ? (
@@ -80,19 +59,16 @@ export default function ProjectDetail({
           <Heading>
             <BackIcon
               handleGoBack={() => {
-                router.push("/");
+                setIsEdit(false);
               }}
             />
             {project.name}
           </Heading>
-          {project.name}
           <ProjectForm
             isEdit
             defaultValue={project}
-            onCancel={onCancel}
+            onCancel={cancelEdit}
             onSubmit={handleProjectUpdate}
-            handleChangeProjectStatus={handleChangeProjectStatus}
-            handleChangeProjectFeeling={handleChangeProjectFeeling}
             buttonContentLeft="Cancel"
             buttonContentRight="Confirm"
           />
@@ -107,73 +83,181 @@ export default function ProjectDetail({
             />
             {project.name}
           </Heading>
-          {/* <RowSection>
-            <div>
-              <p>Status</p>
-              <span>{project.status}</span>
-            </div>
-            <div>
-              <p>Feeling</p>
-              <span>{project.happiness}</span>
-            </div>
-          </RowSection> */}
-          <Image
-            src={project.image}
-            alt={project.name}
-            width={350}
-            height={350}
-          />
-          {`This project is ${project.status} and you feeling is ${project.happiness}`}
-          <ColumnSection>
-            Details
-            <p>The project is for</p>
-            <span>{project.details[0].recipient}</span>
-            <p>Size</p>
-            <span>{project.details[0].size}</span>
-            <p>Gauge</p>
-            <span>{project.details[0].gauge}</span>
-            <p>Needle Size</p>
-            <span>{project.details[0].needleSize}</span>
-            <p>Start</p>
-            <span>{project.details[0].start}</span>
-            <p>End</p>
-            <span>{project.details[0].end}</span>
-          </ColumnSection>
+          <DetailContainer>
+            <ImageWrapper>
+              <Image
+                src={project.image}
+                alt={project.name}
+                width={300}
+                height="0"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </ImageWrapper>
+            {
+              <ProjectInfoWrapper>
+                This project is &nbsp;
+                <ColoredFont>{project.status}</ColoredFont> &nbsp;and you feel
+                &nbsp;<ColoredFont>{project.happiness}</ColoredFont>
+              </ProjectInfoWrapper>
+            }
 
-          <ColumnSection>
-            Yarn
-            <p>Brand</p>
-            <span>{project.yarn[0].brand}</span>
-            <p>Skeins</p>
-            <span>{project.yarn[0].skeins}</span>
-            <p>Type</p>
-            <span>{project.yarn[0].type}</span>
-            <p>Gramm</p>
-            <span>{project.yarn[0].gramm}</span>
-            <p>Color</p>
-            <span>{project.yarn[0].color}</span>
-            <p>Meter</p>
-            <span>{project.yarn[0].meter}</span>
-          </ColumnSection>
+            <ProjectSectionContainer>
+              <SubTitle>
+                <ColoredFont>Details</ColoredFont>
+              </SubTitle>
+              <DetailRowSection>
+                <HeavyFont>
+                  <p>The project is for:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.details[0].recipient}</span>
+                </LightFont>
 
-          <RowSection>
-            Note
-            {project.note}
-          </RowSection>
-          <RowSection>
-            <StyledButton
-              width="8rem"
-              height="3rem"
-              onClick={() => onDelete(project._id)}
-            >
-              Delete
-            </StyledButton>
-            <StyledButton width="8rem" height="3rem" onClick={onEdit}>
-              Edit
-            </StyledButton>
-          </RowSection>
+                <HeavyFont>
+                  <p>Size:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.details[0].size}</span>
+                </LightFont>
+              </DetailRowSection>
+              <DetailRowSection>
+                <HeavyFont>
+                  <p>Gauge:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.details[0].gauge}</span>
+                </LightFont>
+
+                <HeavyFont>
+                  <p>Needle Size:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.details[0].needleSize}</span>
+                </LightFont>
+              </DetailRowSection>
+              <DetailRowSection>
+                <HeavyFont>
+                  <p>Start:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.details[0].start}</span>
+                </LightFont>
+
+                <HeavyFont>
+                  <p>End:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.details[0].end}</span>
+                </LightFont>
+              </DetailRowSection>
+            </ProjectSectionContainer>
+
+            <ProjectSectionContainer>
+              <SubTitle>
+                <ColoredFont>Yarn</ColoredFont>
+              </SubTitle>
+
+              <DetailRowSection>
+                <HeavyFont>
+                  <p>Brand:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.yarn[0].brand}</span>
+                </LightFont>
+
+                <HeavyFont>
+                  <p>Skeins:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.yarn[0].skeins}</span>
+                </LightFont>
+              </DetailRowSection>
+              <DetailRowSection>
+                <HeavyFont>
+                  <p>Type:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.yarn[0].type}</span>
+                </LightFont>
+
+                <HeavyFont>
+                  <p>Gramm:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.yarn[0].gramm}</span>
+                </LightFont>
+              </DetailRowSection>
+              <DetailRowSection>
+                <HeavyFont>
+                  <p>Color:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.yarn[0].color}</span>
+                </LightFont>
+
+                <HeavyFont>
+                  <p>Meter:</p>
+                </HeavyFont>
+                <LightFont>
+                  <span>{project.yarn[0].meter}</span>
+                </LightFont>
+              </DetailRowSection>
+            </ProjectSectionContainer>
+
+            <ProjectSectionContainer>
+              <SubTitle>
+                <ColoredFont>Note:</ColoredFont>
+              </SubTitle>
+
+              <LightFont>{project.note}</LightFont>
+            </ProjectSectionContainer>
+
+            <RowSection>
+              <StyledButton width="8rem" height="3rem" onClick={confirmDelete}>
+                Delete
+              </StyledButton>
+              <StyledButton width="8rem" height="3rem" onClick={onEdit}>
+                Edit
+              </StyledButton>
+            </RowSection>
+          </DetailContainer>
+          {confirmDeleteProjectStatus && (
+            <ConfirmDeleteProject
+              id={id}
+              cancelDelete={cancelDelete}
+              onDelete={onDelete}
+            />
+          )}
         </Main>
       )}
     </>
   );
 }
+const DetailContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+  margin-top: 3rem;
+`;
+const ProjectInfoWrapper = styled.section`
+  display: flex;
+  margin: 1rem auto;
+  justify-content: center;
+`;
+const SubTitle = styled.p`
+  font-size: 1.2rem;
+  font-weight: 700;
+`;
+const ProjectSectionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: start;
+  width: 100%;
+`;
+const DetailRowSection = styled.div`
+  display: flex;
+  gap: 1.2rem;
+`;
