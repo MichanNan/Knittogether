@@ -1,17 +1,23 @@
 import Heading from "../Heading";
-import { ColoredFont, HeavyFont, LightFont } from "../../styles";
-import { RowSection } from "../../styles";
-import Image from "next/image";
-import BackIcon from "../Icon/BackIcon";
-import { useRouter } from "next/router";
 import StyledButton from "../StyledButton";
 import ProjectForm from "../ProjectForm";
+import BackIcon from "../Icon/BackIcon";
+import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
-import { Main } from "../../styles";
+import { useRouter } from "next/router";
 import styled from "styled-components";
+import {
+  ColoredFont,
+  HeavyFont,
+  LightFont,
+  RowSection,
+  Main,
+  ImageWrapper,
+} from "../../styles";
+
 import { handleProjectRestructure } from "../handelProjectResructure";
-import { ImageWrapper } from "../../styles";
+
 import ConfirmDeleteProject from "../ComfirmDeleteProject";
 
 export default function ProjectDetail({ project, onDelete, id }) {

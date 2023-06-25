@@ -14,7 +14,6 @@ export default function ProjectForm({
   buttonContentRight,
   projectName,
 }) {
-  console.log(projectName);
   return (
     <>
       <ProjectItemForm onSubmit={onSubmit}>

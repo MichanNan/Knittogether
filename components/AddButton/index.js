@@ -1,15 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 export default function AddButton({ handleClick }) {
-  return (
-    // <AddProjectButton onClick={handleClick}>
-    //   <FontAwesomeIcon icon={faCirclePlus} />
-    // </AddProjectButton>
-
-    <AddProjectButton onClick={handleClick}>+</AddProjectButton>
-  );
+  return <AddProjectButton onClick={handleClick}>+</AddProjectButton>;
 }
 
 const AddProjectButton = styled.button`

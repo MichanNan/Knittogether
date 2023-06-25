@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import StyledButton from "../StyledButton";
 import { ButtonContainer } from "../../styles";
-import { useRouter } from "next/router";
 
 export default function ConfirmDeleteProject({ id, cancelDelete, onDelete }) {
-  const router = useRouter();
-
   return (
     <Wrapper>
       <p>Are you sure to delete the project?</p>
@@ -16,7 +13,7 @@ export default function ConfirmDeleteProject({ id, cancelDelete, onDelete }) {
           type="cancel"
           onClick={cancelDelete}
         >
-          Cancle
+          Cancel
         </StyledButton>
         <StyledButton
           width="6rem"
