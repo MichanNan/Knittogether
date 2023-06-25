@@ -1,47 +1,26 @@
 import Heading from "../../components/Heading";
-import AddProjectForm from "../../components/AddProjectForm";
-import styled from "styled-components";
-import BackIcon from "../../components/Icon/Back";
+import ProjectForm from "../../components/ProjectForm";
+import BackIcon from "../../components/Icon/BackIcon";
 import Navigation from "../../components/Navigation";
-import { useRouter } from "next/router";
-
-export default function AddProjectPage({
-  projectName,
-  handleAddProjectSubmit,
-  handleChangeProjectStatus,
-  handleChangeProjectFeeling,
-}) {
-  const router = useRouter();
-
-  function handleGoBack() {
-    router.push("/");
-  }
-
+import { Main } from "../../styles";
+export default function AddProjectPage({ onCancel, projectName, onSubmit }) {
   return (
     <>
       <Main>
         <Heading>
-          <BackIcon handleGoBack={handleGoBack} />
+          <BackIcon handleGoBack={onCancel} />
           {projectName}
         </Heading>
-        <AddProjectForm
-          onCancel={handleGoBack}
-          handleAddProjectSubmit={handleAddProjectSubmit}
-          handleChangeProjectStatus={handleChangeProjectStatus}
-          handleChangeProjectFeeling={handleChangeProjectFeeling}
+        <ProjectForm
+          projectName={projectName}
+          shouldUseDefaultValue={false}
+          onCancel={onCancel}
+          onSubmit={onSubmit}
+          buttonContentLeft="Cancel"
+          buttonContentRight="Create"
         />
         <Navigation />
       </Main>
     </>
   );
 }
-
-const Main = styled.main`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 375px;
-  margin: 0 auto;
-`;

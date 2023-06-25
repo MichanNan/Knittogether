@@ -2,21 +2,26 @@ import styled from "styled-components";
 import StyledButton from "../StyledButton";
 import StyledInput from "../StyledInput";
 import Upload from "../Upload";
+import { ColumnSection } from "../../styles";
+import { RowSection } from "../../styles";
 
-export default function AddProjectForm({
+export default function ProjectForm({
+  isEdit,
+  defaultValue,
   onCancel,
-  handleAddProjectSubmit,
-  handleChangeProjectStatus,
-  handleChangeProjectFeeling,
+  onSubmit,
+  buttonContentLeft,
+  buttonContentRight,
+  projectName,
 }) {
   return (
     <>
-      <ProjectForm onSubmit={(event) => handleAddProjectSubmit(event)}>
+      <ProjectItemForm onSubmit={onSubmit}>
         <RowSection>
           <label htmlFor="status">status</label>
           <StyledSelect
             name="status"
-            onChange={(event) => handleChangeProjectStatus(event)}
+            defaultValue={isEdit ? defaultValue.status : ""}
             required
           >
             <option value="">--status--</option>
@@ -27,8 +32,8 @@ export default function AddProjectForm({
           </StyledSelect>
           <label htmlFor="happiness">Feeling</label>
           <StyledSelect
-            name="feeling"
-            onChange={(event) => handleChangeProjectFeeling(event)}
+            name="happiness"
+            defaultValue={isEdit ? defaultValue.happiness : ""}
           >
             <option value="">--feeling--</option>
             <option value="excited">Excited</option>
@@ -39,23 +44,31 @@ export default function AddProjectForm({
         </RowSection>
         <Upload />
         <ColumnSection>
+          <label htmlFor="name" required="required">
+            Name
+          </label>
+          <StyledInput
+            name="name"
+            type="text"
+            maxLength="20"
+            radius="1rem"
+            height="2rem"
+            defaultValue={isEdit ? defaultValue.name : projectName}
+          />
+
           <label htmlFor="recipient" required="required">
             The project is for
           </label>
+
           <StyledInput
             name="recipient"
             type="text"
             maxLength="20"
             radius="1rem"
             height="2rem"
+            defaultValue={isEdit ? defaultValue.details[0].recipient : ""}
           />
-          <label htmlFor="recipient">To</label>
-          <StyledInput
-            name="recipient"
-            type="text"
-            radius="1rem"
-            height="2rem"
-          />
+
           <label htmlFor="size">Size</label>
           <StyledInput
             name="size"
@@ -63,6 +76,7 @@ export default function AddProjectForm({
             maxLength="5"
             radius="1rem"
             height="2rem"
+            defaultValue={isEdit ? defaultValue.details[0].size : ""}
           />
           <label htmlFor="gauge">Gauge</label>
           <StyledInput
@@ -71,18 +85,32 @@ export default function AddProjectForm({
             maxLength="10"
             radius="1rem"
             height="2rem"
+            defaultValue={isEdit ? defaultValue.details[0].gauge : ""}
           />
-          <label htmlFor="needlesize">Needel Size</label>
+          <label htmlFor="needlesize">Needle Size</label>
           <StyledInput
             name="needlesize"
             type="text"
             radius="1rem"
             height="2rem"
+            defaultValue={isEdit ? defaultValue.details[0].needleSize : ""}
           />
           <label htmlFor="start">Start at</label>
-          <StyledInput name="start" type="date" radius="1rem" height="2rem" />
+          <StyledInput
+            name="start"
+            type="date"
+            radius="1rem"
+            height="2rem"
+            defaultValue={isEdit ? defaultValue.details[0].start : ""}
+          />
           <label htmlFor="end">End at</label>
-          <StyledInput name="end" type="date" radius="1rem" height="2rem" />
+          <StyledInput
+            name="end"
+            type="date"
+            radius="1rem"
+            height="2rem"
+            defaultValue={isEdit ? defaultValue.details[0].end : ""}
+          />
         </ColumnSection>
 
         <ColumnSection>
@@ -95,6 +123,7 @@ export default function AddProjectForm({
             maxLength="5"
             radius="1rem"
             height="2rem"
+            defaultValue={isEdit ? defaultValue.yarn[0].brand : ""}
           />
           <label htmlFor="type">Type</label>
           <StyledInput
@@ -103,6 +132,7 @@ export default function AddProjectForm({
             maxLength="20"
             radius="1rem"
             height="2rem"
+            defaultValue={isEdit ? defaultValue.yarn[0].type : ""}
           />
           <label htmlFor="gramm">Gramm</label>
           <StyledInput
@@ -111,6 +141,7 @@ export default function AddProjectForm({
             maxLength="5"
             radius="1rem"
             height="2rem"
+            defaultValue={isEdit ? defaultValue.yarn[0].gramm : ""}
           />
           <label htmlFor="color">Color</label>
           <StyledInput
@@ -119,6 +150,7 @@ export default function AddProjectForm({
             maxLength="20"
             radius="1rem"
             height="2rem"
+            defaultValue={isEdit ? defaultValue.yarn[0].color : ""}
           />
           <label htmlFor="meter">Meter</label>
           <StyledInput
@@ -127,6 +159,7 @@ export default function AddProjectForm({
             maxLength="10"
             radius="1rem"
             height="2rem"
+            defaultValue={isEdit ? defaultValue.yarn[0].meter : ""}
           />
         </ColumnSection>
         <ColumnSection>
@@ -140,19 +173,19 @@ export default function AddProjectForm({
             height="3rem"
             onClick={onCancel}
           >
-            Cancel
+            {buttonContentLeft}
           </StyledButton>
           <StyledButton type="submit" width="8rem" height="3rem">
-            Save
+            {buttonContentRight}
           </StyledButton>
         </RowSection>
-      </ProjectForm>
+      </ProjectItemForm>
     </>
   );
 }
-const ProjectForm = styled.form`
+const ProjectItemForm = styled.form`
   position: absolute;
-  top: 6rem;
+  top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -160,20 +193,7 @@ const ProjectForm = styled.form`
   width: 80%;
   padding-bottom: 5rem;
 `;
-const RowSection = styled.section`
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 0.5rem;
-`;
-const ColumnSection = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 0.5rem;
-`;
+
 const StyledTextArea = styled.textarea`
   border-radius: 0.6rem;
   border: none;

@@ -2,21 +2,23 @@ import GlobalStyle from "../styles";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useProjectsList } from "../components/custom-hooks/useProjectsList";
+import { SWRConfig } from "swr";
+import useSWR from "swr";
+import { handleProjectRestructure } from "../components/handelProjectResructure";
+import { Lato } from "@next/font/google";
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "700"],
+});
+const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const [projectName, setProjectName] = useState("");
 
-  const [newProjectStatus, setNewProjectStatus] = useState("");
-  const [newProjectFeeling, setNewProjectFeeling] = useState("");
-
   const router = useRouter();
 
-  const { handleAddProjectSubmit, projectsList } = useProjectsList(
-    projectName,
-    newProjectStatus,
-    newProjectFeeling
-  );
+  const { data: projects, mutate } = useSWR("/api/project", fetcher);
 
   function handlePreAddSubmit(event) {
     event.preventDefault();
@@ -25,32 +27,62 @@ export default function App({ Component, pageProps }) {
     setProjectName(data.name);
     router.push("/add-project");
   }
-  function handleChangeProjectStatus(event) {
+
+  async function handleAddProjectSubmit(event) {
     event.preventDefault();
-    setNewProjectStatus(event.target.value);
-  }
-  function handleChangeProjectFeeling(event) {
-    event.preventDefault();
-    setNewProjectFeeling(event.target.value);
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    const newProject = handleProjectRestructure(data, projectName);
+    const response = await fetch("/api/project", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newProject }),
+    });
+
+    router.push("/");
+    mutate();
   }
 
-  handleAddProjectSubmit;
+  async function handleDeleteProject(projectId) {
+    const response = fetch("/api/project", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(projectId),
+    });
+    mutate();
+    router.push("/");
+  }
+
+  if (!projects) {
+    return;
+  }
+  function handleGoBack() {
+    router.push("/");
+  }
 
   return (
-    <>
-      <GlobalStyle />
-      <Head>
-        <title>Capstone Project</title>
-      </Head>
-      <Component
-        {...pageProps}
-        handlePreAddSubmit={handlePreAddSubmit}
-        projectName={projectName}
-        handleAddProjectSubmit={handleAddProjectSubmit}
-        projectsList={projectsList}
-        handleChangeProjectStatus={handleChangeProjectStatus}
-        handleChangeProjectFeeling={handleChangeProjectFeeling}
-      />
-    </>
+    <main className={lato.className}>
+      <SWRConfig value={{ fetcher }}>
+        <GlobalStyle />
+        <Head>
+          <title>Capstone Project</title>
+        </Head>
+        <Component
+          {...pageProps}
+          handlePreAddSubmit={handlePreAddSubmit}
+          projectName={projectName}
+          onSubmit={handleAddProjectSubmit}
+          projectsList={projects}
+          onDelete={handleDeleteProject}
+          onCancel={handleGoBack}
+        />
+      </SWRConfig>
+    </main>
   );
 }

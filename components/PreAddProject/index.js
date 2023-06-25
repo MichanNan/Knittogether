@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import StyledButton from "../StyledButton/";
 import StyledInput from "../StyledInput/";
+import { ButtonContainer } from "../../styles";
 
 export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
   const [inputName, setInputName] = useState("");
@@ -42,14 +43,8 @@ const AddProjectNameForm = styled.form`
   justify-content: space-evenly;
   width: 20rem;
   height: 15rem;
-  background-color: #fff8de;
+  background-color: #e9e9e9;
   align-items: center;
   border-radius: 2rem;
   z-index: 99;
-`;
-
-const ButtonContainer = styled.div`
-  width: 15rem;
-  display: flex;
-  justify-content: space-evenly;
 `;

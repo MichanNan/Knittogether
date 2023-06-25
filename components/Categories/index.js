@@ -41,14 +41,20 @@ const CategoriyContainer = styled.div`
   top: 5rem;
   display: flex;
   justify-content: center;
+  border-bottom: 0.1rem solid #e07008;
+  border-top: 0.1rem solid #e07008;
 `;
 const CategoryCard = styled.span`
   height: 3rem;
   padding: 0 0.5rem;
-  border: 0.1rem solid #f5f5f5;
+  border: none;
   line-height: 3rem;
   background-color: ${({ className, selectedProjectStatus }) =>
     selectedProjectStatus && className.includes(selectedProjectStatus)
-      ? "#999999"
-      : "f5f5f5"};
+      ? "#e07008"
+      : "#fff"};
+  color: ${({ className, selectedProjectStatus }) =>
+    selectedProjectStatus && className.includes(selectedProjectStatus)
+      ? "#ffffff"
+      : "#000"};
 `;

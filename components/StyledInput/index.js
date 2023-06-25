@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export default function StyledInput({
+  defaultValue,
   width,
   height,
   radius,
@@ -20,6 +21,7 @@ export default function StyledInput({
       onChange={onChange}
       maxLength={maxLength}
       required={required}
+      defaultValue={defaultValue}
     ></InputItem>
   );
 }
@@ -29,7 +31,7 @@ const InputItem = styled.input`
   border-radius: ${({ radius }) => radius};
   border: none;
   background-color: #f5f5f5;
-  font-size: 1.5rem;
+  font-size: 1rem;
   &:focus {
     outline: none;
   }

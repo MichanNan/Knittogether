@@ -1,4 +1,3 @@
-// import { mockProjects } from "../../db/projects";
 import ProjectPreview from "../ProjectPreview";
 import styled from "styled-components";
 
@@ -6,7 +5,7 @@ export default function Projects({ projectsList }) {
   return (
     <ProjectContainer>
       {projectsList.map((project) => {
-        return <ProjectPreview key={project.id} project={project} />;
+        return <ProjectPreview key={project._id} project={project} />;
       })}
     </ProjectContainer>
   );

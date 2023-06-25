@@ -7,10 +7,11 @@ import PreAddProject from "../components/PreAddProject";
 import Categories from "../components/Categories";
 import SearchBar from "../components/SearchBar";
 import { useState } from "react";
+import { Main, ColoredFont, BackDrop } from "../styles";
 
 export default function Home({ handlePreAddSubmit, projectsList }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
-  const [selectedProjectStatus, setSelectedProjectStatus] = useState("active");
+  const [selectedProjectStatus, setSelectedProjectStatus] = useState("");
   const [inputQuery, setInputQuery] = useState();
 
   function handleAddNewProject() {
@@ -47,27 +48,9 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
   const searchedProject = selectedProjects.filter((project) => {
     return project.name.toLowerCase().includes(inputQuery);
   });
-
   const seletedProjects = projectsList.filter((project) => {
     return project.status === selectedProjectStatus;
   });
-
-  let subTitle = "";
-  if (seletedProjects.length === 0 && selectedProjectStatus) {
-    subTitle = `You have no
-  ${selectedProjectStatus} projects`;
-  } else if (!selectedProjectStatus) {
-    subTitle = `You have totally
-    ${projectsList.length} projects`;
-  } else if (seletedProjects.length === 1) {
-    subTitle = `You have ${seletedProjects.length}
-    ${selectedProjectStatus} ${"project"}
-     `;
-  } else {
-    subTitle = `You have ${seletedProjects.length}
-  ${selectedProjectStatus} projects
-   `;
-  }
 
   return (
     <Main>
@@ -90,7 +73,41 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
           handlePreAddSubmit={handlePreAddSubmit}
         />
       )}
-      <ProjectSumInfo>{subTitle}</ProjectSumInfo>
+
+      {/* render subtitle according to different status */}
+      {!selectedProjectStatus && selectedProjects.length !== 0 && (
+        <ProjectSumInfo>
+          You have totally&nbsp;
+          <ColoredFont>{projectsList.length} </ColoredFont>&nbsp;
+          {projectsList.length === 1 ? "project" : "projects"}
+        </ProjectSumInfo>
+      )}
+      {!selectedProjectStatus && !selectedProjects.length && (
+        <ProjectSumInfo>
+          You have no projects, maybe &nbsp;<ColoredFont>add</ColoredFont>
+          &nbsp;one?
+        </ProjectSumInfo>
+      )}
+      {seletedProjects.length !== 0 && selectedProjectStatus && (
+        <ProjectSumInfo>
+          you have&nbsp;
+          <ColoredFont>
+            {seletedProjects.length} &nbsp;
+            {selectedProjectStatus}
+          </ColoredFont>
+          &nbsp; {selectedProjects.length === 1 ? "project" : "projects"}
+        </ProjectSumInfo>
+      )}
+      {seletedProjects.length === 0 && selectedProjectStatus && (
+        <ProjectSumInfo>
+          you have&nbsp;
+          <ColoredFont>
+            no &nbsp;
+            {selectedProjectStatus}
+          </ColoredFont>
+          &nbsp;project
+        </ProjectSumInfo>
+      )}
 
       <SearchBar
         handleProjectSearch={handleProjectSearch}
@@ -106,27 +123,10 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
   );
 }
 
-const Main = styled.main`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 375px;
-  margin: 0 auto;
-`;
-
-const BackDrop = styled.div`
-  position: fixed;
-
-  float: right;
-  width: 375px;
-  height: 100%;
-  background-color: #cccccc;
-  opacity: 0.4;
-  z-index: 99;
-`;
-
 const ProjectSumInfo = styled.p`
+  display: felx;
   position: absolute;
-  top: 8.5rem;
+  top: 9rem;
+  font-size: 0.8rem;
+  font-weight: 700;
 `;

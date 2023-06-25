@@ -25,7 +25,7 @@ const ButtonItem = styled.button`
   border: none;
   border-radius: 1rem;
   box-shadow: 0.1rem 0.1rem 0.5 #cccccc;
-  background-color: #999999;
+  background-color: #e07008;
   color: #ffffff;
   font-size: 1.2rem;
 `;
