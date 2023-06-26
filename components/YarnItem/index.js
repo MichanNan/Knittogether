@@ -2,36 +2,7 @@ import styled from "styled-components";
 import StyledInput from "../StyledInput";
 import { useEffect } from "react";
 // import { useEffect } from "react";
-export default function YarnItem({
-  defaultValue,
-  isEdit,
-  setYarnData,
-  yarnCount,
-  yarnData,
-}) {
-  useEffect(() => {
-    if (isEdit) {
-      setYarnData(defaultValue.yarn);
-    }
-  }, []);
-  // useEffect(() => {
-  //   if (isEdit) {
-  //     setYarnData(defaultValue.yarn);
-  //   }
-  // }, [yarnData]);
-
-  function handleInputChange(event) {
-    const { name, value } = event.target;
-    setYarnData((prevData) => {
-      const updatedData = [...prevData];
-      updatedData[yarnCount] = {
-        ...updatedData[yarnCount],
-        [name]: value,
-      };
-      console.log(yarnData);
-      return updatedData;
-    });
-  }
+export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
   return (
     <>
       <YarnWrapper>
@@ -43,8 +14,8 @@ export default function YarnItem({
           height="2rem"
           width="7rem"
           backgoundColor="#f5f5f5"
-          defaultValue={isEdit ? yarnData[yarnCount]?.brand : ""}
-          onChange={handleInputChange}
+          defaultValue={isEdit ? defaultYarn.brand : ""}
+          onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
         <label htmlFor="skein">Skein</label>
         <StyledInput
@@ -54,8 +25,8 @@ export default function YarnItem({
           height="2rem"
           width="7rem"
           backgoundColor="#f5f5f5"
-          defaultValue={isEdit ? yarnData[yarnCount]?.skein : ""}
-          onChange={handleInputChange}
+          defaultValue={isEdit ? defaultYarn?.skein : ""}
+          onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
         <label htmlFor="type">Type</label>
         <StyledInput
@@ -65,8 +36,8 @@ export default function YarnItem({
           height="2rem"
           width="7rem"
           backgoundColor="#f5f5f5"
-          defaultValue={isEdit ? yarnData[yarnCount]?.type : ""}
-          onChange={handleInputChange}
+          defaultValue={isEdit ? defaultYarn.type : ""}
+          onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
         <label htmlFor="color">color</label>
         <StyledInput
@@ -76,8 +47,8 @@ export default function YarnItem({
           height="2rem"
           width="7rem"
           backgoundColor="#f5f5f5"
-          defaultValue={isEdit ? yarnData[yarnCount]?.color : ""}
-          onChange={handleInputChange}
+          defaultValue={isEdit ? defaultYarn.color : ""}
+          onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
         <label htmlFor="gramm">Gramm</label>
         <StyledInput
@@ -87,8 +58,8 @@ export default function YarnItem({
           height="2rem"
           width="7rem"
           backgoundColor="#f5f5f5"
-          defaultValue={isEdit ? yarnData[yarnCount]?.gramm : ""}
-          onChange={handleInputChange}
+          defaultValue={isEdit ? defaultYarn?.gramm : ""}
+          onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
         <label htmlFor="meter">Meter</label>
         <StyledInput
@@ -98,8 +69,8 @@ export default function YarnItem({
           height="2rem"
           width="7rem"
           backgoundColor="#f5f5f5"
-          defaultValue={isEdit ? yarnData[yarnCount]?.meter : ""}
-          onChange={handleInputChange}
+          defaultValue={isEdit ? defaultYarn.meter : ""}
+          onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
       </YarnWrapper>
     </>

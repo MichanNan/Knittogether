@@ -6,6 +6,7 @@ import { SWRConfig } from "swr";
 import useSWR from "swr";
 import { handleProjectRestructure } from "../components/handelProjectResructure";
 import { Lato } from "@next/font/google";
+import { uid } from "uid";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -15,8 +16,20 @@ const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const [projectName, setProjectName] = useState("");
-  const [yarnData, setYarnData] = useState([]);
-  const [yarnCount, setYarnCount] = useState(1);
+
+  const [yarnData, setYarnData] = useState([
+    {
+      id: uid(),
+      brand: "",
+      type: "",
+      color: "",
+      type: "",
+      skein: "",
+      color: "",
+      gramm: "",
+      meter: "",
+    },
+  ]);
 
   const router = useRouter();
 
@@ -87,8 +100,6 @@ export default function App({ Component, pageProps }) {
           onCancel={handleGoBack}
           setYarnData={setYarnData}
           yarnData={yarnData}
-          yarnCount={yarnCount}
-          setYarnCount={setYarnCount}
         />
       </SWRConfig>
     </main>

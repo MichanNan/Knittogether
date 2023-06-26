@@ -26,8 +26,6 @@ export default function ProjectDetail({
   id,
   setYarnData,
   yarnData,
-  yarnCount,
-  setYarnCount,
 }) {
   const [isEdit, setIsEdit] = useState(false);
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
@@ -35,8 +33,6 @@ export default function ProjectDetail({
   const { mutate } = useSWR("/api/project");
   function onEdit() {
     setIsEdit(true);
-    console.log("setIsEdit");
-    console.log(project);
   }
   const router = useRouter();
 
@@ -84,15 +80,13 @@ export default function ProjectDetail({
           </Heading>
           <ProjectForm
             isEdit
-            defaultValue={project}
+            project={project}
             onCancel={cancelEdit}
             onSubmit={handleProjectUpdate}
             setYarnData={setYarnData}
             yarnData={yarnData}
             buttonContentLeft="Cancel"
             buttonContentRight="Confirm"
-            yarnCount={yarnCount}
-            setYarnCount={setYarnCount}
           />
         </Main>
       ) : (

@@ -4,12 +4,14 @@ import StyledInput from "../StyledInput";
 import Upload from "../Upload";
 import { ColoredFont, SubTitle } from "../../styles";
 import YarnItem from "../YarnItem";
+import { uid } from "uid";
 import { useState } from "react";
 import { useEffect } from "react";
+import { set } from "mongoose";
 
 export default function ProjectForm({
   isEdit,
-  defaultValue,
+  project,
   onCancel,
   onSubmit,
   buttonContentLeft,
@@ -17,33 +19,83 @@ export default function ProjectForm({
   projectName,
   yarnData,
   setYarnData,
-  yarnCount,
-  setYarnCount,
 }) {
-  useEffect(() => {
-    if (isEdit) {
-      setYarnCount(defaultValue.yarn.length);
-      setYarnData(defaultValue.yarn);
-    }
-  }, []);
+  const initialYarn = project?.yarn ? project.yarn : yarnData;
+  const [existedYarn, setExistedYarn] = useState(initialYarn);
 
-  function handleAddYarn() {
-    setYarnCount(yarnCount + 1);
+  useEffect(() => {}, []);
 
-    setYarnData([...yarnData, {}]);
+  function handleAddYarnClick() {
+    setYarnData([
+      ...yarnData,
+      {
+        id: uid(),
+        brand: "",
+        type: "",
+        color: "",
+        type: "",
+        skein: "",
+        color: "",
+        gramm: "",
+        meter: "",
+      },
+    ]);
   }
-  function handleDeleteYarn() {
-    setYarnCount(yarnCount - 1);
+
+  function handleDeleteYarn(id) {
+    const allYarn = [...yarnData];
+    allYarn.splice(
+      allYarn.findIndex((yarn) => yarn.id === id),
+      1
+    );
+    setYarnData(allYarn);
   }
 
-  function handleDeleteExistedYarn(arg) {
-    const newYarnData = [...yarnData];
-
-    newYarnData.splice(arg, 1);
-
-    setYarnData(() => newYarnData);
-
-    setYarnCount(yarnCount - 1);
+  function handleAddExistedYarnClick() {
+    setExistedYarn([
+      ...existedYarn,
+      {
+        id: uid(),
+        brand: "",
+        type: "",
+        color: "",
+        type: "",
+        skein: "",
+        color: "",
+        gramm: "",
+        meter: "",
+      },
+    ]);
+  }
+  function handleDeleteExistedYarn(id) {
+    const allYarn = [...existedYarn];
+    allYarn.splice(
+      allYarn.findIndex((yarn) => yarn.id === id),
+      1
+    );
+    setExistedYarn(allYarn);
+    setYarnData(allYarn);
+  }
+  function handleInputChange(event, id) {
+    const newYarnData = yarnData.map((yarn) => {
+      if (id === yarn.id) {
+        const { name, value } = event.target;
+        return { ...yarn, [name]: value };
+      }
+      return yarn;
+    });
+    setYarnData(newYarnData);
+  }
+  function handleExsitedInputChange(event, id) {
+    const newYarnData = existedYarn.map((yarn) => {
+      if (id === yarn.id) {
+        const { name, value } = event.target;
+        return { ...yarn, [name]: value };
+      }
+      return yarn;
+    });
+    setExistedYarn(newYarnData);
+    setYarnData(newYarnData);
   }
   return (
     <>
@@ -52,7 +104,7 @@ export default function ProjectForm({
           <label htmlFor="status">status</label>
           <StyledSelect
             name="status"
-            defaultValue={isEdit ? defaultValue.status : ""}
+            defaultValue={isEdit ? project.status : ""}
             required
           >
             <option value="">--status--</option>
@@ -64,7 +116,7 @@ export default function ProjectForm({
           <label htmlFor="happiness">Feeling</label>
           <StyledSelect
             name="happiness"
-            defaultValue={isEdit ? defaultValue.happiness : ""}
+            defaultValue={isEdit ? project.happiness : ""}
           >
             <option value="">--feeling--</option>
             <option value="excited">Excited</option>
@@ -86,7 +138,7 @@ export default function ProjectForm({
             radius="0.5rem"
             height="2rem"
             width="20rem"
-            defaultValue={isEdit ? defaultValue.name : projectName}
+            defaultValue={isEdit ? project.name : projectName}
           />
         </ColumnSection>
 
@@ -107,7 +159,7 @@ export default function ProjectForm({
             height="2rem"
             width="20rem"
             backgoundColor="#f5f5f5"
-            defaultValue={isEdit ? defaultValue.details[0].recipient : ""}
+            defaultValue={isEdit ? project.details[0].recipient : ""}
           />
           <label htmlFor="size">Size</label>
           <StyledInput
@@ -118,7 +170,7 @@ export default function ProjectForm({
             height="2rem"
             width="20rem"
             backgoundColor="#f5f5f5"
-            defaultValue={isEdit ? defaultValue.details[0].size : ""}
+            defaultValue={isEdit ? project.details[0].size : ""}
           />
           <label htmlFor="gauge">Gauge</label>
           <StyledInput
@@ -129,7 +181,7 @@ export default function ProjectForm({
             height="2rem"
             width="20rem"
             backgoundColor="#f5f5f5"
-            defaultValue={isEdit ? defaultValue.details[0].gauge : ""}
+            defaultValue={isEdit ? project.details[0].gauge : ""}
           />
           <label htmlFor="needlesize">Needle Size</label>
           <StyledInput
@@ -139,7 +191,7 @@ export default function ProjectForm({
             height="2rem"
             width="20rem"
             backgoundColor="#f5f5f5"
-            defaultValue={isEdit ? defaultValue.details[0].needleSize : ""}
+            defaultValue={isEdit ? project.details[0].needleSize : ""}
           />
           <label htmlFor="start">Start at</label>
           <StyledInput
@@ -149,7 +201,7 @@ export default function ProjectForm({
             height="2rem"
             backgoundColor="#f5f5f5"
             width="20rem"
-            defaultValue={isEdit ? defaultValue.details[0].start : ""}
+            defaultValue={isEdit ? project.details[0].start : ""}
           />
           <label htmlFor="end">End at</label>
           <StyledInput
@@ -159,51 +211,70 @@ export default function ProjectForm({
             height="2rem"
             width="20rem"
             backgoundColor="#f5f5f5"
-            defaultValue={isEdit ? defaultValue.details[0].end : ""}
+            defaultValue={isEdit ? project.details[0].end : ""}
           />
         </ColumnSection>
 
         <ColumnSection>
-          {yarnCount === 0 && (
-            <SubTitle>
-              <ColoredFont>Add Yarn</ColoredFont>
-            </SubTitle>
-          )}
-          <ToggleYarnButton left="18rem" top="42rem" onClick={handleAddYarn}>
-            +
-          </ToggleYarnButton>
-          {!isEdit && (
-            <ToggleYarnButton left="15rem" onClick={handleDeleteYarn}>
-              -
-            </ToggleYarnButton>
-          )}
-          {Array.from({
-            length: yarnCount,
-          }).map((_, yarnCount) => (
-            <section key={yarnCount} id={yarnCount}>
-              {isEdit && (
+          {!isEdit &&
+            yarnData.map((yarn, index) => (
+              <YarnFormSection key={yarn.id}>
+                <SubTitle>
+                  <ColoredFont>Yarn</ColoredFont>
+                </SubTitle>
                 <ToggleYarnButton
-                  left="5rem"
-                  top={`${42 + 10.9 * yarnCount}rem`}
-                  onClick={() => handleDeleteExistedYarn(yarnCount)}
+                  left="20rem"
+                  top={`${42 + index * 11.2}rem`}
+                  onClick={handleAddYarnClick}
+                >
+                  +
+                </ToggleYarnButton>
+                <ToggleYarnButton
+                  left="17rem"
+                  top={`${42 + index * 11.2}rem`}
+                  onClick={() => handleDeleteYarn(yarn.id)}
                 >
                   -
                 </ToggleYarnButton>
-              )}
-              <SubTitle>
-                <ColoredFont>Yarn</ColoredFont>
-              </SubTitle>
-              <YarnFormSection>
                 <YarnItem
-                  defaultValue={defaultValue}
-                  isEdit={isEdit}
-                  setYarnData={setYarnData}
-                  yarnCount={yarnCount}
+                  defaultYarn={yarn}
                   yarnData={yarnData}
+                  setYarnData={setYarnData}
+                  handleInputChange={handleInputChange}
                 />
               </YarnFormSection>
-            </section>
-          ))}
+            ))}
+          {isEdit &&
+            existedYarn.map((yarn, index) => (
+              <YarnFormSection key={yarn.id}>
+                <SubTitle>
+                  <ColoredFont>Yarn</ColoredFont>
+                </SubTitle>
+                <ToggleYarnButton
+                  left="20rem"
+                  top={`${42 + index * 11.2}rem`}
+                  onClick={handleAddExistedYarnClick}
+                >
+                  +
+                </ToggleYarnButton>
+                <ToggleYarnButton
+                  left="17rem"
+                  top={`${42 + index * 11.2}rem`}
+                  onClick={() => handleDeleteExistedYarn(yarn.id)}
+                >
+                  -
+                </ToggleYarnButton>
+                <YarnItem
+                  defaultYarn={yarn}
+                  yarnData={yarnData}
+                  setYarnData={setYarnData}
+                  existedYarn={existedYarn}
+                  index={index}
+                  isEdit={isEdit}
+                  handleInputChange={handleExsitedInputChange}
+                />
+              </YarnFormSection>
+            ))}
         </ColumnSection>
 
         <NoteSection>

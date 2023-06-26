@@ -9,8 +9,6 @@ export default function AddProjectPage({
   onSubmit,
   setYarnData,
   yarnData,
-  yarnCount,
-  setYarnCount,
 }) {
   return (
     <>
@@ -28,8 +26,7 @@ export default function AddProjectPage({
           onSubmit={onSubmit}
           buttonContentLeft="Cancel"
           buttonContentRight="Create"
-          yarnCount={yarnCount}
-          setYarnCount={setYarnCount}
+          isEdit={false}
         />
         <Navigation />
       </Main>
