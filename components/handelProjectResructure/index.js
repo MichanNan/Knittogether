@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
-export function handleProjectRestructure(data, projectName) {
+export function handleProjectRestructure(data, projectName, yarnData) {
   const newStart = new Date(data.start);
   const newEnd = new Date(data.end);
+
   const newProject = {
     name: projectName,
     status: data.status,
@@ -18,16 +19,7 @@ export function handleProjectRestructure(data, projectName) {
       },
     ],
     pattern: "",
-    yarn: [
-      {
-        brand: data.brand,
-        skeins: data.skeins,
-        type: data.type,
-        gramm: data.gramm,
-        color: data.color,
-        meter: data.meter,
-      },
-    ],
+    yarn: yarnData,
     note: data.note,
   };
   return newProject;

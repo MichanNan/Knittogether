@@ -4,7 +4,8 @@ import StyledInput from "../StyledInput";
 import Upload from "../Upload";
 import { ColoredFont, SubTitle } from "../../styles";
 import YarnItem from "../YarnItem";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function ProjectForm({
   isEdit,
@@ -14,28 +15,39 @@ export default function ProjectForm({
   buttonContentLeft,
   buttonContentRight,
   projectName,
+  yarnData,
+  setYarnData,
+  yarnCount,
+  setYarnCount,
 }) {
-  const [yarnCount, setYarnCount] = useState(1);
-  const yarnItemRefs = useRef([]);
+  useEffect(() => {
+    if (isEdit) {
+      setYarnCount(defaultValue.yarn.length);
+      setYarnData(defaultValue.yarn);
+    }
+  }, []);
 
   function handleAddYarn() {
     setYarnCount(yarnCount + 1);
+
+    setYarnData([...yarnData, {}]);
   }
   function handleDeleteYarn() {
     setYarnCount(yarnCount - 1);
   }
 
-  function onPreSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    console.log(data);
-    console.log(yarnItemRef);
-  }
+  function handleDeleteExistedYarn(arg) {
+    const newYarnData = [...yarnData];
 
+    newYarnData.splice(arg, 1);
+
+    setYarnData(() => newYarnData);
+
+    setYarnCount(yarnCount - 1);
+  }
   return (
     <>
-      <ProjectItemForm onSubmit={onPreSubmit}>
+      <ProjectItemForm onSubmit={onSubmit}>
         <RowSection>
           <label htmlFor="status">status</label>
           <StyledSelect
@@ -152,22 +164,32 @@ export default function ProjectForm({
         </ColumnSection>
 
         <ColumnSection>
-          {/* <SubTitle>
-            <ColoredFont>Yarn</ColoredFont>
-          </SubTitle> */}
           {yarnCount === 0 && (
             <SubTitle>
               <ColoredFont>Add Yarn</ColoredFont>
             </SubTitle>
           )}
-          <ToggleYarnButton left="18rem" onClick={handleAddYarn}>
+          <ToggleYarnButton left="18rem" top="42rem" onClick={handleAddYarn}>
             +
           </ToggleYarnButton>
-          <ToggleYarnButton left="15rem" onClick={handleDeleteYarn}>
-            -
-          </ToggleYarnButton>
-          {Array.from({ length: yarnCount }).map((_, yarnCount) => (
+          {!isEdit && (
+            <ToggleYarnButton left="15rem" onClick={handleDeleteYarn}>
+              -
+            </ToggleYarnButton>
+          )}
+          {Array.from({
+            length: yarnCount,
+          }).map((_, yarnCount) => (
             <section key={yarnCount} id={yarnCount}>
+              {isEdit && (
+                <ToggleYarnButton
+                  left="5rem"
+                  top={`${42 + 10.9 * yarnCount}rem`}
+                  onClick={() => handleDeleteExistedYarn(yarnCount)}
+                >
+                  -
+                </ToggleYarnButton>
+              )}
               <SubTitle>
                 <ColoredFont>Yarn</ColoredFont>
               </SubTitle>
@@ -175,7 +197,9 @@ export default function ProjectForm({
                 <YarnItem
                   defaultValue={defaultValue}
                   isEdit={isEdit}
-                  ref={(ref) => (yarnItemRefs.current[index] = ref)}
+                  setYarnData={setYarnData}
+                  yarnCount={yarnCount}
+                  yarnData={yarnData}
                 />
               </YarnFormSection>
             </section>
@@ -271,7 +295,7 @@ const NoteSection = styled.section`
 const ToggleYarnButton = styled.div`
   position: absolute;
   left: ${({ left }) => left};
-  top: 42rem;
+  top: ${({ top }) => top};
   font-size: 1.5rem;
   line-height: 1.3rem;
   border-radius: 1.5rem;

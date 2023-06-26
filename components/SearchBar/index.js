@@ -15,6 +15,7 @@ export default function SearchBar({
         width="18rem"
         height="2rem"
         name="project-search"
+        backgoundColor="#f5f5f5"
         value={inputQuery}
         onChange={(event) => setInputQuery(event.target.value)}
       ></StyledInput>

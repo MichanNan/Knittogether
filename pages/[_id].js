@@ -8,6 +8,10 @@ export default function ProjectDetailPgae({
   onSubmit,
   handleChangeProjectStatus,
   handleChangeProjectFeeling,
+  setYarnData,
+  yarnData,
+  yarnCount,
+  setYarnCount,
 }) {
   const router = useRouter();
 
@@ -30,6 +34,10 @@ export default function ProjectDetailPgae({
         onSubmit={onSubmit}
         handleChangeProjectFeeling={handleChangeProjectFeeling}
         handleChangeProjectStatus={handleChangeProjectStatus}
+        setYarnData={setYarnData}
+        yarnData={yarnData}
+        yarnCount={yarnCount}
+        setYarnCount={setYarnCount}
       />
     </>
   );

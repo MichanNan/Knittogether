@@ -15,6 +15,8 @@ const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const [projectName, setProjectName] = useState("");
+  const [yarnData, setYarnData] = useState([]);
+  const [yarnCount, setYarnCount] = useState(1);
 
   const router = useRouter();
 
@@ -24,6 +26,7 @@ export default function App({ Component, pageProps }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+
     setProjectName(data.name);
     router.push("/add-project");
   }
@@ -33,7 +36,8 @@ export default function App({ Component, pageProps }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    const newProject = handleProjectRestructure(data, projectName);
+    const newProject = handleProjectRestructure(data, projectName, yarnData);
+
     const response = await fetch("/api/project", {
       method: "POST",
 
@@ -81,6 +85,10 @@ export default function App({ Component, pageProps }) {
           projectsList={projects}
           onDelete={handleDeleteProject}
           onCancel={handleGoBack}
+          setYarnData={setYarnData}
+          yarnData={yarnData}
+          yarnCount={yarnCount}
+          setYarnCount={setYarnCount}
         />
       </SWRConfig>
     </main>
