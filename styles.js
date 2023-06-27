@@ -55,7 +55,9 @@ export const BackDrop = styled.div`
 export const ButtonContainer = styled.div`
   width: 15rem;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 1rem;
 `;
 export const SubTitle = styled.p`
   font-size: 1.2rem;
