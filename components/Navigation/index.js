@@ -51,16 +51,6 @@ const Nav = styled.nav`
 const NavItem = styled.div`
   width: 50%;
   background-color: #fff;
-  border-left: solid 0.1rem
-    ${({ selectedNavItem, className }) =>
-      selectedNavItem && className.includes(selectedNavItem)
-        ? " #e07008"
-        : "#fff"};
-  border-right: solid 0.1rem
-    ${({ selectedNavItem, className }) =>
-      selectedNavItem && className.includes(selectedNavItem)
-        ? " #e07008"
-        : "#fff"};
   color: ${({ selectedNavItem, className }) =>
     selectedNavItem && className.includes(selectedNavItem)
       ? " #e07008"

@@ -23,6 +23,7 @@ export default function YarnStockList() {
 
 const YarnListContainer = styled.div`
   margin-top: 4rem;
+  margin-bottom: 5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;

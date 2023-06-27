@@ -46,9 +46,9 @@ const YarnInformationSection = styled.section`
   transform: translateY(-0.6rem);
   margin-left: 1rem;
   display: grid;
-  grid-template-columns: repeat(2, 25% 25%);
+  grid-template-columns: repeat(2, 30% 25%);
   grid-template-rows: repeat(3, 33.33%);
-  grid-gap: 0.5rem 0.5rem;
+  grid-gap: 0.5rem 0.8rem;
   font-size: 1rem;
   font-weight: 300;
 `;

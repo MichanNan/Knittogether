@@ -29,7 +29,6 @@ export default function AddProjectPage({
           buttonContentRight="Create"
           isEdit={false}
         />
-        <Navigation />
       </Main>
     </>
   );
