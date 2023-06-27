@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import StyledInput from "../StyledInput";
-import { useEffect } from "react";
-// import { useEffect } from "react";
 export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
-  //console.log(defaultYarn)
   return (
     <>
       <YarnWrapper>

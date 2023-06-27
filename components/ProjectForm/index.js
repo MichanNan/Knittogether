@@ -425,7 +425,6 @@ export default function ProjectForm({
           </StyledButton>
           {/* --------------------------------------------------------------end button section------------------------------------------------------- */}
         </RowSection>
-        <label htmlFor="brand"></label>
       </ProjectItemForm>
     </>
   );
