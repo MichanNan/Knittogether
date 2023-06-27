@@ -4,8 +4,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { SWRConfig } from "swr";
 import useSWR from "swr";
-import { handleProjectRestructure } from "../components/handelProjectResructure";
+import { handleProjectRestructure } from "../components/handleProjectRestructure";
 import { Lato } from "@next/font/google";
+import { uid } from "uid";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -16,24 +17,42 @@ const fetcher = (url) => fetch(url).then((response) => response.json());
 export default function App({ Component, pageProps }) {
   const [projectName, setProjectName] = useState("");
 
+  const [yarnData, setYarnData] = useState([
+    {
+      id: uid(),
+      brand: "",
+      type: "",
+      color: "",
+      type: "",
+      skein: "",
+      color: "",
+      gramm: "",
+      meter: "",
+    },
+  ]);
+
   const router = useRouter();
 
   const { data: projects, mutate } = useSWR("/api/project", fetcher);
 
   function handlePreAddSubmit(event) {
     event.preventDefault();
+
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+    console.log(data);
     setProjectName(data.name);
     router.push("/add-project");
   }
 
   async function handleAddProjectSubmit(event) {
     event.preventDefault();
+    console.log("_app", event.target);
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    const newProject = handleProjectRestructure(data, projectName);
+    const newProject = handleProjectRestructure(data, projectName, yarnData);
+
     const response = await fetch("/api/project", {
       method: "POST",
 
@@ -81,6 +100,8 @@ export default function App({ Component, pageProps }) {
           projectsList={projects}
           onDelete={handleDeleteProject}
           onCancel={handleGoBack}
+          setYarnData={setYarnData}
+          yarnData={yarnData}
         />
       </SWRConfig>
     </main>

@@ -16,21 +16,6 @@ export default createGlobalStyle`
   }
 `;
 
-export const RowSection = styled.section`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.8rem;
-`;
-export const ColumnSection = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.8rem;
-`;
 export const Main = styled.main`
   position: relative;
   display: flex;
@@ -62,11 +47,16 @@ export const BackDrop = styled.div`
   width: 375px;
   height: 100%;
   background-color: #cccccc;
-  opacity: 0.4;
+  opacity: 0.6;
   z-index: 99;
 `;
 export const ButtonContainer = styled.div`
   width: 15rem;
   display: flex;
   justify-content: space-evenly;
+`;
+export const SubTitle = styled.p`
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 1rem auto;
 `;

@@ -3,7 +3,14 @@ import ProjectForm from "../../components/ProjectForm";
 import BackIcon from "../../components/Icon/BackIcon";
 import Navigation from "../../components/Navigation";
 import { Main } from "../../styles";
-export default function AddProjectPage({ onCancel, projectName, onSubmit }) {
+export default function AddProjectPage({
+  onCancel,
+  projectName,
+  onSubmit,
+  setYarnData,
+  yarnData,
+}) {
+  console.log(yarnData);
   return (
     <>
       <Main>
@@ -12,12 +19,15 @@ export default function AddProjectPage({ onCancel, projectName, onSubmit }) {
           {projectName}
         </Heading>
         <ProjectForm
+          yarnData={yarnData}
+          setYarnData={setYarnData}
           projectName={projectName}
           shouldUseDefaultValue={false}
           onCancel={onCancel}
           onSubmit={onSubmit}
           buttonContentLeft="Cancel"
           buttonContentRight="Create"
+          isEdit={false}
         />
         <Navigation />
       </Main>

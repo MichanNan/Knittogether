@@ -10,6 +10,7 @@ export default function StyledInput({
   maxLength,
   required,
   onChange,
+  backgroundColor,
 }) {
   return (
     <InputItem
@@ -22,6 +23,7 @@ export default function StyledInput({
       maxLength={maxLength}
       required={required}
       defaultValue={defaultValue}
+      backgroundColor={backgroundColor}
     ></InputItem>
   );
 }
@@ -30,7 +32,7 @@ const InputItem = styled.input`
   height: ${({ height }) => height};
   border-radius: ${({ radius }) => radius};
   border: none;
-  background-color: #f5f5f5;
+  background-color: ${({ backgroundColor }) => backgroundColor};
   font-size: 1rem;
   &:focus {
     outline: none;

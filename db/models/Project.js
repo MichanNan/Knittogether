@@ -11,7 +11,7 @@ const detailSchema = new Schema({
 });
 const yarnSchema = new Schema({
   brand: { type: String },
-  skeins: { type: String },
+  skein: { type: String },
   type: { type: String },
   gramm: { type: String },
   color: { type: String },

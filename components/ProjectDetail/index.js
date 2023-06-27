@@ -11,14 +11,14 @@ import {
   ColoredFont,
   HeavyFont,
   LightFont,
-  RowSection,
   Main,
   ImageWrapper,
+  SubTitle,
 } from "../../styles";
 
-import { handleProjectRestructure } from "../handelProjectResructure";
+import { handleProjectRestructure } from "../handleProjectRestructure";
 
-import ConfirmDeleteProject from "../ComfirmDeleteProject";
+import ConfirmDeleteProject from "../ConfirmDeleteProject";
 
 export default function ProjectDetail({ project, onDelete, id }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -35,7 +35,8 @@ export default function ProjectDetail({ project, onDelete, id }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    const newProject = handleProjectRestructure(data);
+    const newProject = handleProjectRestructure(data, data.name, yarnData);
+
     const response = await fetch(`/api/project?id=${id}`, {
       method: "PUT",
 
@@ -48,9 +49,7 @@ export default function ProjectDetail({ project, onDelete, id }) {
     setIsEdit(!isEdit);
     mutate();
   }
-  function cancelEdit() {
-    setIsEdit(false);
-  }
+
   function cancelDelete() {
     setConfirmDeleteProjectStatus(false);
     router.push(`/${id}`);
@@ -72,8 +71,8 @@ export default function ProjectDetail({ project, onDelete, id }) {
           </Heading>
           <ProjectForm
             isEdit
-            defaultValue={project}
-            onCancel={cancelEdit}
+            setIsEdit={setIsEdit}
+            project={project}
             onSubmit={handleProjectUpdate}
             buttonContentLeft="Cancel"
             buttonContentRight="Confirm"
@@ -158,57 +157,59 @@ export default function ProjectDetail({ project, onDelete, id }) {
               </DetailRowSection>
             </ProjectSectionContainer>
 
-            <ProjectSectionContainer>
-              <SubTitle>
-                <ColoredFont>Yarn</ColoredFont>
-              </SubTitle>
+            {project.yarn.map((yarnData) => (
+              <ProjectSectionContainer key={yarnData.index}>
+                <SubTitle>
+                  <ColoredFont>Yarn</ColoredFont>
+                </SubTitle>
 
-              <DetailRowSection>
-                <HeavyFont>
-                  <p>Brand:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.yarn[0].brand}</span>
-                </LightFont>
+                <DetailRowSection>
+                  <HeavyFont>
+                    <p>Brand:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.brand}</span>
+                  </LightFont>
 
-                <HeavyFont>
-                  <p>Skeins:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.yarn[0].skeins}</span>
-                </LightFont>
-              </DetailRowSection>
-              <DetailRowSection>
-                <HeavyFont>
-                  <p>Type:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.yarn[0].type}</span>
-                </LightFont>
+                  <HeavyFont>
+                    <p>Skein:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.skein}</span>
+                  </LightFont>
+                </DetailRowSection>
+                <DetailRowSection>
+                  <HeavyFont>
+                    <p>Type:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.type}</span>
+                  </LightFont>
 
-                <HeavyFont>
-                  <p>Gramm:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.yarn[0].gramm}</span>
-                </LightFont>
-              </DetailRowSection>
-              <DetailRowSection>
-                <HeavyFont>
-                  <p>Color:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.yarn[0].color}</span>
-                </LightFont>
+                  <HeavyFont>
+                    <p>Gramm:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.gramm}</span>
+                  </LightFont>
+                </DetailRowSection>
+                <DetailRowSection>
+                  <HeavyFont>
+                    <p>Color:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.color}</span>
+                  </LightFont>
 
-                <HeavyFont>
-                  <p>Meter:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.yarn[0].meter}</span>
-                </LightFont>
-              </DetailRowSection>
-            </ProjectSectionContainer>
+                  <HeavyFont>
+                    <p>Meter:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.meter}</span>
+                  </LightFont>
+                </DetailRowSection>
+              </ProjectSectionContainer>
+            ))}
 
             <ProjectSectionContainer>
               <SubTitle>
@@ -218,14 +219,14 @@ export default function ProjectDetail({ project, onDelete, id }) {
               <LightFont>{project.note}</LightFont>
             </ProjectSectionContainer>
 
-            <RowSection>
+            <ButtonRowSection>
               <StyledButton width="8rem" height="3rem" onClick={confirmDelete}>
                 Delete
               </StyledButton>
               <StyledButton width="8rem" height="3rem" onClick={onEdit}>
                 Edit
               </StyledButton>
-            </RowSection>
+            </ButtonRowSection>
           </DetailContainer>
           {confirmDeleteProjectStatus && (
             <ConfirmDeleteProject
@@ -252,10 +253,7 @@ const ProjectInfoWrapper = styled.section`
   margin: 1rem auto;
   justify-content: center;
 `;
-const SubTitle = styled.p`
-  font-size: 1.2rem;
-  font-weight: 700;
-`;
+
 const ProjectSectionContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -266,4 +264,10 @@ const ProjectSectionContainer = styled.div`
 const DetailRowSection = styled.div`
   display: flex;
   gap: 1.2rem;
+`;
+const ButtonRowSection = styled.section`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
 `;

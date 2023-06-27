@@ -1,14 +1,7 @@
 import { useRouter } from "next/router";
 import ProjectDetail from "../components/ProjectDetail";
 
-export default function ProjectDetailPgae({
-  projectsList,
-  onDelete,
-  onCancel,
-  onSubmit,
-  handleChangeProjectStatus,
-  handleChangeProjectFeeling,
-}) {
+export default function ProjectDetailPage({ projectsList, onDelete }) {
   const router = useRouter();
 
   const { _id: id } = router.query;
@@ -22,15 +15,7 @@ export default function ProjectDetailPgae({
   }
   return (
     <>
-      <ProjectDetail
-        id={id}
-        project={project}
-        onDelete={onDelete}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        handleChangeProjectFeeling={handleChangeProjectFeeling}
-        handleChangeProjectStatus={handleChangeProjectStatus}
-      />
+      <ProjectDetail id={id} project={project} onDelete={onDelete} />
     </>
   );
 }

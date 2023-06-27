@@ -14,7 +14,8 @@ export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
         height="3rem"
         radius="1rem"
         name="name"
-        value={inputName}
+        backgroundColor="#ffffff"
+        defaultValue={inputName}
         onChange={(event) => setInputName(event.target.value)}
         required="required"
       />
@@ -43,7 +44,7 @@ const AddProjectNameForm = styled.form`
   justify-content: space-evenly;
   width: 20rem;
   height: 15rem;
-  background-color: #e9e9e9;
+  background-color: #f5f5f5;
   align-items: center;
   border-radius: 2rem;
   z-index: 99;

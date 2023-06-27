@@ -2,7 +2,7 @@ import styled from "styled-components";
 export default function Categories({ handleClick, selectedProjectStatus }) {
   return (
     <>
-      <CategoriyContainer>
+      <CategoryContainer>
         <CategoryCard
           className="planned"
           selectedProjectStatus={selectedProjectStatus}
@@ -31,12 +31,12 @@ export default function Categories({ handleClick, selectedProjectStatus }) {
         >
           Hibernated
         </CategoryCard>
-      </CategoriyContainer>
+      </CategoryContainer>
     </>
   );
 }
 
-const CategoriyContainer = styled.div`
+const CategoryContainer = styled.div`
   position: absolute;
   top: 5rem;
   display: flex;
