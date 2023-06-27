@@ -10,6 +10,7 @@ export default function AddProjectPage({
   setYarnData,
   yarnData,
 }) {
+  console.log(yarnData);
   return (
     <>
       <Main>

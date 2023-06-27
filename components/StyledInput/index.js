@@ -10,7 +10,7 @@ export default function StyledInput({
   maxLength,
   required,
   onChange,
-  backgoundColor,
+  backgroundColor,
 }) {
   return (
     <InputItem
@@ -23,7 +23,7 @@ export default function StyledInput({
       maxLength={maxLength}
       required={required}
       defaultValue={defaultValue}
-      backgoundColor={backgoundColor}
+      backgroundColor={backgroundColor}
     ></InputItem>
   );
 }
@@ -32,7 +32,7 @@ const InputItem = styled.input`
   height: ${({ height }) => height};
   border-radius: ${({ radius }) => radius};
   border: none;
-  background-color: ${({ backgoundColor }) => backgoundColor};
+  background-color: ${({ backgroundColor }) => backgroundColor};
   font-size: 1rem;
   &:focus {
     outline: none;

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { SWRConfig } from "swr";
 import useSWR from "swr";
-import { handleProjectRestructure } from "../components/handelProjectResructure";
+import { handleProjectRestructure } from "../components/handleProjectRestructure";
 import { Lato } from "@next/font/google";
 import { uid } from "uid";
 
@@ -37,15 +37,17 @@ export default function App({ Component, pageProps }) {
 
   function handlePreAddSubmit(event) {
     event.preventDefault();
+
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-
+    console.log(data);
     setProjectName(data.name);
     router.push("/add-project");
   }
 
   async function handleAddProjectSubmit(event) {
     event.preventDefault();
+    console.log("_app", event.target);
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 

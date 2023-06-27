@@ -22,6 +22,7 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
     setAddNewProjectStatus(false);
   }
 
+  //get the status of a project
   function handleStatusClick(event) {
     const selectedButtonClassName = event.target.className;
     const projectStatus = selectedButtonClassName.split(" ")[2];
@@ -31,25 +32,26 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
     } else setSelectedProjectStatus(projectStatus);
   }
 
-  let selectedProjects = projectsList;
+  //initial date for filter according to project status
+  let selectedProjects;
 
+  //if user clicked a status show corresponding projects
   selectedProjectStatus === ""
     ? (selectedProjects = projectsList)
     : (selectedProjects = projectsList.filter((project) => {
         return project.status === selectedProjectStatus;
       }));
 
+  //get search input value
   function handleProjectSearch(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     setInputQuery(data["project-search"]);
   }
+  //search for project based on project status
   const searchedProject = selectedProjects.filter((project) => {
     return project.name.toLowerCase().includes(inputQuery);
-  });
-  const seletedProjects = projectsList.filter((project) => {
-    return project.status === selectedProjectStatus;
   });
 
   return (
@@ -75,30 +77,30 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
       )}
 
       {/* render subtitle according to different status */}
-      {!selectedProjectStatus && selectedProjects.length !== 0 && (
+      {!selectedProjectStatus && projectsList.length !== 0 && (
         <ProjectSumInfo>
           You have totally&nbsp;
           <ColoredFont>{projectsList.length} </ColoredFont>&nbsp;
           {projectsList.length === 1 ? "project" : "projects"}
         </ProjectSumInfo>
       )}
-      {!selectedProjectStatus && !selectedProjects.length && (
+      {!selectedProjectStatus && projectsList.length === 0 && (
         <ProjectSumInfo>
           You have no projects, maybe &nbsp;<ColoredFont>add</ColoredFont>
           &nbsp;one?
         </ProjectSumInfo>
       )}
-      {seletedProjects.length !== 0 && selectedProjectStatus && (
+      {selectedProjects.length !== 0 && selectedProjectStatus && (
         <ProjectSumInfo>
           you have&nbsp;
           <ColoredFont>
-            {seletedProjects.length} &nbsp;
+            {selectedProjects.length} &nbsp;
             {selectedProjectStatus}
           </ColoredFont>
           &nbsp; {selectedProjects.length === 1 ? "project" : "projects"}
         </ProjectSumInfo>
       )}
-      {seletedProjects.length === 0 && selectedProjectStatus && (
+      {selectedProjects.length === 0 && selectedProjectStatus && (
         <ProjectSumInfo>
           you have&nbsp;
           <ColoredFont>
@@ -114,7 +116,9 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
         inputQuery={inputQuery}
         setInputQuery={setInputQuery}
       />
-
+      {!inputQuery && !selectedProjectStatus && (
+        <Projects projectsList={projectsList} />
+      )}
       {!inputQuery && <Projects projectsList={selectedProjects} />}
       {inputQuery && <Projects projectsList={searchedProject} />}
 
@@ -124,7 +128,7 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
 }
 
 const ProjectSumInfo = styled.p`
-  display: felx;
+  display: flex;
   position: absolute;
   top: 9rem;
   font-size: 0.8rem;

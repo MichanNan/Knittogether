@@ -16,17 +16,11 @@ import {
   SubTitle,
 } from "../../styles";
 
-import { handleProjectRestructure } from "../handelProjectResructure";
+import { handleProjectRestructure } from "../handleProjectRestructure";
 
-import ConfirmDeleteProject from "../ComfirmDeleteProject";
+import ConfirmDeleteProject from "../ConfirmDeleteProject";
 
-export default function ProjectDetail({
-  project,
-  onDelete,
-  id,
-  setYarnData,
-  yarnData,
-}) {
+export default function ProjectDetail({ project, onDelete, id }) {
   const [isEdit, setIsEdit] = useState(false);
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
     useState(false);
@@ -55,10 +49,7 @@ export default function ProjectDetail({
     setIsEdit(!isEdit);
     mutate();
   }
-  function cancelEdit() {
-    setIsEdit(false);
-    setYarnCount(project.yarn.length);
-  }
+
   function cancelDelete() {
     setConfirmDeleteProjectStatus(false);
     router.push(`/${id}`);
@@ -80,11 +71,9 @@ export default function ProjectDetail({
           </Heading>
           <ProjectForm
             isEdit
+            setIsEdit={setIsEdit}
             project={project}
-            onCancel={cancelEdit}
             onSubmit={handleProjectUpdate}
-            setYarnData={setYarnData}
-            yarnData={yarnData}
             buttonContentLeft="Cancel"
             buttonContentRight="Confirm"
           />
@@ -168,61 +157,59 @@ export default function ProjectDetail({
               </DetailRowSection>
             </ProjectSectionContainer>
 
-            <ProjectSectionContainer>
-              {project.yarn.map((yarnData) => (
-                <section key={yarnData.index}>
-                  <SubTitle>
-                    <ColoredFont>Yarn</ColoredFont>
-                  </SubTitle>
+            {project.yarn.map((yarnData) => (
+              <ProjectSectionContainer key={yarnData.index}>
+                <SubTitle>
+                  <ColoredFont>Yarn</ColoredFont>
+                </SubTitle>
 
-                  <DetailRowSection>
-                    <HeavyFont>
-                      <p>Brand:</p>
-                    </HeavyFont>
-                    <LightFont>
-                      <span>{yarnData?.brand}</span>
-                    </LightFont>
+                <DetailRowSection>
+                  <HeavyFont>
+                    <p>Brand:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.brand}</span>
+                  </LightFont>
 
-                    <HeavyFont>
-                      <p>Skein:</p>
-                    </HeavyFont>
-                    <LightFont>
-                      <span>{yarnData?.skein}</span>
-                    </LightFont>
-                  </DetailRowSection>
-                  <DetailRowSection>
-                    <HeavyFont>
-                      <p>Type:</p>
-                    </HeavyFont>
-                    <LightFont>
-                      <span>{yarnData?.type}</span>
-                    </LightFont>
+                  <HeavyFont>
+                    <p>Skein:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.skein}</span>
+                  </LightFont>
+                </DetailRowSection>
+                <DetailRowSection>
+                  <HeavyFont>
+                    <p>Type:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.type}</span>
+                  </LightFont>
 
-                    <HeavyFont>
-                      <p>Gramm:</p>
-                    </HeavyFont>
-                    <LightFont>
-                      <span>{yarnData?.gramm}</span>
-                    </LightFont>
-                  </DetailRowSection>
-                  <DetailRowSection>
-                    <HeavyFont>
-                      <p>Color:</p>
-                    </HeavyFont>
-                    <LightFont>
-                      <span>{yarnData?.color}</span>
-                    </LightFont>
+                  <HeavyFont>
+                    <p>Gramm:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.gramm}</span>
+                  </LightFont>
+                </DetailRowSection>
+                <DetailRowSection>
+                  <HeavyFont>
+                    <p>Color:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.color}</span>
+                  </LightFont>
 
-                    <HeavyFont>
-                      <p>Meter:</p>
-                    </HeavyFont>
-                    <LightFont>
-                      <span>{yarnData?.meter}</span>
-                    </LightFont>
-                  </DetailRowSection>
-                </section>
-              ))}
-            </ProjectSectionContainer>
+                  <HeavyFont>
+                    <p>Meter:</p>
+                  </HeavyFont>
+                  <LightFont>
+                    <span>{yarnData?.meter}</span>
+                  </LightFont>
+                </DetailRowSection>
+              </ProjectSectionContainer>
+            ))}
 
             <ProjectSectionContainer>
               <SubTitle>

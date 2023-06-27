@@ -3,6 +3,7 @@ import StyledInput from "../StyledInput";
 import { useEffect } from "react";
 // import { useEffect } from "react";
 export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
+  //console.log(defaultYarn)
   return (
     <>
       <YarnWrapper>
@@ -13,7 +14,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
           radius="0.5rem"
           height="2rem"
           width="7rem"
-          backgoundColor="#f5f5f5"
+          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn.brand : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
@@ -24,7 +25,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
           radius="0.5rem"
           height="2rem"
           width="7rem"
-          backgoundColor="#f5f5f5"
+          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn?.skein : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
@@ -35,7 +36,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
           radius="0.5rem"
           height="2rem"
           width="7rem"
-          backgoundColor="#f5f5f5"
+          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn.type : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
@@ -46,7 +47,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
           radius="0.5rem"
           height="2rem"
           width="7rem"
-          backgoundColor="#f5f5f5"
+          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn.color : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
@@ -57,7 +58,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
           radius="0.5rem"
           height="2rem"
           width="7rem"
-          backgoundColor="#f5f5f5"
+          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn?.gramm : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>
@@ -68,7 +69,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
           radius="0.5rem"
           height="2rem"
           width="7rem"
-          backgoundColor="#f5f5f5"
+          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn.meter : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         ></StyledInput>

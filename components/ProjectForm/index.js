@@ -7,24 +7,102 @@ import YarnItem from "../YarnItem";
 import { uid } from "uid";
 import { useState } from "react";
 import { useEffect } from "react";
-import { set } from "mongoose";
+import { handleProjectRestructure } from "../handleProjectRestructure";
+import { useRouter } from "next/router";
+import useSWR from "swr";
 
 export default function ProjectForm({
   isEdit,
+  setIsEdit,
   project,
-  onCancel,
-  onSubmit,
   buttonContentLeft,
   buttonContentRight,
   projectName,
-  yarnData,
-  setYarnData,
 }) {
-  const initialYarn = project?.yarn ? project.yarn : yarnData;
-  const [existedYarn, setExistedYarn] = useState(initialYarn);
+  //initial data for edit mode(edit a detail page)
+  const [existedYarn, setExistedYarn] = useState([]);
+  //initial data for create mode(creating a new project)
+  let yarnDataOrg = [
+    {
+      id: uid(),
+      brand: "",
+      type: "",
+      color: "",
+      type: "",
+      skein: "",
+      color: "",
+      gramm: "",
+      meter: "",
+    },
+  ];
+  useEffect(() => {
+    if (isEdit) {
+      let initialYarn = project?.yarn ? project.yarn : yarnData;
+      initialYarn.map((a) => {
+        a.id = uid();
+        delete a._id;
+      });
+      setExistedYarn(initialYarn);
+    }
+  }, [isEdit]);
 
-  useEffect(() => {}, []);
+  const [yarnData, setYarnData] = useState(yarnDataOrg);
 
+  const router = useRouter();
+  const { mutate } = useSWR("/api/project");
+
+  //cancel form
+  function handleCancel() {
+    if (isEdit) {
+      setIsEdit(false);
+    } else {
+      router.push("/");
+    }
+  }
+
+  //function for update information in edit mode
+  async function handleUpdate(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    let newProject = handleProjectRestructure(data, data.name, existedYarn);
+
+    const response = await fetch(`/api/project?id=${project._id}`, {
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProject),
+    });
+
+    setIsEdit(!isEdit);
+    mutate();
+  }
+
+  //function for create a new project
+  async function handleCreate(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    const newProject = handleProjectRestructure(data, projectName, yarnData);
+
+    console.log("newProject", newProject);
+    const response = await fetch("/api/project", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newProject }),
+    });
+
+    router.push("/");
+    mutate();
+  }
+
+  // function for add more yarn in create mode
   function handleAddYarnClick() {
     setYarnData([
       ...yarnData,
@@ -41,7 +119,7 @@ export default function ProjectForm({
       },
     ]);
   }
-
+  //function for delete yarn input field in create mode
   function handleDeleteYarn(id) {
     const allYarn = [...yarnData];
     allYarn.splice(
@@ -50,7 +128,7 @@ export default function ProjectForm({
     );
     setYarnData(allYarn);
   }
-
+  //function for create more yarn input field in edit mode
   function handleAddExistedYarnClick() {
     setExistedYarn([
       ...existedYarn,
@@ -67,8 +145,12 @@ export default function ProjectForm({
       },
     ]);
   }
+
+  //function for delete yarn input field in edit mode
   function handleDeleteExistedYarn(id) {
+    console.log(existedYarn);
     const allYarn = [...existedYarn];
+
     allYarn.splice(
       allYarn.findIndex((yarn) => yarn.id === id),
       1
@@ -76,7 +158,10 @@ export default function ProjectForm({
     setExistedYarn(allYarn);
     setYarnData(allYarn);
   }
+
+  //function for input change(controlled input)
   function handleInputChange(event, id) {
+    console.log(id);
     const newYarnData = yarnData.map((yarn) => {
       if (id === yarn.id) {
         const { name, value } = event.target;
@@ -84,9 +169,12 @@ export default function ProjectForm({
       }
       return yarn;
     });
+
     setYarnData(newYarnData);
   }
-  function handleExsitedInputChange(event, id) {
+
+  //function for update yarn information in edit mode
+  function handleExistedInputChange(event, id) {
     const newYarnData = existedYarn.map((yarn) => {
       if (id === yarn.id) {
         const { name, value } = event.target;
@@ -99,7 +187,8 @@ export default function ProjectForm({
   }
   return (
     <>
-      <ProjectItemForm onSubmit={onSubmit}>
+      <ProjectItemForm onSubmit={!isEdit ? handleCreate : handleUpdate}>
+        {/* -----------------------------------------------------start status and happiness select section------------------------------------------ */}
         <RowSection>
           <label htmlFor="status">status</label>
           <StyledSelect
@@ -126,6 +215,8 @@ export default function ProjectForm({
           </StyledSelect>
         </RowSection>
         <Upload />
+        {/* -----------------------------------------------------end status and happiness select section------------------------------------------ */}
+        {/* ----------------------------------------------------------start name input section------------------------------------------------------- */}
         <ColumnSection>
           <label htmlFor="name" required="required">
             Name
@@ -133,7 +224,7 @@ export default function ProjectForm({
           <StyledInput
             name="name"
             type="text"
-            backgoundColor="#f5f5f5"
+            backgroundColor="#f5f5f5"
             maxLength="20"
             radius="0.5rem"
             height="2rem"
@@ -141,7 +232,8 @@ export default function ProjectForm({
             defaultValue={isEdit ? project.name : projectName}
           />
         </ColumnSection>
-
+        {/* --------------------------------------------------------------end name input section------------------------------------------------------- */}
+        {/* --------------------------------------------------------------start details input section-------------------------------------------------- */}
         <ColumnSection>
           <section>
             <SubTitle>
@@ -158,7 +250,7 @@ export default function ProjectForm({
             radius="0.5rem"
             height="2rem"
             width="20rem"
-            backgoundColor="#f5f5f5"
+            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].recipient : ""}
           />
           <label htmlFor="size">Size</label>
@@ -169,7 +261,7 @@ export default function ProjectForm({
             radius="0.5rem"
             height="2rem"
             width="20rem"
-            backgoundColor="#f5f5f5"
+            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].size : ""}
           />
           <label htmlFor="gauge">Gauge</label>
@@ -180,7 +272,7 @@ export default function ProjectForm({
             radius="0.5rem"
             height="2rem"
             width="20rem"
-            backgoundColor="#f5f5f5"
+            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].gauge : ""}
           />
           <label htmlFor="needlesize">Needle Size</label>
@@ -190,7 +282,7 @@ export default function ProjectForm({
             radius="0.5rem"
             height="2rem"
             width="20rem"
-            backgoundColor="#f5f5f5"
+            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].needleSize : ""}
           />
           <label htmlFor="start">Start at</label>
@@ -199,7 +291,7 @@ export default function ProjectForm({
             type="date"
             radius="0.5rem"
             height="2rem"
-            backgoundColor="#f5f5f5"
+            backgroundColor="#f5f5f5"
             width="20rem"
             defaultValue={isEdit ? project.details[0].start : ""}
           />
@@ -210,12 +302,30 @@ export default function ProjectForm({
             radius="0.5rem"
             height="2rem"
             width="20rem"
-            backgoundColor="#f5f5f5"
+            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].end : ""}
           />
         </ColumnSection>
-
+        {/* -------------------------------------------------------------end detail input section------------------------------------------------------- */}
+        {/* --------------------------------------------------------start yarn input section------------------------------------------------------------- */}
+        {/* -------------------render when create project and there is no yarn input field ---------------*/}
         <ColumnSection>
+          {!isEdit && yarnData.length === 0 && (
+            <YarnFormSection>
+              <SubTitle>
+                <ColoredFont>Add new yarn</ColoredFont>
+              </SubTitle>
+              <ToggleYarnButton
+                left="16rem"
+                top="42rem"
+                onClick={handleAddYarnClick}
+              >
+                {" "}
+                +
+              </ToggleYarnButton>
+            </YarnFormSection>
+          )}
+          {/* ---------------render when create project and there is yarn input field -----------------*/}
           {!isEdit &&
             yarnData.map((yarn, index) => (
               <YarnFormSection key={yarn.id}>
@@ -238,12 +348,28 @@ export default function ProjectForm({
                 </ToggleYarnButton>
                 <YarnItem
                   defaultYarn={yarn}
-                  yarnData={yarnData}
-                  setYarnData={setYarnData}
                   handleInputChange={handleInputChange}
                 />
               </YarnFormSection>
             ))}
+          {/* --------------render when edit project and there is no yarn input field -----------------*/}
+          {isEdit && existedYarn.length === 0 && (
+            <YarnFormSection>
+              <SubTitle>
+                <ColoredFont>Add new yarn</ColoredFont>
+              </SubTitle>
+              <ToggleYarnButton
+                left="16rem"
+                top="42rem"
+                onClick={handleAddExistedYarnClick}
+              >
+                {" "}
+                +
+              </ToggleYarnButton>
+            </YarnFormSection>
+          )}
+
+          {/* -----------------render when edit project and there is yarn input field -----------------*/}
           {isEdit &&
             existedYarn.map((yarn, index) => (
               <YarnFormSection key={yarn.id}>
@@ -266,17 +392,15 @@ export default function ProjectForm({
                 </ToggleYarnButton>
                 <YarnItem
                   defaultYarn={yarn}
-                  yarnData={yarnData}
-                  setYarnData={setYarnData}
-                  existedYarn={existedYarn}
-                  index={index}
                   isEdit={isEdit}
-                  handleInputChange={handleExsitedInputChange}
+                  handleInputChange={handleExistedInputChange}
                 />
               </YarnFormSection>
             ))}
         </ColumnSection>
+        {/* --------------------------------------------------------------end yarn input section------------------------------------------------------- */}
 
+        {/* --------------------------------------------------------------start note input section---------------------------------------------------- */}
         <NoteSection>
           <label htmlFor="note">
             <SubTitle>
@@ -285,18 +409,21 @@ export default function ProjectForm({
           </label>
           <StyledTextArea name="note" />
         </NoteSection>
+        {/* --------------------------------------------------------------end note input section------------------------------------------------------- */}
+        {/* --------------------------------------------------------------start button section------------------------------------------------------- */}
         <RowSection>
           <StyledButton
             type="cancel"
             width="8rem"
             height="3rem"
-            onClick={onCancel}
+            onClick={handleCancel}
           >
             {buttonContentLeft}
           </StyledButton>
           <StyledButton type="submit" width="8rem" height="3rem">
             {buttonContentRight}
           </StyledButton>
+          {/* --------------------------------------------------------------end button section------------------------------------------------------- */}
         </RowSection>
         <label htmlFor="brand"></label>
       </ProjectItemForm>

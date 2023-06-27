@@ -14,7 +14,7 @@ export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
         height="3rem"
         radius="1rem"
         name="name"
-        backgoundColor="#ffffff"
+        backgroundColor="#ffffff"
         defaultValue={inputName}
         onChange={(event) => setInputName(event.target.value)}
         required="required"

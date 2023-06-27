@@ -1,7 +1,5 @@
-// import { getServerSession } from "next-auth";
 import dbConnect from "../../db/connect";
 import Project from "../../db/models/Project";
-// import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(request, response) {
   await dbConnect();
