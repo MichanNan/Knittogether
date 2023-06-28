@@ -8,20 +8,10 @@ export default function ConfirmDeleteProject({ id, cancelDelete, onDelete }) {
       <Wrapper>
         <p>Are you sure to delete the project?</p>
         <ButtonContainer>
-          <StyledButton
-            width="6rem"
-            height="2rem"
-            type="cancel"
-            onClick={cancelDelete}
-          >
+          <StyledButton width="6rem" height="2rem" onClick={cancelDelete}>
             Cancel
           </StyledButton>
-          <StyledButton
-            width="6rem"
-            height="2rem"
-            type="cancel"
-            onClick={() => onDelete(id)}
-          >
+          <StyledButton width="6rem" height="2rem" onClick={() => onDelete(id)}>
             Delete
           </StyledButton>
         </ButtonContainer>

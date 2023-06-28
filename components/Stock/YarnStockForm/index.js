@@ -100,7 +100,7 @@ export default function YarnStockForm({ setAddYarnStockStatus }) {
           >
             Cancel
           </StyledButton>
-          <StyledButton width="8rem" height="3rem" type="submit">
+          <StyledButton width="8rem" height="3rem">
             Create
           </StyledButton>
         </ButtonContainer>

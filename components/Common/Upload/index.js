@@ -2,22 +2,21 @@ import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 
-async function uploading(data) {
-  const res = await fetch(
-    "https://api.cloudinary.com/v1_1/dw4kyffua/image/upload",
-    {
-      method: "post",
-      body: data,
-    }
-  );
-  const resj = await res.json();
-  console.log(resj);
-
-  return resj.url;
-}
-
-export default function Upload() {
+export default function Upload({ setImageUrl }) {
   const [file, setFile] = useState("");
+  async function uploading(data) {
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dw4kyffua/image/upload",
+      {
+        method: "post",
+        body: data,
+      }
+    );
+    const resj = await res.json();
+    console.log(resj);
+
+    return resj.url;
+  }
   async function handleChange(e) {
     const data = new FormData();
     data.append("file", e.target.files[0]);
@@ -27,6 +26,7 @@ export default function Upload() {
     const url = await uploading(data);
     console.log(url);
     setFile(url);
+    setImageUrl(url);
   }
 
   return (

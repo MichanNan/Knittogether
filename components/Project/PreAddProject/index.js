@@ -20,12 +20,7 @@ export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
         required="required"
       />
       <ButtonContainer>
-        <StyledButton
-          width="5rem"
-          height="2rem"
-          type="cancel"
-          onClick={onCancel}
-        >
+        <StyledButton width="5rem" height="2rem" onClick={onCancel}>
           Cancel
         </StyledButton>
         <StyledButton width="5rem" height="2rem" type="submit">
