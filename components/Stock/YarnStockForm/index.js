@@ -1,15 +1,18 @@
 import styled from "styled-components";
 import { ButtonContainer } from "../../../styles";
+
 import Heading from "../../Common/Heading";
 import StyledInput from "../../Common/StyledInput";
 import StyledButton from "../../Common/StyledButton";
 import BackIcon from "../../Common/BackIcon/BackIcon";
+
+import Upload from "../../Common/Upload";
+import { useState } from "react";
 import useSWR from "swr";
-import { useRouter } from "next/router";
 
 export default function YarnStockForm({ setAddYarnStockStatus }) {
+  const [imageUrl, setImageUrl] = useState("");
   const { mutate } = useSWR("/api/project");
-  const router = useRouter();
 
   async function handleAddYarnStockSubmit(event) {
     event.preventDefault();
@@ -21,7 +24,7 @@ export default function YarnStockForm({ setAddYarnStockStatus }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data }),
+      body: JSON.stringify({ ...data, image: imageUrl }),
     });
 
     setAddYarnStockStatus(false);
@@ -39,6 +42,7 @@ export default function YarnStockForm({ setAddYarnStockStatus }) {
       </Heading>
 
       <YarnForm onSubmit={(event) => handleAddYarnStockSubmit(event)}>
+        <Upload setImageUrl={setImageUrl} />
         <label htmlFor="brand">Brand</label>
         <StyledInput
           width="15rem"

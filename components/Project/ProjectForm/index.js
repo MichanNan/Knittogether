@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import StyledButton from "../../Common/StyledButton";
 import StyledInput from "../../Common/StyledInput";
-import Upload from "../../Upload";
+import Upload from "../../Common/Upload";
 import { ColoredFont, SubTitle, ButtonContainer } from "../../../styles";
 import YarnItem from "../YarnItem";
 import { uid } from "uid";

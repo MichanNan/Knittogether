@@ -16,7 +16,7 @@ export default async function handler(request, response) {
 
   if (request.method === "POST") {
     try {
-      const { data } = request.body;
+      const data = request.body;
       await Yarn.create(data);
       response.status(201).json({ status: "Yarn Created" });
     } catch (error) {

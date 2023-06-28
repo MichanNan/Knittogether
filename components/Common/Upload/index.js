@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
+import styled from "styled-components";
 
 async function uploading(data) {
   const res = await fetch(
@@ -15,7 +16,7 @@ async function uploading(data) {
   return resj.url;
 }
 
-export default function Upload() {
+export default function Upload({ setImageUrl }) {
   const [file, setFile] = useState("");
   async function handleChange(e) {
     const data = new FormData();
@@ -26,15 +27,23 @@ export default function Upload() {
     const url = await uploading(data);
     console.log(url);
     setFile(url);
+    setImageUrl(url);
   }
 
   return (
-    <div className="App">
+    <UploadedFile className="App">
       <h4>Add Image:</h4>
       <input type="file" onChange={handleChange} />
       {file && (
-        <Image src={file} alt="project-image" width={350} height={350} />
+        <Image src={file} alt="project-image" width={200} height={200} />
       )}
-    </div>
+    </UploadedFile>
   );
 }
+const UploadedFile = styled.div`
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
