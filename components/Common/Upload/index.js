@@ -16,7 +16,7 @@ async function uploading(data) {
   return resj.url;
 }
 
-export default function Upload({ setImageUrl }) {
+export default function Upload() {
   const [file, setFile] = useState("");
   async function handleChange(e) {
     const data = new FormData();
@@ -27,7 +27,6 @@ export default function Upload({ setImageUrl }) {
     const url = await uploading(data);
     console.log(url);
     setFile(url);
-    setImageUrl(url);
   }
 
   return (

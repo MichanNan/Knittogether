@@ -96,7 +96,6 @@ export default function YarnStockForm({ setAddYarnStockStatus }) {
           <StyledButton
             width="8rem"
             height="3rem"
-            type="cancel"
             onClick={handleCancelAddYarnStock}
           >
             Cancel

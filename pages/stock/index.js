@@ -1,8 +1,7 @@
 import YarnStockList from "../../components/Stock/YarnStockList";
 import Navigation from "../../components/Common/Navigation";
 import Heading from "../../components/Common/Heading";
-import AddButton from "../../components/Common/AddButton";
-import { Main } from "../../styles";
+import { AddItemButton, Main } from "../../styles";
 import { useState } from "react";
 import YarnStockForm from "../../components/Stock/YarnStockForm";
 
@@ -18,7 +17,7 @@ export default function YarnsStockPage() {
         <>
           <YarnStockList />
           <Navigation />
-          <AddButton handleClick={handleAddYarnStock} />
+          <AddItemButton onClick={handleAddYarnStock}>+</AddItemButton>
         </>
       )}
       {addYarnStockStatus && (
