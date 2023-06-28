@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
+import Link from "next/link";
+
 export default createGlobalStyle`
   *,
   *::before,
@@ -27,15 +29,15 @@ export const Main = styled.main`
   padding-bottom: 1rem;
 `;
 
-export const ColoredFont = styled.p`
-  color: #e07008;
-`;
 export const ImageWrapper = styled.div`
   border-radius: 2rem;
   overflow: hidden;
 `;
 export const HeavyFont = styled.p`
   font-weight: 700;
+`;
+export const ColoredFont = styled.p`
+  color: #e07008;
 `;
 export const LightFont = styled.p`
   font-weight: 300;
@@ -59,4 +61,8 @@ export const SubTitle = styled.p`
   font-size: 1.2rem;
   font-weight: 700;
   margin: 1rem auto;
+`;
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
