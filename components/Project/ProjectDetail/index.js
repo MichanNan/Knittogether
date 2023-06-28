@@ -1,7 +1,7 @@
-import Heading from "../Heading";
-import StyledButton from "../StyledButton";
+import Heading from "../../Common/Heading";
+import StyledButton from "../../Common/StyledButton";
 import ProjectForm from "../ProjectForm";
-import BackIcon from "../Icon/BackIcon";
+import BackIcon from "../../Common/BackIcon/BackIcon";
 import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
@@ -14,7 +14,7 @@ import {
   Main,
   ImageWrapper,
   SubTitle,
-} from "../../styles";
+} from "../../../styles";
 
 import { handleProjectRestructure } from "../handleProjectRestructure";
 

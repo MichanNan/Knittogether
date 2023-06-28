@@ -11,28 +11,18 @@ async function uploading(data) {
   );
   const resj = await res.json();
   console.log(resj);
-  // .then(resp => {
-  //     const res = resp.json()
-  //     console.log(res)
-  // })
-  // .then(data => {
-  //     setFile(data.url)
-  // })
-  // .catch(err => console.log(err))
+
   return resj.url;
 }
 
 export default function Upload() {
   const [file, setFile] = useState("");
   async function handleChange(e) {
-    // console.log(e.target.files);
-    // setFile(URL.createObjectURL(e.target.files[0]));
-
     const data = new FormData();
     data.append("file", e.target.files[0]);
     data.append("upload_preset", "project-image");
     data.append("cloud_name", "dw4kyffua");
-    //console.log(data)
+
     const url = await uploading(data);
     console.log(url);
     setFile(url);

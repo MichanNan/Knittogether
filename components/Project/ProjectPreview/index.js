@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import { ImageWrapper } from "../../styles";
+import { ImageWrapper } from "../../../styles";
 
 export default function ProjectPreview({ project }) {
   return (

@@ -23,7 +23,7 @@ export const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 375px;
+  width: 100%;
   margin: 0 auto;
   top: 2rem;
   padding-bottom: 1rem;

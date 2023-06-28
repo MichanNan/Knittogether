@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { ButtonContainer } from "../../styles";
-import Heading from "../Heading";
-import StyledInput from "../StyledInput";
-import StyledButton from "../StyledButton";
-import BackIcon from "../Icon/BackIcon";
+import { ButtonContainer } from "../../../styles";
+import Heading from "../../Common/Heading";
+import StyledInput from "../../Common/StyledInput";
+import StyledButton from "../../Common/StyledButton";
+import BackIcon from "../../Common/BackIcon/BackIcon";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 
@@ -24,7 +24,7 @@ export default function YarnStockForm({ setAddYarnStockStatus }) {
       body: JSON.stringify({ data }),
     });
 
-    router.push("/");
+    setAddYarnStockStatus(false);
     mutate();
   }
 
@@ -90,14 +90,14 @@ export default function YarnStockForm({ setAddYarnStockStatus }) {
 
         <ButtonContainer>
           <StyledButton
-            width="5rem"
-            height="2rem"
+            width="8rem"
+            height="3rem"
             type="cancel"
             onClick={handleCancelAddYarnStock}
           >
             Cancel
           </StyledButton>
-          <StyledButton width="5rem" height="2rem" type="submit">
+          <StyledButton width="8rem" height="3rem" type="submit">
             Create
           </StyledButton>
         </ButtonContainer>

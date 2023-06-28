@@ -5,7 +5,7 @@ import styled from "styled-components";
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function YarnStockList() {
-  const { data: yarnList, mutate } = useSWR("/api/yarn", fetcher);
+  const { data: yarnList } = useSWR("/api/yarn", fetcher);
   if (!yarnList) {
     return;
   }
@@ -27,4 +27,5 @@ const YarnListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
 `;

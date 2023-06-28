@@ -1,7 +1,6 @@
-import Heading from "../../components/Heading";
-import ProjectForm from "../../components/ProjectForm";
-import BackIcon from "../../components/Icon/BackIcon";
-import Navigation from "../../components/Navigation";
+import Heading from "../../components/Common/Heading";
+import ProjectForm from "../../components/Project/ProjectForm";
+import BackIcon from "../../components/Common/BackIcon/BackIcon";
 import { Main } from "../../styles";
 export default function AddProjectPage({
   onCancel,

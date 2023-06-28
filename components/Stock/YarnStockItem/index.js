@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
-import { HeavyFont, ImageWrapper } from "../../styles";
+import { HeavyFont, ImageWrapper } from "../../../styles";
 
 export default function YarnStockItem({ yarn }) {
   return (
@@ -41,6 +41,8 @@ const YarnItemContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  width: 100%;
+  transform: translateX(-1rem);
 `;
 const YarnInformationSection = styled.section`
   transform: translateY(-0.6rem);
@@ -51,4 +53,5 @@ const YarnInformationSection = styled.section`
   grid-gap: 0.5rem 0.8rem;
   font-size: 1rem;
   font-weight: 300;
+  width: 40%;
 `;

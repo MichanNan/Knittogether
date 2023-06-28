@@ -1,4 +1,4 @@
-import StyledInput from "../StyledInput";
+import StyledInput from "../../Common/StyledInput";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";

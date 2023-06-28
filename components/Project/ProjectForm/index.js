@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import StyledButton from "../StyledButton";
-import StyledInput from "../StyledInput";
-import Upload from "../Upload";
-import { ColoredFont, SubTitle, ButtonContainer } from "../../styles";
+import StyledButton from "../../Common/StyledButton";
+import StyledInput from "../../Common/StyledInput";
+import Upload from "../../Upload";
+import { ColoredFont, SubTitle, ButtonContainer } from "../../../styles";
 import YarnItem from "../YarnItem";
 import { uid } from "uid";
 import { useState } from "react";

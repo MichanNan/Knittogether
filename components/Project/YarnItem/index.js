@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import StyledInput from "../StyledInput";
+import StyledInput from "../../Common/StyledInput";
 export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
   return (
     <>
