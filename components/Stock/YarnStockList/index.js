@@ -61,7 +61,7 @@ export default function YarnStockList({ isYarnEdit, setIsYarnEdit }) {
       ) : (
         <YarnListContainer>
           {yarnList.map((yarn) => (
-            <>
+            <div key={yarn._id}>
               <YarnItem key={yarn._id}>
                 <YarnStockItem yarn={yarn} />
                 <ButtonContainer>
@@ -83,7 +83,7 @@ export default function YarnStockList({ isYarnEdit, setIsYarnEdit }) {
                   cancelDeleteYarnStock={cancelDeleteYarnStock}
                 />
               )}
-            </>
+            </div>
           ))}
         </YarnListContainer>
       )}
