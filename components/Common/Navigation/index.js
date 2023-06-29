@@ -8,7 +8,7 @@ import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 export default function Navigation() {
   const [selectedNavItem, setSelectedNavItem] = useLocalStorageState(
     "projects",
-    { defaultValue: "" }
+    { defaultValue: "projects" }
   );
 
   function handleNavOnClick(event) {

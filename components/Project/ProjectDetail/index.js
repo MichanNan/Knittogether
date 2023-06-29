@@ -25,6 +25,7 @@ export default function ProjectDetail({ project, onDelete, id }) {
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
     useState(false);
   const { mutate } = useSWR("/api/project");
+
   function onEdit() {
     setIsEdit(true);
   }
