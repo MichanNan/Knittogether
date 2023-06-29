@@ -19,6 +19,8 @@ export default function ProjectForm({
   buttonContentRight,
   projectName,
 }) {
+  const buttonPosition = 55;
+  const buttonPositionIndex = 11.2;
   //initial data for edit mode(edit a detail page)
   const [existedYarn, setExistedYarn] = useState([]);
   //initial data for create mode(creating a new project)
@@ -159,7 +161,6 @@ export default function ProjectForm({
 
   //function for input change(controlled input)
   function handleInputChange(event, id) {
-    console.log(id);
     const newYarnData = yarnData.map((yarn) => {
       if (id === yarn.id) {
         const { name, value } = event.target;
@@ -219,14 +220,10 @@ export default function ProjectForm({
           <label htmlFor="name" required="required">
             Name
           </label>
-          <StyledInput
+          <ProjectInput
             name="name"
             type="text"
-            backgroundColor="#f5f5f5"
             maxLength="20"
-            radius="0.5rem"
-            height="2rem"
-            width="20rem"
             defaultValue={isEdit ? project.name : projectName}
           />
         </ColumnSection>
@@ -241,66 +238,42 @@ export default function ProjectForm({
           <label htmlFor="recipient" required="required">
             The project is for
           </label>
-          <StyledInput
+          <ProjectInput
             name="recipient"
             type="text"
             maxLength="20"
-            radius="0.5rem"
-            height="2rem"
-            width="20rem"
-            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].recipient : ""}
           />
           <label htmlFor="size">Size</label>
-          <StyledInput
+          <ProjectInput
             name="size"
             type="text"
             maxLength="5"
-            radius="0.5rem"
-            height="2rem"
-            width="20rem"
-            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].size : ""}
           />
           <label htmlFor="gauge">Gauge</label>
-          <StyledInput
+          <ProjectInput
             name="gauge"
             type="text"
             maxLength="10"
-            radius="0.5rem"
-            height="2rem"
-            width="20rem"
-            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].gauge : ""}
           />
           <label htmlFor="needlesize">Needle Size</label>
-          <StyledInput
+          <ProjectInput
             name="needlesize"
             type="text"
-            radius="0.5rem"
-            height="2rem"
-            width="20rem"
-            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].needleSize : ""}
           />
           <label htmlFor="start">Start at</label>
-          <StyledInput
+          <ProjectInput
             name="start"
             type="date"
-            radius="0.5rem"
-            height="2rem"
-            backgroundColor="#f5f5f5"
-            width="20rem"
             defaultValue={isEdit ? project.details[0].start : ""}
           />
           <label htmlFor="end">End at</label>
-          <StyledInput
+          <ProjectInput
             name="end"
             type="date"
-            radius="0.5rem"
-            height="2rem"
-            width="20rem"
-            backgroundColor="#f5f5f5"
             defaultValue={isEdit ? project.details[0].end : ""}
           />
         </ColumnSection>
@@ -315,7 +288,7 @@ export default function ProjectForm({
               </SubTitle>
               <ToggleYarnButton
                 left="16rem"
-                top="55rem"
+                top={`${buttonPosition}rem`}
                 onClick={handleAddYarnClick}
               >
                 +
@@ -331,14 +304,14 @@ export default function ProjectForm({
                 </SubTitle>
                 <ToggleYarnButton
                   left="20rem"
-                  top={`${55 + index * 11.2}rem`}
+                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
                   onClick={handleAddYarnClick}
                 >
                   +
                 </ToggleYarnButton>
                 <ToggleYarnButton
                   left="17rem"
-                  top={`${55 + index * 11.2}rem`}
+                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
                   onClick={() => handleDeleteYarn(yarn.id)}
                 >
                   -
@@ -375,14 +348,14 @@ export default function ProjectForm({
                 </SubTitle>
                 <ToggleYarnButton
                   left="20rem"
-                  top={`${55 + index * 11.2}rem`}
+                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
                   onClick={handleAddExistedYarnClick}
                 >
                   +
                 </ToggleYarnButton>
                 <ToggleYarnButton
                   left="17rem"
-                  top={`${55 + index * 11.2}rem`}
+                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
                   onClick={() => handleDeleteExistedYarn(yarn.id)}
                 >
                   -
@@ -470,12 +443,11 @@ const ColumnSection = styled.section`
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-  /* transform: translateX(2rem); */
+
   gap: 0.5rem;
 `;
 const YarnFormSection = styled.section`
   width: 120%;
-  /* transform: translateX(-2.8rem); */
 `;
 const NoteSection = styled.section`
   width: 100%;
@@ -502,3 +474,13 @@ const ToggleYarnButton = styled.div`
   background-color: #e07008;
   box-shadow: 0.1rem 0.1rem 0.3rem #ad5707;
 `;
+const ProjectInput = styled(({ name, defaultValue }) => (
+  <StyledInput
+    radius="0.5rem"
+    height="2rem"
+    width="20rem"
+    backgroundColor="#f5f5f5"
+    name={name}
+    defaultValue={defaultValue}
+  />
+))``;

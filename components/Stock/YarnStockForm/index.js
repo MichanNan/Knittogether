@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ButtonContainer } from "../../../styles";
+import { ButtonContainer, InputItem } from "../../../styles";
 
 import Heading from "../../Common/Heading";
 import StyledInput from "../../Common/StyledInput";
@@ -88,59 +88,17 @@ export default function YarnStockForm({
           />
 
           <label htmlFor="brand">Brand</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="brand"
-            backgroundColor="#f5f5f5"
-            defaultValue={editedYarnStock.brand}
-          />
+          <YarnInput name="brand" defaultValue={editedYarnStock.brand} />
           <label htmlFor="type">Type</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="type"
-            backgroundColor="#f5f5f5"
-            defaultValue={editedYarnStock.type}
-          />
+          <YarnInput name="type" defaultValue={editedYarnStock.type} />
           <label htmlFor="gramm">Weight per skein</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="gramm"
-            backgroundColor="#f5f5f5"
-            defaultValue={editedYarnStock.gramm}
-          />
+          <YarnInput name="gramm" defaultValue={editedYarnStock.gramm} />
           <label htmlFor="meter">Length per skein</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="meter"
-            backgroundColor="#f5f5f5"
-            defaultValue={editedYarnStock.meter}
-          />
+          <YarnInput name="meter" defaultValue={editedYarnStock.meter} />
           <label htmlFor="color">Color</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="color"
-            backgroundColor="#f5f5f5"
-            defaultValue={editedYarnStock.color}
-          />
+          <YarnInput name="color" defaultValue={editedYarnStock.color} />
           <label htmlFor="skein">Skein</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="skein"
-            backgroundColor="#f5f5f5"
-            defaultValue={editedYarnStock.skein}
-          />
+          <YarnInput name="skein" defaultValue={editedYarnStock.skein} />
 
           <ButtonContainer>
             <StyledButton
@@ -159,53 +117,17 @@ export default function YarnStockForm({
         <YarnForm onSubmit={(event) => handleAddYarnStockSubmit(event)}>
           <Upload setYarnImageUrl={setYarnImageUrl} />
           <label htmlFor="brand">Brand</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="brand"
-            backgroundColor="#f5f5f5"
-          />
+          <YarnInput name="brand" />
           <label htmlFor="type">Type</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="type"
-            backgroundColor="#f5f5f5"
-          />
+          <YarnInput name="type" />
           <label htmlFor="gramm">Weight per skein</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="gramm"
-            backgroundColor="#f5f5f5"
-          />
+          <YarnInput name="gramm" />
           <label htmlFor="meter">Length per skein</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="meter"
-            backgroundColor="#f5f5f5"
-          />
+          <YarnInput name="meter" />
           <label htmlFor="color">Color</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="color"
-            backgroundColor="#f5f5f5"
-          />
+          <YarnInput name="color" />
           <label htmlFor="skein">Skein</label>
-          <StyledInput
-            width="15rem"
-            height="3rem"
-            radius="1rem"
-            name="skein"
-            backgroundColor="#f5f5f5"
-          />
+          <YarnInput name="skein" />
 
           <ButtonContainer>
             <StyledButton
@@ -233,3 +155,13 @@ const YarnForm = styled.form`
   gap: 0.5rem;
   padding-bottom: 3rem;
 `;
+const YarnInput = styled(({ name, defaultValue }) => (
+  <StyledInput
+    width="15rem"
+    height="3rem"
+    radius="1rem"
+    backgroundColor="#f5f5f5"
+    name={name}
+    defaultValue={defaultValue}
+  />
+))``;
