@@ -17,8 +17,8 @@ export default async function handler(request, response) {
   if (request.method === "POST") {
     try {
       const data = request.body;
-      await Yarn.create(data);
-      response.status(201).json({ status: "Yarn Created" });
+      await Needle.create(data);
+      response.status(201).json({ status: "Needle Created" });
     } catch (error) {
       console.log(error);
       response.status(404).json("Create Failed");

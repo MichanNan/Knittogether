@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ButtonContainer, InputItem } from "../../../styles";
+import { ButtonContainer } from "../../../styles";
 
 import Heading from "../../Common/Heading";
 import StyledInput from "../../Common/StyledInput";
