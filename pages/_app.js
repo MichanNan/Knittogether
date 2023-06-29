@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { SWRConfig } from "swr";
 import useSWR from "swr";
-import { handleProjectRestructure } from "../components/Project/handleProjectRestructure";
 import { Lato } from "@next/font/google";
 import { uid } from "uid";
 

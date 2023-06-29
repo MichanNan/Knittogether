@@ -315,10 +315,9 @@ export default function ProjectForm({
               </SubTitle>
               <ToggleYarnButton
                 left="16rem"
-                top="42rem"
+                top="55rem"
                 onClick={handleAddYarnClick}
               >
-                {" "}
                 +
               </ToggleYarnButton>
             </YarnFormSection>
@@ -332,14 +331,14 @@ export default function ProjectForm({
                 </SubTitle>
                 <ToggleYarnButton
                   left="20rem"
-                  top={`${42 + index * 11.2}rem`}
+                  top={`${55 + index * 11.2}rem`}
                   onClick={handleAddYarnClick}
                 >
                   +
                 </ToggleYarnButton>
                 <ToggleYarnButton
                   left="17rem"
-                  top={`${42 + index * 11.2}rem`}
+                  top={`${55 + index * 11.2}rem`}
                   onClick={() => handleDeleteYarn(yarn.id)}
                 >
                   -
@@ -358,7 +357,7 @@ export default function ProjectForm({
               </SubTitle>
               <ToggleYarnButton
                 left="16rem"
-                top="42rem"
+                top="55rem"
                 onClick={handleAddExistedYarnClick}
               >
                 {" "}
@@ -376,14 +375,14 @@ export default function ProjectForm({
                 </SubTitle>
                 <ToggleYarnButton
                   left="20rem"
-                  top={`${42 + index * 11.2}rem`}
+                  top={`${55 + index * 11.2}rem`}
                   onClick={handleAddExistedYarnClick}
                 >
                   +
                 </ToggleYarnButton>
                 <ToggleYarnButton
                   left="17rem"
-                  top={`${42 + index * 11.2}rem`}
+                  top={`${55 + index * 11.2}rem`}
                   onClick={() => handleDeleteExistedYarn(yarn.id)}
                 >
                   -

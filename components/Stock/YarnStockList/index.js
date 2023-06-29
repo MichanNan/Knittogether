@@ -34,6 +34,7 @@ export default function YarnStockList({ isYarnEdit, setIsYarnEdit }) {
   function cancelDeleteYarnStock() {
     setDeleteYarnStockStatus(false);
   }
+
   const editedYarnStock = yarnList.find((yarn) => yarn._id === yarnId);
 
   async function handleDeleteExistedYarn(id) {
@@ -70,7 +71,6 @@ export default function YarnStockList({ isYarnEdit, setIsYarnEdit }) {
                   />
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    // onClick={() => handleDeleteExistedYarn(yarn._id)}
                     onClick={handleChangeDeleteYarnStockStatus}
                   />
                 </ButtonContainer>

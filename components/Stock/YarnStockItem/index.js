@@ -1,11 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
-import { HeavyFont, ImageWrapper, ToggleButton } from "../../../styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import YarnStockForm from "../YarnStockForm";
-import { useState } from "react";
+import { HeavyFont, ImageWrapper } from "../../../styles";
 
 export default function YarnStockItem({ yarn }) {
   return (
@@ -65,10 +60,3 @@ const YarnInformationSection = styled.section`
   font-weight: 300;
   width: 40%;
 `;
-
-// const ButtonContainer = styled.div`
-//   transform: translateX(3.5rem);
-//   display: flex;
-//   flex-direction: column;
-//   gap: 1rem;
-// `;
