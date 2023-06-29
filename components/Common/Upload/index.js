@@ -11,7 +11,9 @@ export default function Upload({
   const initYarnImage = isYarnEdit ? editedYarnStock.image : "/cumulustee.jpg";
 
   useEffect(() => {
-    setYarnImageUrl("/cumulustee.jpg");
+    if (setYarnImageUrl) {
+      setYarnImageUrl("/cumulustee.jpg");
+    }
   }, []);
 
   const [file, setFile] = useState(initYarnImage);

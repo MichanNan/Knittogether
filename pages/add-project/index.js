@@ -3,18 +3,20 @@ import ProjectForm from "../../components/Project/ProjectForm";
 import BackIcon from "../../components/Common/BackIcon/BackIcon";
 import { Main } from "../../styles";
 export default function AddProjectPage({
-  onCancel,
   projectName,
-  onSubmit,
   setYarnData,
   yarnData,
+  router,
 }) {
-  console.log(yarnData);
   return (
     <>
       <Main>
         <Heading>
-          <BackIcon handleGoBack={onCancel} />
+          <BackIcon
+            handleGoBack={() => {
+              router.push("/");
+            }}
+          />
           {projectName}
         </Heading>
         <ProjectForm
@@ -22,8 +24,6 @@ export default function AddProjectPage({
           setYarnData={setYarnData}
           projectName={projectName}
           shouldUseDefaultValue={false}
-          onCancel={onCancel}
-          onSubmit={onSubmit}
           buttonContentLeft="Cancel"
           buttonContentRight="Create"
           isEdit={false}

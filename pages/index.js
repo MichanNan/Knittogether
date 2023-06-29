@@ -9,13 +9,25 @@ import { useState } from "react";
 import { Main, ColoredFont, BackDrop } from "../styles";
 
 import { AddItemButton } from "../styles";
-export default function Home({ handlePreAddSubmit, projectsList }) {
+export default function Home({ projectsList, setProjectName, router }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
   const [selectedProjectStatus, setSelectedProjectStatus] = useState("");
   const [inputQuery, setInputQuery] = useState();
 
   function handleAddNewProject() {
     setAddNewProjectStatus(!addNewProjectStatus);
+  }
+
+  if (!projectsList) {
+    return;
+  }
+  function handlePreAddSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    setProjectName(data.name);
+    router.push("/add-project");
   }
 
   function handleCancel() {

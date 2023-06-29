@@ -147,7 +147,6 @@ export default function ProjectForm({
 
   //function for delete yarn input field in edit mode
   function handleDeleteExistedYarn(id) {
-    console.log(existedYarn);
     const allYarn = [...existedYarn];
 
     allYarn.splice(

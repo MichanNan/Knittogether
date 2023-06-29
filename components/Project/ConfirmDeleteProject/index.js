@@ -16,7 +16,7 @@ export default function ConfirmDeleteProject({ id, cancelDelete, onDelete }) {
           </StyledButton>
         </ButtonContainer>
       </Wrapper>
-      <BackDrop />
+      <BackDrop onClick={cancelDelete} />
     </>
   );
 }
@@ -32,6 +32,6 @@ const Wrapper = styled.div`
   left: 3rem;
   width: 18rem;
   height: 10rem;
-  z-index: 999;
+  z-index: 9999;
   background-color: #f5f5f5;
 `;
