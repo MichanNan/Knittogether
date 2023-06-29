@@ -23,7 +23,7 @@ export const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 375px;
+  width: 100%;
   margin: 0 auto;
   top: 2rem;
   padding-bottom: 1rem;
@@ -55,7 +55,9 @@ export const BackDrop = styled.div`
 export const ButtonContainer = styled.div`
   width: 15rem;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 1rem;
 `;
 export const SubTitle = styled.p`
   font-size: 1.2rem;

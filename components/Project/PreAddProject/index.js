@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-import StyledButton from "../StyledButton/";
-import StyledInput from "../StyledInput/";
-import { ButtonContainer } from "../../styles";
+import StyledButton from "../../Common/StyledButton";
+import StyledInput from "../../Common/StyledInput";
+import { ButtonContainer } from "../../../styles";
 
 export default function PreAddProject({ onCancel, handlePreAddSubmit }) {
   const [inputName, setInputName] = useState("");

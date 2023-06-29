@@ -1,11 +1,11 @@
-import Heading from "../components/Heading";
-import Projects from "../components/Projects";
-import Navigation from "../components/Navigation/index";
-import AddButton from "../components/AddButton";
+import Heading from "../components/Common/Heading";
+import Projects from "../components/Project/Projects";
+import Navigation from "../components/Common/Navigation/index";
+import AddButton from "../components/Common/AddButton";
 import styled from "styled-components";
-import PreAddProject from "../components/PreAddProject";
-import Categories from "../components/Categories";
-import SearchBar from "../components/SearchBar";
+import PreAddProject from "../components/Project/PreAddProject";
+import Categories from "../components/Project/Categories";
+import SearchBar from "../components/Project/SearchBar";
 import { useState } from "react";
 import { Main, ColoredFont, BackDrop } from "../styles";
 

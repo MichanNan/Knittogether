@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import StyledButton from "../StyledButton";
-import StyledInput from "../StyledInput";
-import Upload from "../Upload";
-import { ColoredFont, SubTitle } from "../../styles";
+import StyledButton from "../../Common/StyledButton";
+import StyledInput from "../../Common/StyledInput";
+import Upload from "../../Common/Upload";
+import { ColoredFont, SubTitle, ButtonContainer } from "../../../styles";
 import YarnItem from "../YarnItem";
 import { uid } from "uid";
 import { useState } from "react";
@@ -88,7 +88,6 @@ export default function ProjectForm({
     const data = Object.fromEntries(formData);
     const newProject = handleProjectRestructure(data, projectName, yarnData);
 
-    console.log("newProject", newProject);
     const response = await fetch("/api/project", {
       method: "POST",
 
@@ -411,7 +410,7 @@ export default function ProjectForm({
         </NoteSection>
         {/* --------------------------------------------------------------end note input section------------------------------------------------------- */}
         {/* --------------------------------------------------------------start button section------------------------------------------------------- */}
-        <RowSection>
+        <ButtonContainer>
           <StyledButton
             type="cancel"
             width="8rem"
@@ -424,7 +423,7 @@ export default function ProjectForm({
             {buttonContentRight}
           </StyledButton>
           {/* --------------------------------------------------------------end button section------------------------------------------------------- */}
-        </RowSection>
+        </ButtonContainer>
       </ProjectItemForm>
     </>
   );

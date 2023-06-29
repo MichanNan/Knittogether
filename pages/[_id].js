@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import ProjectDetail from "../components/ProjectDetail";
+import ProjectDetail from "../components/Project/ProjectDetail";
 
 export default function ProjectDetailPage({ projectsList, onDelete }) {
   const router = useRouter();

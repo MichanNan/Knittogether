@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import StyledButton from "../StyledButton";
-import { ButtonContainer, BackDrop } from "../../styles";
+import StyledButton from "../../Common/StyledButton";
+import { ButtonContainer, BackDrop } from "../../../styles";
 
 export default function ConfirmDeleteProject({ id, cancelDelete, onDelete }) {
   return (
