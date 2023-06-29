@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import YarnStockItem from "../YarnStockItem";
+import ConfirmDelete from "../../Common/ConfirmDelete";
 
 import styled from "styled-components";
 
@@ -13,6 +14,7 @@ const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function YarnStockList({ isYarnEdit, setIsYarnEdit }) {
   const [yarnId, setYarnId] = useState("");
+  const [deleteYarnStockStatus, setDeleteYarnStockStatus] = useState(false);
 
   const { data: yarnList, mutate, isLoading } = useSWR("/api/yarn", fetcher);
 
@@ -26,7 +28,12 @@ export default function YarnStockList({ isYarnEdit, setIsYarnEdit }) {
     setIsYarnEdit(true);
     setYarnId(id);
   }
-
+  function handleChangeDeleteYarnStockStatus() {
+    setDeleteYarnStockStatus(true);
+  }
+  function cancelDeleteYarnStock() {
+    setDeleteYarnStockStatus(false);
+  }
   const editedYarnStock = yarnList.find((yarn) => yarn._id === yarnId);
 
   async function handleDeleteExistedYarn(id) {
@@ -40,6 +47,7 @@ export default function YarnStockList({ isYarnEdit, setIsYarnEdit }) {
     });
     mutate();
     setIsYarnEdit(false);
+    setDeleteYarnStockStatus(false);
   }
   return (
     <>
@@ -52,19 +60,30 @@ export default function YarnStockList({ isYarnEdit, setIsYarnEdit }) {
       ) : (
         <YarnListContainer>
           {yarnList.map((yarn) => (
-            <YarnItem key={yarn._id}>
-              <YarnStockItem yarn={yarn} />
-              <ButtonContainer>
-                <FontAwesomeIcon
-                  icon={faPenToSquare}
-                  onClick={() => handleEditYarnStock(yarn._id)}
+            <>
+              <YarnItem key={yarn._id}>
+                <YarnStockItem yarn={yarn} />
+                <ButtonContainer>
+                  <FontAwesomeIcon
+                    icon={faPenToSquare}
+                    onClick={() => handleEditYarnStock(yarn._id)}
+                  />
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    // onClick={() => handleDeleteExistedYarn(yarn._id)}
+                    onClick={handleChangeDeleteYarnStockStatus}
+                  />
+                </ButtonContainer>
+              </YarnItem>
+              {deleteYarnStockStatus && (
+                <ConfirmDelete
+                  yarnId={yarn._id}
+                  deleteYarnStockStatus={true}
+                  handleDeleteExistedYarn={handleDeleteExistedYarn}
+                  cancelDeleteYarnStock={cancelDeleteYarnStock}
                 />
-                <FontAwesomeIcon
-                  icon={faTrashCan}
-                  onClick={() => handleDeleteExistedYarn(yarn._id)}
-                />
-              </ButtonContainer>
-            </YarnItem>
+              )}
+            </>
           ))}
         </YarnListContainer>
       )}

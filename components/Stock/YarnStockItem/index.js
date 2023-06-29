@@ -8,16 +8,8 @@ import YarnStockForm from "../YarnStockForm";
 import { useState } from "react";
 
 export default function YarnStockItem({ yarn }) {
-  const [isEdit, setIsEdit] = useState(false);
-
-  function handleEditYarnStock() {
-    setIsEdit(true);
-  }
   return (
     <>
-      {/* {isEdit ? (
-        <YarnStockForm />
-      ) : ( */}
       <YarnItemContainer>
         <ImageWrapper>
           <Image
@@ -48,15 +40,7 @@ export default function YarnStockItem({ yarn }) {
           <HeavyFont>gramm: </HeavyFont>
           <p>{yarn.gramm}</p>
         </YarnInformationSection>
-        {/* <ButtonContainer>
-            <FontAwesomeIcon
-              icon={faPenToSquare}
-              onClick={handleEditYarnStock}
-            />
-            <FontAwesomeIcon icon={faTrashCan} />
-          </ButtonContainer> */}
       </YarnItemContainer>
-      {/* )} */}
     </>
   );
 }

@@ -15,6 +15,8 @@ export default function YarnStockForm({
   isYarnEdit,
   setIsYarnEdit,
   editedYarnStock,
+  buttonContentLeft,
+  buttonContentRight,
 }) {
   const initYarnImage = isYarnEdit ? editedYarnStock.image : "";
   const [yarnImageUrl, setYarnImageUrl] = useState(initYarnImage);
@@ -149,7 +151,7 @@ export default function YarnStockForm({
               Cancel
             </StyledButton>
             <StyledButton width="8rem" height="3rem">
-              Create
+              Confirm
             </StyledButton>
           </ButtonContainer>
         </YarnForm>
@@ -229,4 +231,5 @@ const YarnForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding-bottom: 3rem;
 `;
