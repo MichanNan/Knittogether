@@ -7,16 +7,38 @@ export default function Upload({
   setYarnImageUrl,
   isYarnEdit,
   editedYarnStock,
+  setProjectImageUrl,
+  isProjectEdit,
+  existedProject,
 }) {
-  const initYarnImage = isYarnEdit ? editedYarnStock.image : "/cumulustee.jpg";
+  let initImage = "";
+
+  if (setYarnImageUrl) {
+    if (isYarnEdit) {
+      initImage = editedYarnStock.image;
+    } else {
+      initImage = "/yarn.jpeg";
+    }
+  }
+
+  if (setProjectImageUrl) {
+    if (isProjectEdit) {
+      initImage = existedProject.image;
+    } else {
+      initImage = "/knitting.jpeg";
+    }
+  }
 
   useEffect(() => {
     if (setYarnImageUrl) {
-      setYarnImageUrl("/cumulustee.jpg");
+      setYarnImageUrl("/yarn.jpeg");
+    }
+    if (setProjectImageUrl) {
+      setProjectImageUrl("/knitting.jpeg");
     }
   }, []);
 
-  const [file, setFile] = useState(initYarnImage);
+  const [file, setFile] = useState(initImage);
   async function uploading(data) {
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/dw4kyffua/image/upload",
@@ -38,7 +60,13 @@ export default function Upload({
     const url = await uploading(data);
 
     setFile(url);
-    setYarnImageUrl(url);
+    if (setProjectImageUrl) {
+      setProjectImageUrl(url);
+    }
+
+    if (setYarnImageUrl) {
+      setYarnImageUrl(url);
+    }
   }
 
   return (
@@ -58,7 +86,7 @@ export default function Upload({
         />
       </Wrapper>
       {file && (
-        <Image src={file} alt="project-image" width={200} height={200} />
+        <Image src={file} alt="project-image" width={200} height={150} />
       )}
     </UploadedFile>
   );

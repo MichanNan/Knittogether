@@ -15,8 +15,6 @@ export default function YarnStockForm({
   isYarnEdit,
   setIsYarnEdit,
   editedYarnStock,
-  buttonContentLeft,
-  buttonContentRight,
 }) {
   const initYarnImage = isYarnEdit ? editedYarnStock.image : "";
   const [yarnImageUrl, setYarnImageUrl] = useState(initYarnImage);
