@@ -36,7 +36,11 @@ export default function YarnsStockPage() {
       {addYarnStockStatus && stockContent === "Yarn Stock" && (
         <YarnStockForm setAddYarnStockStatus={setAddYarnStockStatus} />
       )}
-      {stockContent === "Needle Stock" && <NeedleStockList />}
+      {stockContent === "Needle Stock" && (
+        <>
+          <NeedleStockList /> <Navigation />
+        </>
+      )}
     </Main>
   );
 }
