@@ -4,45 +4,50 @@ import { HeavyFont, ImageWrapper } from "../../../styles";
 
 export default function YarnStockItem({ yarn }) {
   return (
-    <YarnItemContainer>
-      <ImageWrapper>
-        <Image
-          src={yarn.image}
-          alt={yarn.brand}
-          width={100}
-          height={100}
-          style={{ width: "100", height: "auto" }}
-        ></Image>
-      </ImageWrapper>
-      <YarnInformationSection>
-        <HeavyFont>Brand: </HeavyFont>
-        <p>{yarn.brand}</p>
+    <>
+      <YarnItemContainer>
+        <ImageWrapper>
+          <Image
+            src={yarn.image}
+            alt={yarn.brand}
+            width={100}
+            height={100}
+            style={{ width: "100", height: "auto" }}
+          ></Image>
+        </ImageWrapper>
 
-        <HeavyFont>Type: </HeavyFont>
-        <p>{yarn.type}</p>
+        <YarnInformationSection>
+          <HeavyFont>Brand: </HeavyFont>
+          <p>{yarn.brand}</p>
 
-        <HeavyFont>Color: </HeavyFont>
-        <p>{yarn.color}</p>
+          <HeavyFont>Type: </HeavyFont>
+          <p>{yarn.type}</p>
 
-        <HeavyFont>Skein: </HeavyFont>
-        <p>{yarn.skein}</p>
+          <HeavyFont>Color: </HeavyFont>
+          <p>{yarn.color}</p>
 
-        <HeavyFont>meter: </HeavyFont>
-        <p>{yarn.meter}</p>
+          <HeavyFont>Skein: </HeavyFont>
+          <p>{yarn.skein}</p>
 
-        <HeavyFont>gramm: </HeavyFont>
-        <p>{yarn.gramm}</p>
-      </YarnInformationSection>
-    </YarnItemContainer>
+          <HeavyFont>meter: </HeavyFont>
+          <p>{yarn.meter}</p>
+
+          <HeavyFont>gramm: </HeavyFont>
+          <p>{yarn.gramm}</p>
+        </YarnInformationSection>
+      </YarnItemContainer>
+    </>
   );
 }
 const YarnItemContainer = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  transform: translateX(-1rem);
+  transform: translateX(-1.5rem);
+  padding-right: 1rem;
 `;
 const YarnInformationSection = styled.section`
   transform: translateY(-0.6rem);

@@ -18,13 +18,14 @@ import {
 
 import { handleProjectRestructure } from "../handleProjectRestructure";
 
-import ConfirmDeleteProject from "../ConfirmDeleteProject";
+import ConfirmDelete from "../../Common/ConfirmDelete";
 
-export default function ProjectDetail({ project, onDelete, id }) {
+export default function ProjectDetail({ project, id }) {
   const [isEdit, setIsEdit] = useState(false);
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
     useState(false);
   const { mutate } = useSWR("/api/project");
+
   function onEdit() {
     setIsEdit(true);
   }
@@ -54,9 +55,23 @@ export default function ProjectDetail({ project, onDelete, id }) {
     setConfirmDeleteProjectStatus(false);
     router.push(`/${id}`);
   }
+
   function confirmDelete() {
     setConfirmDeleteProjectStatus(true);
   }
+
+  async function handleDeleteProject(proId) {
+    const response = fetch("/api/project", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(proId),
+    });
+    mutate();
+    router.push("/");
+  }
+
   return (
     <>
       {isEdit ? (
@@ -229,10 +244,10 @@ export default function ProjectDetail({ project, onDelete, id }) {
             </ButtonRowSection>
           </DetailContainer>
           {confirmDeleteProjectStatus && (
-            <ConfirmDeleteProject
-              id={id}
+            <ConfirmDelete
+              projectId={id}
               cancelDelete={cancelDelete}
-              onDelete={onDelete}
+              onDelete={handleDeleteProject}
             />
           )}
         </Main>

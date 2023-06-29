@@ -1,7 +1,6 @@
 import Heading from "../components/Common/Heading";
 import Projects from "../components/Project/Projects";
 import Navigation from "../components/Common/Navigation/index";
-import AddButton from "../components/Common/AddButton";
 import styled from "styled-components";
 import PreAddProject from "../components/Project/PreAddProject";
 import Categories from "../components/Project/Categories";
@@ -9,13 +8,26 @@ import SearchBar from "../components/Project/SearchBar";
 import { useState } from "react";
 import { Main, ColoredFont, BackDrop } from "../styles";
 
-export default function Home({ handlePreAddSubmit, projectsList }) {
+import { AddItemButton } from "../styles";
+export default function Home({ projectsList, setProjectName, router }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
   const [selectedProjectStatus, setSelectedProjectStatus] = useState("");
   const [inputQuery, setInputQuery] = useState();
 
   function handleAddNewProject() {
     setAddNewProjectStatus(!addNewProjectStatus);
+  }
+
+  if (!projectsList) {
+    return;
+  }
+  function handlePreAddSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    setProjectName(data.name);
+    router.push("/add-project");
   }
 
   function handleCancel() {
@@ -68,7 +80,7 @@ export default function Home({ handlePreAddSubmit, projectsList }) {
         handleClick={handleStatusClick}
         selectedProjectStatus={selectedProjectStatus}
       />
-      <AddButton handleClick={handleAddNewProject} />
+      <AddItemButton onClick={handleAddNewProject}>+</AddItemButton>
       {addNewProjectStatus && (
         <PreAddProject
           onCancel={handleCancel}

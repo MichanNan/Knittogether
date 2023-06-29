@@ -24,4 +24,26 @@ export default async function handler(request, response) {
       response.status(404).json("Create Failed");
     }
   }
+
+  if (request.method === "PUT") {
+    try {
+      const { id } = request.query;
+      await Yarn.findByIdAndUpdate(id, { $set: request.body });
+      response.status(201).json({ status: "yarn successfully updated" });
+    } catch (error) {
+      console.log(error);
+      response.status(404).json("Not Found");
+    }
+  }
+
+  if (request.method === "DELETE") {
+    try {
+      const { id } = request.query;
+      await Yarn.findByIdAndDelete(id);
+      response.status(201).json({ status: "yarn successfully deleted" });
+    } catch (error) {
+      console.log(error);
+      response.status(404).json("Not Found");
+    }
+  }
 }

@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { SWRConfig } from "swr";
 import useSWR from "swr";
-import { handleProjectRestructure } from "../components/Project/handleProjectRestructure";
 import { Lato } from "@next/font/google";
 import { uid } from "uid";
 
@@ -33,57 +32,7 @@ export default function App({ Component, pageProps }) {
 
   const router = useRouter();
 
-  const { data: projects, mutate } = useSWR("/api/project", fetcher);
-
-  function handlePreAddSubmit(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    console.log(data);
-    setProjectName(data.name);
-    router.push("/add-project");
-  }
-
-  async function handleAddProjectSubmit(event) {
-    event.preventDefault();
-    console.log("_app", event.target);
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-
-    const newProject = handleProjectRestructure(data, projectName, yarnData);
-
-    const response = await fetch("/api/project", {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ newProject }),
-    });
-
-    router.push("/");
-    mutate();
-  }
-
-  async function handleDeleteProject(projectId) {
-    const response = fetch("/api/project", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(projectId),
-    });
-    mutate();
-    router.push("/");
-  }
-
-  if (!projects) {
-    return;
-  }
-  function handleGoBack() {
-    router.push("/");
-  }
+  const { data: projects } = useSWR("/api/project", fetcher);
 
   return (
     <main className={lato.className}>
@@ -94,14 +43,12 @@ export default function App({ Component, pageProps }) {
         </Head>
         <Component
           {...pageProps}
-          handlePreAddSubmit={handlePreAddSubmit}
           projectName={projectName}
-          onSubmit={handleAddProjectSubmit}
+          setProjectName={setProjectName}
           projectsList={projects}
-          onDelete={handleDeleteProject}
-          onCancel={handleGoBack}
           setYarnData={setYarnData}
           yarnData={yarnData}
+          router={router}
         />
       </SWRConfig>
     </main>

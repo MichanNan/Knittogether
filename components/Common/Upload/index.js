@@ -1,23 +1,34 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { ColoredFont, HeavyFont } from "../../../styles";
 
-async function uploading(data) {
-  const res = await fetch(
-    "https://api.cloudinary.com/v1_1/dw4kyffua/image/upload",
-    {
-      method: "post",
-      body: data,
+export default function Upload({
+  setYarnImageUrl,
+  isYarnEdit,
+  editedYarnStock,
+}) {
+  const initYarnImage = isYarnEdit ? editedYarnStock.image : "/cumulustee.jpg";
+
+  useEffect(() => {
+    if (setYarnImageUrl) {
+      setYarnImageUrl("/cumulustee.jpg");
     }
-  );
-  const resj = await res.json();
-  console.log(resj);
+  }, []);
 
-  return resj.url;
-}
+  const [file, setFile] = useState(initYarnImage);
+  async function uploading(data) {
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dw4kyffua/image/upload",
+      {
+        method: "post",
+        body: data,
+      }
+    );
+    const resj = await res.json();
 
-export default function Upload({ setImageUrl }) {
-  const [file, setFile] = useState("");
+    return resj.url;
+  }
   async function handleChange(e) {
     const data = new FormData();
     data.append("file", e.target.files[0]);
@@ -25,15 +36,27 @@ export default function Upload({ setImageUrl }) {
     data.append("cloud_name", "dw4kyffua");
 
     const url = await uploading(data);
-    console.log(url);
+
     setFile(url);
-    setImageUrl(url);
+    setYarnImageUrl(url);
   }
 
   return (
     <UploadedFile className="App">
-      <h4>Add Image:</h4>
-      <input type="file" onChange={handleChange} />
+      <Wrapper>
+        <HeavyFont>
+          <ColoredFont>Add Image:</ColoredFont>
+        </HeavyFont>
+        <Label htmlFor="file">Click here to Upload </Label>
+        <Input
+          id="file"
+          name="file"
+          width="20rem"
+          height="2rem"
+          type="file"
+          onChange={handleChange}
+        />
+      </Wrapper>
       {file && (
         <Image src={file} alt="project-image" width={200} height={200} />
       )}
@@ -46,4 +69,30 @@ const UploadedFile = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
+`;
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+`;
+const Label = styled.label`
+  width: 9rem;
+  height: 2rem;
+  /* background-color: #f5f5f5; */
+  /* border-radius: 0.5rem; */
+  line-height: 2rem;
+  text-align: center;
+  margin: 0 auto;
+  /* border: solid 0.1rem #e07008; */
+
+  box-shadow: 0.1rem 0.1rem 0.3rem #cccccc;
+  font-weight: 100;
+`;
+const Input = styled.input`
+  width: 11rem;
+  height: 2rem;
+  border: none;
+  display: none;
 `;

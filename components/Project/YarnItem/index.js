@@ -5,71 +5,47 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
     <>
       <YarnWrapper>
         <label htmlFor="brand">Brand</label>
-        <StyledInput
+        <YarnItemInput
           name="brand"
           type="text"
-          radius="0.5rem"
-          height="2rem"
-          width="7rem"
-          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn.brand : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
-        ></StyledInput>
+        />
         <label htmlFor="skein">Skein</label>
-        <StyledInput
+        <YarnItemInput
           name="skein"
           type="text"
-          radius="0.5rem"
-          height="2rem"
-          width="7rem"
-          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn?.skein : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
-        ></StyledInput>
+        />
         <label htmlFor="type">Type</label>
-        <StyledInput
+        <YarnItemInput
           name="type"
           type="text"
-          radius="0.5rem"
-          height="2rem"
-          width="7rem"
-          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn.type : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
-        ></StyledInput>
+        />
         <label htmlFor="color">color</label>
-        <StyledInput
+        <YarnItemInput
           name="color"
           type="text"
-          radius="0.5rem"
-          height="2rem"
-          width="7rem"
-          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn.color : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
-        ></StyledInput>
+        />
         <label htmlFor="gramm">Gramm</label>
-        <StyledInput
+        <YarnItemInput
           name="gramm"
           type="text"
-          radius="0.5rem"
-          height="2rem"
-          width="7rem"
-          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn?.gramm : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
-        ></StyledInput>
+        />
         <label htmlFor="meter">Meter</label>
-        <StyledInput
+        <YarnItemInput
           name="meter"
           type="text"
-          radius="0.5rem"
-          height="2rem"
-          width="7rem"
-          backgroundColor="#f5f5f5"
           defaultValue={isEdit ? defaultYarn.meter : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
-        ></StyledInput>
+        />
       </YarnWrapper>
     </>
   );
@@ -81,3 +57,14 @@ const YarnWrapper = styled.div`
   grid-gap: 0.5rem 0rem;
   z-index: 99;
 `;
+const YarnItemInput = styled(({ name, defaultValue, onChange }) => (
+  <StyledInput
+    radius="0.5rem"
+    height="2rem"
+    width="7rem"
+    backgroundColor="#f5f5f5"
+    name={name}
+    defaultValue={defaultValue}
+    onChange={onChange}
+  />
+))``;
