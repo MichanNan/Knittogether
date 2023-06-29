@@ -16,40 +16,19 @@ import {
   SubTitle,
 } from "../../../styles";
 
-import { handleProjectRestructure } from "../handleProjectRestructure";
-
 import ConfirmDelete from "../../Common/ConfirmDelete";
 
 export default function ProjectDetail({ project, id }) {
   const [isEdit, setIsEdit] = useState(false);
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
     useState(false);
+
   const { mutate } = useSWR("/api/project");
 
   function onEdit() {
     setIsEdit(true);
   }
   const router = useRouter();
-
-  async function handleProjectUpdate(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-
-    const newProject = handleProjectRestructure(data, data.name, yarnData);
-
-    const response = await fetch(`/api/project?id=${id}`, {
-      method: "PUT",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProject),
-    });
-
-    setIsEdit(!isEdit);
-    mutate();
-  }
 
   function cancelDelete() {
     setConfirmDeleteProjectStatus(false);
@@ -88,7 +67,6 @@ export default function ProjectDetail({ project, id }) {
             isEdit
             setIsEdit={setIsEdit}
             project={project}
-            onSubmit={handleProjectUpdate}
             buttonContentLeft="Cancel"
             buttonContentRight="Confirm"
           />

@@ -48,7 +48,11 @@ export default function ProjectForm({
     }
   }, [isEdit]);
 
+  //store the new created yarn data in the state
   const [yarnData, setYarnData] = useState(yarnDataOrg);
+
+  //to get the image url store url in projectImageUrl state
+  const [projectImageUrl, setProjectImageUrl] = useState("");
 
   const router = useRouter();
   const { mutate } = useSWR("/api/project");
@@ -62,13 +66,18 @@ export default function ProjectForm({
     }
   }
 
-  //function for update information in edit mode
+  //function for update project information in edit mode
   async function handleUpdate(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    let newProject = handleProjectRestructure(data, data.name, existedYarn);
+    let newProject = handleProjectRestructure(
+      data,
+      data.name,
+      existedYarn,
+      projectImageUrl
+    );
 
     const response = await fetch(`/api/project?id=${project._id}`, {
       method: "PUT",
@@ -88,7 +97,12 @@ export default function ProjectForm({
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const newProject = handleProjectRestructure(data, projectName, yarnData);
+    const newProject = handleProjectRestructure(
+      data,
+      projectName,
+      yarnData,
+      projectImageUrl
+    );
 
     const response = await fetch("/api/project", {
       method: "POST",
@@ -213,7 +227,11 @@ export default function ProjectForm({
             <option value="bad">Bad</option>
           </StyledSelect>
         </RowSection>
-        <Upload />
+        <Upload
+          setProjectImageUrl={setProjectImageUrl}
+          isProjectEdit={isEdit}
+          existedProject={project}
+        />
         {/* -----------------------------------------------------end status and happiness select section------------------------------------------ */}
         {/* ----------------------------------------------------------start name input section------------------------------------------------------- */}
         <ColumnSection>

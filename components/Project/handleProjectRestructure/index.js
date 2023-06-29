@@ -1,5 +1,10 @@
 import dayjs from "dayjs";
-export function handleProjectRestructure(data, projectName, yarnData) {
+export function handleProjectRestructure(
+  data,
+  projectName,
+  yarnData,
+  projectImageUrl
+) {
   const newStart = new Date(data.start);
   const newEnd = new Date(data.end);
 
@@ -7,7 +12,7 @@ export function handleProjectRestructure(data, projectName, yarnData) {
     name: projectName,
     status: data.status,
     happiness: data.happiness,
-    image: "/cumulustee.jpg",
+    image: projectImageUrl,
     details: [
       {
         recipient: data.recipient,
