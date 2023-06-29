@@ -92,7 +92,7 @@ export default function YarnStockList({ isYarnEdit, setIsYarnEdit }) {
 }
 
 const YarnListContainer = styled.div`
-  margin-top: 4rem;
+  margin-top: 3rem;
   margin-bottom: 5rem;
   display: flex;
   flex-direction: column;
