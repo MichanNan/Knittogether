@@ -19,7 +19,7 @@ export default function ProjectForm({
   buttonContentRight,
   projectName,
 }) {
-  const buttonPosition = 55;
+  const buttonPosition = 52;
   const buttonPositionIndex = 11.2;
   //initial data for edit mode(edit a detail page)
   const [existedYarn, setExistedYarn] = useState([]);
