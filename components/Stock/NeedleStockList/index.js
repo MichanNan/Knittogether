@@ -7,7 +7,7 @@ export default function NeedleStockList() {
   if (!needles) {
     return;
   }
-  console.log(needles);
+
   return (
     <Wrapper>
       <div>

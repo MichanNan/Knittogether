@@ -3,7 +3,6 @@ import styled from "styled-components";
 export default function StockCategories({ stockContent, setStockContent }) {
   function handleClick(event) {
     setStockContent(event.target.innerText);
-    console.log();
   }
   return (
     <Wrapper>
