@@ -4,8 +4,11 @@ import Heading from "../../components/Common/Heading";
 import YarnStockForm from "../../components/Stock/YarnStockForm";
 import { AddItemButton, Main } from "../../styles";
 import { useState } from "react";
+import StockCategories from "../../components/Stock/StockCategories";
+import NeedleStockList from "../../components/Stock/NeedleStockList";
 
 export default function YarnsStockPage() {
+  const [stockContent, setStockContent] = useState("Yarn Stock");
   const [addYarnStockStatus, setAddYarnStockStatus] = useState(false);
   const [isYarnEdit, setIsYarnEdit] = useState(false);
   function handleAddYarnStock() {
@@ -13,8 +16,12 @@ export default function YarnsStockPage() {
   }
   return (
     <Main>
-      <Heading>Yarn Stocks</Heading>
-      {!addYarnStockStatus && (
+      <StockCategories
+        stockContent={stockContent}
+        setStockContent={setStockContent}
+      />
+      <Heading>My Stocks</Heading>
+      {!addYarnStockStatus && stockContent === "Yarn Stock" && (
         <>
           <YarnStockList
             isYarnEdit={isYarnEdit}
@@ -26,8 +33,13 @@ export default function YarnsStockPage() {
           )}
         </>
       )}
-      {addYarnStockStatus && (
+      {addYarnStockStatus && stockContent === "Yarn Stock" && (
         <YarnStockForm setAddYarnStockStatus={setAddYarnStockStatus} />
+      )}
+      {stockContent === "Needle Stock" && (
+        <>
+          <NeedleStockList /> <Navigation />
+        </>
       )}
     </Main>
   );
