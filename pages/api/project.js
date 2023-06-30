@@ -9,7 +9,7 @@ export default async function handler(request, response) {
       const projects = await Project.find().sort({ createdAt: -1 });
       response.status(200).json(projects);
     } catch (error) {
-      response.status(404).json("Not Found");
+      response.status(404).json({ message: "Not Found" });
       console.log(error);
     }
   }
@@ -18,9 +18,9 @@ export default async function handler(request, response) {
     try {
       const { newProject } = request.body;
       await Project.create(newProject);
-      response.status(201).json({ status: "project created" });
+      response.status(201).json({ message: "project created" });
     } catch (error) {
-      response.status(404).json("Not Found");
+      response.status(404).json({ message: "Not Found" });
       console.log(error);
     }
   }
@@ -28,9 +28,9 @@ export default async function handler(request, response) {
     try {
       const { id } = request.query;
       await Project.findByIdAndUpdate(id, { $set: request.body });
-      response.status(201).json({ status: "project successfully updated" });
+      response.status(201).json({ message: "project successfully updated" });
     } catch (error) {
-      response.status(404).json("Not Found");
+      response.status(404).json({ message: "Not Found" });
       console.log(error);
     }
   }
@@ -39,9 +39,9 @@ export default async function handler(request, response) {
     try {
       const id = request.body;
       await Project.findByIdAndDelete(id);
-      response.status(200).json({ status: "project deleted" });
+      response.status(200).json({ message: "project deleted" });
     } catch (error) {
-      response.status(404).json("Not Found");
+      response.status(404).json({ message: "Not Found" });
       console.log(error);
     }
   }

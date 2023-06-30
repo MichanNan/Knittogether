@@ -492,7 +492,7 @@ const ToggleYarnButton = styled.div`
   background-color: #e07008;
   box-shadow: 0.1rem 0.1rem 0.3rem #ad5707;
 `;
-const ProjectInput = styled(({ name, defaultValue }) => (
+const ProjectInput = styled(({ name, defaultValue, type }) => (
   <StyledInput
     radius="0.5rem"
     height="2rem"
@@ -500,5 +500,6 @@ const ProjectInput = styled(({ name, defaultValue }) => (
     backgroundColor="#f5f5f5"
     name={name}
     defaultValue={defaultValue}
+    type={type}
   />
 ))``;

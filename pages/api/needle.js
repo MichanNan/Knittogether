@@ -18,10 +18,10 @@ export default async function handler(request, response) {
     try {
       const data = request.body;
       await Needle.create(data);
-      response.status(201).json({ status: "Needle Created" });
+      response.status(201).json({ message: "Needle Created" });
     } catch (error) {
       console.log(error);
-      response.status(404).json("Create Failed");
+      response.status(404).json({ message: "Create Failed" });
     }
   }
 
@@ -29,10 +29,10 @@ export default async function handler(request, response) {
     try {
       const { id } = request.query;
       await Needle.findByIdAndUpdate(id, { $set: request.body });
-      response.status(201).json({ status: "yarn successfully updated" });
+      response.status(201).json({ message: "yarn successfully updated" });
     } catch (error) {
       console.log(error);
-      response.status(404).json("Not Found");
+      response.status(404).json({ message: "Not Found" });
     }
   }
 
@@ -40,10 +40,10 @@ export default async function handler(request, response) {
     try {
       const { id } = request.query;
       await Needle.findByIdAndDelete(id);
-      response.status(201).json({ status: "needle successfully deleted" });
+      response.status(201).json({ message: "needle successfully deleted" });
     } catch (error) {
       console.log(error);
-      response.status(404).json("Not Found");
+      response.status(404).json({ message: "Not Found" });
     }
   }
 }
