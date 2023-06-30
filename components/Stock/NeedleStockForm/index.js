@@ -17,7 +17,7 @@ export default function NeedleStockForm({
 }) {
   const router = useRouter();
   const { mutate } = useSWR("/api/needle");
-  const id = editedNeedleStock._id;
+  const id = editedNeedleStock?._id;
   function handleCancelAddNeedleStock() {
     setAddNeedleStockStatus(false);
   }
