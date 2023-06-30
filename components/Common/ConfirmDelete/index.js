@@ -6,10 +6,16 @@ export default function ConfirmDelete({
   projectId,
   cancelDelete,
   onDelete,
+
   deleteYarnStockStatus,
   yarnId,
   handleDeleteExistedYarn,
   cancelDeleteYarnStock,
+
+  deleteNeedleStockStatus,
+  needleId,
+  handleDeleteExistedNeedle,
+  cancelDeleteNeedleStock,
 }) {
   let deleteItem = "";
   if (deleteYarnStockStatus) {
@@ -17,12 +23,13 @@ export default function ConfirmDelete({
   } else {
     deleteItem = "project";
   }
+  if (deleteNeedleStockStatus) deleteItem = "needle";
 
   return (
     <>
       <Wrapper>
         <p>{`Are you sure to delete the ${deleteItem}?`}</p>
-        {!deleteYarnStockStatus && (
+        {!deleteYarnStockStatus && !deleteNeedleStockStatus && (
           <ButtonContainer>
             <StyledButton width="6rem" height="2rem" onClick={cancelDelete}>
               Cancel
@@ -49,6 +56,24 @@ export default function ConfirmDelete({
               width="6rem"
               height="2rem"
               onClick={() => handleDeleteExistedYarn(yarnId)}
+            >
+              Delete
+            </StyledButton>
+          </ButtonContainer>
+        )}
+        {deleteNeedleStockStatus && (
+          <ButtonContainer>
+            <StyledButton
+              width="6rem"
+              height="2rem"
+              onClick={cancelDeleteNeedleStock}
+            >
+              Cancel
+            </StyledButton>
+            <StyledButton
+              width="6rem"
+              height="2rem"
+              onClick={() => handleDeleteExistedNeedle(needleId)}
             >
               Delete
             </StyledButton>

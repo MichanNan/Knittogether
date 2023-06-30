@@ -79,8 +79,9 @@ export const LightFont = styled.p`
 export const BackDrop = styled.div`
   position: fixed;
   top: 0;
+  left: 0;
   float: right;
-  width: 375px;
+  width: 500px;
   height: 100%;
   background-color: #cccccc;
   opacity: 0.6;

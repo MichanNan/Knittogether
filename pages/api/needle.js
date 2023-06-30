@@ -28,7 +28,7 @@ export default async function handler(request, response) {
   if (request.method === "PUT") {
     try {
       const { id } = request.query;
-      await Yarn.findByIdAndUpdate(id, { $set: request.body });
+      await Needle.findByIdAndUpdate(id, { $set: request.body });
       response.status(201).json({ status: "yarn successfully updated" });
     } catch (error) {
       console.log(error);
@@ -39,8 +39,8 @@ export default async function handler(request, response) {
   if (request.method === "DELETE") {
     try {
       const { id } = request.query;
-      await Yarn.findByIdAndDelete(id);
-      response.status(201).json({ status: "yarn successfully deleted" });
+      await Needle.findByIdAndDelete(id);
+      response.status(201).json({ status: "needle successfully deleted" });
     } catch (error) {
       console.log(error);
       response.status(404).json("Not Found");
