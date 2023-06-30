@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { ImageWrapper } from "../../../styles";
-
+import dayjs from "dayjs";
 export default function ProjectPreview({ project }) {
   return (
     <ProjectItem key={project._id}>
@@ -22,7 +22,11 @@ export default function ProjectPreview({ project }) {
         {project.status === "planned" ? (
           <span>not started yet</span>
         ) : (
-          <span>{`Started at:${project.details[0].start}`}</span>
+          <span>{`Started at:${
+            project.details[0].start
+              ? dayjs(project.details[0].start).format("DD-MM-YYYY")
+              : "not available"
+          }`}</span>
         )}
         <span> {`For ${project.details[0].recipient}`}</span>
       </ProjectPrevInfo>

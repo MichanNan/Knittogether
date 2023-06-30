@@ -15,6 +15,7 @@ import {
   ImageWrapper,
   SubTitle,
 } from "../../../styles";
+import dayjs from "dayjs";
 
 import ConfirmDelete from "../../Common/ConfirmDelete";
 
@@ -138,14 +139,18 @@ export default function ProjectDetail({ project, id }) {
                   <p>Start:</p>
                 </HeavyFont>
                 <LightFont>
-                  <span>{project.details[0].start}</span>
+                  <span>
+                    {dayjs(project.details[0].start).format("DD-MM-YYYY")}
+                  </span>
                 </LightFont>
 
                 <HeavyFont>
                   <p>End:</p>
                 </HeavyFont>
                 <LightFont>
-                  <span>{project.details[0].end}</span>
+                  <span>
+                    {dayjs(project.details[0].end).format("DD-MM-YYYY")}
+                  </span>
                 </LightFont>
               </DetailRowSection>
             </ProjectSectionContainer>
