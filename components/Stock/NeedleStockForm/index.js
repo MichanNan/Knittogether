@@ -18,6 +18,7 @@ export default function NeedleStockForm({
   const router = useRouter();
   const { mutate } = useSWR("/api/needle");
   const id = editedNeedleStock?._id;
+
   function handleCancelAddNeedleStock() {
     setAddNeedleStockStatus(false);
   }
@@ -61,18 +62,38 @@ export default function NeedleStockForm({
   }
   return (
     <>
-      <Heading>
-        <BackIcon handleGoBack={handleCancelEditNeedleStock} />
-        {isNeedleEdit ? "Edit Needle" : "Add Needle"}
-      </Heading>
+      {isNeedleEdit ? (
+        <Heading>
+          <BackIcon handleGoBack={handleCancelEditNeedleStock} />
+          Edit Needle
+        </Heading>
+      ) : (
+        <Heading>
+          <BackIcon handleGoBack={handleCancelAddNeedleStock} />
+          Add Needle
+        </Heading>
+      )}
+
       {isNeedleEdit ? (
         <NeedleForm onSubmit={(event) => handleUpdateNeedleStockSubmit(event)}>
           <label htmlFor="size">Size:</label>
-          <NeedleInput name="size" defaultValue={editedNeedleStock.size} />
+          <NeedleInput
+            name="size"
+            defaultValue={editedNeedleStock.size}
+            maxLength="10"
+          />
           <label htmlFor="length">Length:</label>
-          <NeedleInput name="length" defaultValue={editedNeedleStock.length} />
+          <NeedleInput
+            name="length"
+            defaultValue={editedNeedleStock.length}
+            maxLength="10"
+          />
           <label htmlFor="amount">Amount:</label>
-          <NeedleInput name="amount" defaultValue={editedNeedleStock.amount} />
+          <NeedleInput
+            name="amount"
+            defaultValue={editedNeedleStock.amount}
+            maxLength="10"
+          />
           <ButtonContainer>
             <StyledButton
               width="8rem"
@@ -120,7 +141,7 @@ const NeedleForm = styled.form`
   gap: 0.5rem;
   padding-bottom: 3rem;
 `;
-const NeedleInput = styled(({ name, defaultValue }) => (
+const NeedleInput = styled(({ name, defaultValue, maxLength }) => (
   <StyledInput
     width="15rem"
     height="3rem"
@@ -128,5 +149,6 @@ const NeedleInput = styled(({ name, defaultValue }) => (
     backgroundColor="#f5f5f5"
     name={name}
     defaultValue={defaultValue}
+    maxLength={maxLength}
   />
 ))``;
