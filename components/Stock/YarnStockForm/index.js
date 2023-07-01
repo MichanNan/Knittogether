@@ -86,17 +86,41 @@ export default function YarnStockForm({
           />
 
           <label htmlFor="brand">Brand</label>
-          <YarnInput name="brand" defaultValue={editedYarnStock.brand} />
+          <YarnInput
+            name="brand"
+            defaultValue={editedYarnStock.brand}
+            maxLength={10}
+          />
           <label htmlFor="type">Type</label>
-          <YarnInput name="type" defaultValue={editedYarnStock.type} />
+          <YarnInput
+            name="type"
+            defaultValue={editedYarnStock.type}
+            maxLength={10}
+          />
           <label htmlFor="gramm">Weight per skein</label>
-          <YarnInput name="gramm" defaultValue={editedYarnStock.gramm} />
+          <YarnInput
+            name="gramm"
+            defaultValue={editedYarnStock.gramm}
+            maxLength={10}
+          />
           <label htmlFor="meter">Length per skein</label>
-          <YarnInput name="meter" defaultValue={editedYarnStock.meter} />
+          <YarnInput
+            name="meter"
+            defaultValue={editedYarnStock.meter}
+            maxLength={10}
+          />
           <label htmlFor="color">Color</label>
-          <YarnInput name="color" defaultValue={editedYarnStock.color} />
+          <YarnInput
+            name="color"
+            defaultValue={editedYarnStock.color}
+            maxLength={10}
+          />
           <label htmlFor="skein">Skein</label>
-          <YarnInput name="skein" defaultValue={editedYarnStock.skein} />
+          <YarnInput
+            name="skein"
+            defaultValue={editedYarnStock.skein}
+            maxLength={10}
+          />
 
           <ButtonContainer>
             <StyledButton
@@ -115,17 +139,17 @@ export default function YarnStockForm({
         <YarnForm onSubmit={(event) => handleAddYarnStockSubmit(event)}>
           <Upload setYarnImageUrl={setYarnImageUrl} />
           <label htmlFor="brand">Brand</label>
-          <YarnInput name="brand" />
+          <YarnInput name="brand" maxLength={10} />
           <label htmlFor="type">Type</label>
-          <YarnInput name="type" />
+          <YarnInput name="type" maxLength={10} />
           <label htmlFor="gramm">Weight per skein</label>
-          <YarnInput name="gramm" />
+          <YarnInput name="gramm" maxLength={10} />
           <label htmlFor="meter">Length per skein</label>
-          <YarnInput name="meter" />
+          <YarnInput name="meter" maxLength={10} />
           <label htmlFor="color">Color</label>
-          <YarnInput name="color" />
+          <YarnInput name="color" maxLength={10} />
           <label htmlFor="skein">Skein</label>
-          <YarnInput name="skein" />
+          <YarnInput name="skein" maxLength={10} />
 
           <ButtonContainer>
             <StyledButton
@@ -153,7 +177,7 @@ const YarnForm = styled.form`
   gap: 0.5rem;
   padding-bottom: 3rem;
 `;
-const YarnInput = styled(({ name, defaultValue }) => (
+const YarnInput = styled(({ name, defaultValue, maxLength }) => (
   <StyledInput
     width="15rem"
     height="3rem"
@@ -161,5 +185,6 @@ const YarnInput = styled(({ name, defaultValue }) => (
     backgroundColor="#f5f5f5"
     name={name}
     defaultValue={defaultValue}
+    maxLength={maxLength}
   />
 ))``;

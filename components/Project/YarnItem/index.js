@@ -8,6 +8,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
         <YarnItemInput
           name="brand"
           type="text"
+          maxLength={10}
           defaultValue={isEdit ? defaultYarn.brand : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         />
@@ -15,6 +16,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
         <YarnItemInput
           name="skein"
           type="text"
+          maxLength={5}
           defaultValue={isEdit ? defaultYarn?.skein : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         />
@@ -22,6 +24,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
         <YarnItemInput
           name="type"
           type="text"
+          maxLength={10}
           defaultValue={isEdit ? defaultYarn.type : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         />
@@ -29,6 +32,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
         <YarnItemInput
           name="color"
           type="text"
+          maxLength={10}
           defaultValue={isEdit ? defaultYarn.color : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         />
@@ -36,6 +40,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
         <YarnItemInput
           name="gramm"
           type="text"
+          maxLength={10}
           defaultValue={isEdit ? defaultYarn?.gramm : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         />
@@ -43,6 +48,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
         <YarnItemInput
           name="meter"
           type="text"
+          maxLength={10}
           defaultValue={isEdit ? defaultYarn.meter : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         />
@@ -57,7 +63,7 @@ const YarnWrapper = styled.div`
   grid-gap: 0.5rem 0rem;
   z-index: 99;
 `;
-const YarnItemInput = styled(({ name, defaultValue, onChange }) => (
+const YarnItemInput = styled(({ name, defaultValue, onChange, maxLength }) => (
   <StyledInput
     radius="0.5rem"
     height="2rem"
@@ -66,5 +72,6 @@ const YarnItemInput = styled(({ name, defaultValue, onChange }) => (
     name={name}
     defaultValue={defaultValue}
     onChange={onChange}
+    maxLength={maxLength}
   />
 ))``;

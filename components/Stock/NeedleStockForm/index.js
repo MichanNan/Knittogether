@@ -80,19 +80,19 @@ export default function NeedleStockForm({
           <NeedleInput
             name="size"
             defaultValue={editedNeedleStock.size}
-            maxLength="10"
+            maxLength={10}
           />
           <label htmlFor="length">Length:</label>
           <NeedleInput
             name="length"
             defaultValue={editedNeedleStock.length}
-            maxLength="10"
+            maxLength={10}
           />
           <label htmlFor="amount">Amount:</label>
           <NeedleInput
             name="amount"
             defaultValue={editedNeedleStock.amount}
-            maxLength="10"
+            maxLength={10}
           />
           <ButtonContainer>
             <StyledButton
@@ -110,11 +110,11 @@ export default function NeedleStockForm({
       ) : (
         <NeedleForm onSubmit={handleAddNewNeedleStock}>
           <label htmlFor="size">Size:</label>
-          <NeedleInput name="size" />
+          <NeedleInput name="size" maxLength={10} />
           <label htmlFor="length">Length:</label>
-          <NeedleInput name="length" />
+          <NeedleInput name="length" maxLength={10} />
           <label htmlFor="amount">Amount:</label>
-          <NeedleInput name="amount" />
+          <NeedleInput name="amount" maxLength={10} />
           <ButtonContainer>
             <StyledButton
               width="8rem"
