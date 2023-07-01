@@ -49,6 +49,7 @@ export default function App({ Component, pageProps }) {
           setYarnData={setYarnData}
           yarnData={yarnData}
           router={router}
+          projects={projects}
         />
       </SWRConfig>
     </main>
