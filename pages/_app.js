@@ -33,7 +33,9 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
 
   const { data: projects } = useSWR("/api/project", fetcher);
-
+  if (!projects) {
+    return;
+  }
   return (
     <main className={lato.className}>
       <SWRConfig value={{ fetcher }}>

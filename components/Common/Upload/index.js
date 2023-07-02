@@ -55,7 +55,7 @@ export default function Upload({
     const data = new FormData();
     data.append("file", e.target.files[0]);
     data.append("upload_preset", "project-image");
-    data.append("cloud_name", "dw4kyffua");
+    data.append("cloud_name", process.env.CLOUDINARY_CLOUD_NAME);
 
     const url = await uploading(data);
 

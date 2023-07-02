@@ -113,7 +113,7 @@ export default function ProjectForm({
       body: JSON.stringify({ newProject }),
     });
 
-    router.push("/");
+    router.push("/project");
     mutate();
   }
 

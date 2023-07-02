@@ -3,9 +3,9 @@ import Link from "next/link";
 import styled from "styled-components";
 import { ImageWrapper } from "../../../styles";
 import dayjs from "dayjs";
-export default function ProjectPreview({ project }) {
+export default function ProjectPreview({ project, width, height }) {
   return (
-    <ProjectItem key={project._id}>
+    <ProjectItem key={project._id} width={width} height={height}>
       <ProjectPreviewTitle>{project.name}</ProjectPreviewTitle>
       <Link href={`/${project._id}`}>
         <ImageWrapper>
@@ -39,6 +39,8 @@ const ProjectItem = styled.li`
   align-items: center;
   gap: 0.5rem;
   font-size: 1rem;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
 `;
 const ProjectPreviewTitle = styled.h3`
   font-size: 2rem;

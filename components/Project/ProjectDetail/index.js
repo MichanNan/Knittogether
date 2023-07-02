@@ -49,7 +49,7 @@ export default function ProjectDetail({ project, id }) {
       body: JSON.stringify(proId),
     });
     mutate();
-    router.push("/");
+    router.push("/project");
   }
 
   return (
@@ -77,7 +77,7 @@ export default function ProjectDetail({ project, id }) {
           <Heading>
             <BackIcon
               handleGoBack={() => {
-                router.push("/");
+                router.back();
               }}
             />
             {project.name}

@@ -26,7 +26,7 @@ export const Main = styled.main`
   width: 100%;
   margin: 0 auto;
   top: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 3rem;
 `;
 
 export const AddItemButton = styled.button`
