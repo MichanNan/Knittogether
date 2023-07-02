@@ -124,7 +124,7 @@ const InfoWrapper = styled.div`
 `;
 
 const ActiveProjectContainer = styled.section`
-  width: 100%;
+  width: 90%;
   display: flex;
   overflow-x: auto;
   overflow-y: visible;
@@ -132,7 +132,7 @@ const ActiveProjectContainer = styled.section`
   gap: 1rem;
   position: relative;
   top: 2rem;
-  margin-left: 2rem;
+  margin: 0 2rem;
   transform: translateY(-1rem);
 `;
 const ProjectItemWrapper = styled.div`
