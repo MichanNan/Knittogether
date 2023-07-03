@@ -5,9 +5,10 @@ export function handleProjectRestructure(
   yarnData,
   projectImageUrl
 ) {
-  const newStart = new Date(data.start);
-  const newEnd = new Date(data.end);
-
+  const newStart = new Date(data.start).toLocaleDateString();
+  const newEnd = new Date(data.end).toLocaleDateString();
+  const startDate = data.start ? data.start : "not available";
+  const endDate = data.end ? data.end : "not available";
   const newProject = {
     name: projectName,
     status: data.status,
@@ -19,8 +20,8 @@ export function handleProjectRestructure(
         size: data.size,
         gauge: data.gauge,
         needleSize: data.needlesize,
-        start: dayjs(newStart).format("DD-MM-YYYY"),
-        end: dayjs(newEnd).format("DD-MM-YYYY"),
+        start: startDate,
+        end: endDate,
       },
     ],
     pattern: "",

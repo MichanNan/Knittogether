@@ -12,6 +12,7 @@ export default function YarnsStockPage() {
   const [stockContent, setStockContent] = useState("Yarn Stock");
   const [addYarnStockStatus, setAddYarnStockStatus] = useState(false);
   const [isYarnEdit, setIsYarnEdit] = useState(false);
+  const [isNeedleEdit, setIsNeedleEdit] = useState(false);
 
   const [addNeedleStockStatus, setAddNeedleStockStatus] = useState(false);
 
@@ -27,10 +28,12 @@ export default function YarnsStockPage() {
       <Heading>My Stocks</Heading>
       {!addYarnStockStatus && stockContent === "Yarn Stock" && (
         <>
-          <StockCategories
-            stockContent={stockContent}
-            setStockContent={setStockContent}
-          />
+          {!isYarnEdit && (
+            <StockCategories
+              stockContent={stockContent}
+              setStockContent={setStockContent}
+            />
+          )}
           <YarnStockList
             isYarnEdit={isYarnEdit}
             setIsYarnEdit={setIsYarnEdit}
@@ -48,12 +51,20 @@ export default function YarnsStockPage() {
 
       {!addNeedleStockStatus && stockContent === "Needle Stock" && (
         <>
-          <StockCategories
-            stockContent={stockContent}
-            setStockContent={setStockContent}
+          {!isNeedleEdit && (
+            <StockCategories
+              stockContent={stockContent}
+              setStockContent={setStockContent}
+            />
+          )}
+          <NeedleStockList
+            isNeedleEdit={isNeedleEdit}
+            setIsNeedleEdit={setIsNeedleEdit}
           />
-          <NeedleStockList /> <Navigation />
-          <AddItemButton onClick={handleAddNeedleStock}>+</AddItemButton>
+          <Navigation />
+          {!isNeedleEdit && (
+            <AddItemButton onClick={handleAddNeedleStock}>+</AddItemButton>
+          )}
         </>
       )}
       {addNeedleStockStatus && (

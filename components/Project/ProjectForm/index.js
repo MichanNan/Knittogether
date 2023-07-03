@@ -19,7 +19,7 @@ export default function ProjectForm({
   buttonContentRight,
   projectName,
 }) {
-  const buttonPosition = 55;
+  const buttonPosition = 52;
   const buttonPositionIndex = 11.2;
   //initial data for edit mode(edit a detail page)
   const [existedYarn, setExistedYarn] = useState([]);
@@ -241,7 +241,7 @@ export default function ProjectForm({
           <ProjectInput
             name="name"
             type="text"
-            maxLength="20"
+            maxLength={20}
             defaultValue={isEdit ? project.name : projectName}
           />
         </ColumnSection>
@@ -259,27 +259,28 @@ export default function ProjectForm({
           <ProjectInput
             name="recipient"
             type="text"
-            maxLength="20"
+            maxLength={20}
             defaultValue={isEdit ? project.details[0].recipient : ""}
           />
           <label htmlFor="size">Size</label>
           <ProjectInput
             name="size"
             type="text"
-            maxLength="5"
+            maxLength={5}
             defaultValue={isEdit ? project.details[0].size : ""}
           />
           <label htmlFor="gauge">Gauge</label>
           <ProjectInput
             name="gauge"
             type="text"
-            maxLength="10"
+            maxLength={10}
             defaultValue={isEdit ? project.details[0].gauge : ""}
           />
           <label htmlFor="needlesize">Needle Size</label>
           <ProjectInput
             name="needlesize"
             type="text"
+            maxLength={10}
             defaultValue={isEdit ? project.details[0].needleSize : ""}
           />
           <label htmlFor="start">Start at</label>
@@ -492,7 +493,7 @@ const ToggleYarnButton = styled.div`
   background-color: #e07008;
   box-shadow: 0.1rem 0.1rem 0.3rem #ad5707;
 `;
-const ProjectInput = styled(({ name, defaultValue }) => (
+const ProjectInput = styled(({ name, defaultValue, type, maxLength }) => (
   <StyledInput
     radius="0.5rem"
     height="2rem"
@@ -500,5 +501,7 @@ const ProjectInput = styled(({ name, defaultValue }) => (
     backgroundColor="#f5f5f5"
     name={name}
     defaultValue={defaultValue}
+    type={type}
+    maxLength={maxLength}
   />
 ))``;
