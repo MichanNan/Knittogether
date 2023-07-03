@@ -14,7 +14,7 @@ export default function AddProjectPage({
         <Heading>
           <BackIcon
             handleGoBack={() => {
-              router.push("/");
+              router.back();
             }}
           />
           {projectName}

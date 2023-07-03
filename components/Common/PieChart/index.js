@@ -126,7 +126,7 @@ export default function PieChart({
   }%`;
 
   return (
-    <>
+    <ChartContainer>
       <LegendContainer>
         <LegendItem color="#e38b29" />
         <LegendText>Planned</LegendText>
@@ -142,9 +142,15 @@ export default function PieChart({
         activePercentEnd={activePercentEnd}
         completedPercentEnd={completedPercentEnd}
       ></MyPieChart>
-    </>
+    </ChartContainer>
   );
 }
+const ChartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const MyPieChart = styled.div`
   margin-top: 1rem;

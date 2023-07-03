@@ -62,7 +62,7 @@ export default function ProjectForm({
     if (isEdit) {
       setIsEdit(false);
     } else {
-      router.push("/");
+      router.push("/project");
     }
   }
 

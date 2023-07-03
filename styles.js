@@ -75,10 +75,10 @@ export const ImageWrapper = styled.div`
   border-radius: 2rem;
   overflow: hidden;
 `;
-export const HeavyFont = styled.p`
+export const HeavyFont = styled.span`
   font-weight: 700;
 `;
-export const ColoredFont = styled.p`
+export const ColoredFont = styled.span`
   color: var(--color-orange);
 `;
 export const LightFont = styled.p`
