@@ -25,7 +25,7 @@ export default function YarnsStockPage() {
   }
   return (
     <Main>
-      <Heading>My Stocks</Heading>
+      <Heading>My Stock</Heading>
       {!addYarnStockStatus && stockContent === "Yarn Stock" && (
         <>
           {!isYarnEdit && (

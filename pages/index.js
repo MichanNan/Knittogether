@@ -1,148 +1,169 @@
+import Navigation from "../components/Common/Navigation";
 import Heading from "../components/Common/Heading";
-import Projects from "../components/Project/Projects";
-import Navigation from "../components/Common/Navigation/index";
+import PieChart from "../components/Common/PieChart";
+import { useEffect, useRef } from "react";
+import * as echarts from "echarts";
+
+import { ColoredFont, Main, StyledLink } from "../styles";
+
 import styled from "styled-components";
-import PreAddProject from "../components/Project/PreAddProject";
-import Categories from "../components/Project/Categories";
-import SearchBar from "../components/Project/SearchBar";
-import { useState } from "react";
-import { Main, ColoredFont, BackDrop } from "../styles";
+import Image from "next/image";
 
-import { AddItemButton } from "../styles";
-export default function Home({ projectsList, setProjectName, router }) {
-  const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
-  const [selectedProjectStatus, setSelectedProjectStatus] = useState("");
-  const [inputQuery, setInputQuery] = useState();
+export default function Home({ projects }) {
+  const plannedProject = projects?.filter(
+    (project) => project.status === "planned"
+  );
+  const activeProject = projects?.filter(
+    (project) => project.status === "active"
+  );
+  const completedProject = projects?.filter(
+    (project) => project.status === "completed"
+  );
+  const hibernatedProject = projects?.filter(
+    (project) => project.status === "hibernated"
+  );
 
-  function handleAddNewProject() {
-    setAddNewProjectStatus(!addNewProjectStatus);
-  }
+  // const domRef = useRef();
+  // const charInit = () => {
+  //   const myChart = echarts.init(domRef.current);
+  //   myChart.setOption({
+  //     tooltip: {
+  //       trigger: "item",
+  //     },
+  //     legend: {
+  //       top: "15%",
+  //       left: "center",
+  //       orient: "horizontal",
+  //       align: "left",
+  //     },
+  //     series: [
+  //       {
+  //         name: "Access From",
+  //         type: "pie",
+  //         radius: ["40%", "70%"],
+  //         center: ["50%", "65%"],
+  //         avoidLabelOverlap: false,
+  //         label: {
+  //           show: false,
+  //           position: "center",
+  //         },
+  //         emphasis: {
+  //           label: {
+  //             show: true,
+  //             fontSize: 40,
+  //             fontWeight: "bold",
+  //           },
+  //         },
+  //         labelLine: {
+  //           show: false,
+  //         },
+  //         data: [
+  //           { value: plannedProject?.length, name: "Planned" },
+  //           { value: activeProject?.length, name: "Active" },
+  //           { value: completedProject?.length, name: "Completed" },
+  //           { value: hibernatedProject?.length, name: "Hibernated" },
+  //         ],
+  //       },
+  //     ],
+  //   });
+  // };
 
-  if (!projectsList) {
-    return;
-  }
-  function handlePreAddSubmit(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    setProjectName(data.name);
-    router.push("/add-project");
-  }
-
-  function handleCancel() {
-    setAddNewProjectStatus(false);
-  }
-
-  //get the status of a project
-  function handleStatusClick(event) {
-    const selectedButtonClassName = event.target.className;
-    const projectStatus = selectedButtonClassName.split(" ")[2];
-
-    if (projectStatus == selectedProjectStatus) {
-      setSelectedProjectStatus("");
-    } else setSelectedProjectStatus(projectStatus);
-  }
-
-  //initial date for filter according to project status
-  let selectedProjects;
-
-  //if user clicked a status show corresponding projects
-  selectedProjectStatus === ""
-    ? (selectedProjects = projectsList)
-    : (selectedProjects = projectsList.filter((project) => {
-        return project.status === selectedProjectStatus;
-      }));
-
-  //get search input value
-  function handleProjectSearch(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-    setInputQuery(data["project-search"]);
-  }
-  //search for project based on project status
-  const searchedProject = selectedProjects.filter((project) => {
-    return project.name.toLowerCase().includes(inputQuery);
-  });
+  // useEffect(() => {
+  //   charInit();
+  // }, [projects]);
 
   return (
     <Main>
-      {addNewProjectStatus && (
-        <BackDrop
-          onClick={() => {
-            setAddNewProjectStatus(!addNewProjectStatus);
-          }}
-        />
-      )}
-      <Heading>My Projects</Heading>
-      <Categories
-        handleClick={handleStatusClick}
-        selectedProjectStatus={selectedProjectStatus}
-      />
-      <AddItemButton onClick={handleAddNewProject}>+</AddItemButton>
-      {addNewProjectStatus && (
-        <PreAddProject
-          onCancel={handleCancel}
-          handlePreAddSubmit={handlePreAddSubmit}
-        />
-      )}
-
-      {/* render subtitle according to different status */}
-      {!selectedProjectStatus && projectsList.length !== 0 && (
-        <ProjectSumInfo>
-          You have totally&nbsp;
-          <ColoredFont>{projectsList.length} </ColoredFont>&nbsp;
-          {projectsList.length === 1 ? "project" : "projects"}
-        </ProjectSumInfo>
-      )}
-      {!selectedProjectStatus && projectsList.length === 0 && (
-        <ProjectSumInfo>
-          You have no projects, maybe &nbsp;<ColoredFont>add</ColoredFont>
-          &nbsp;one?
-        </ProjectSumInfo>
-      )}
-      {selectedProjects.length !== 0 && selectedProjectStatus && (
-        <ProjectSumInfo>
-          you have&nbsp;
-          <ColoredFont>
-            {selectedProjects.length} &nbsp;
-            {selectedProjectStatus}
-          </ColoredFont>
-          &nbsp; {selectedProjects.length === 1 ? "project" : "projects"}
-        </ProjectSumInfo>
-      )}
-      {selectedProjects.length === 0 && selectedProjectStatus && (
-        <ProjectSumInfo>
-          you have&nbsp;
-          <ColoredFont>
-            no &nbsp;
-            {selectedProjectStatus}
-          </ColoredFont>
-          &nbsp;project
-        </ProjectSumInfo>
-      )}
-
-      <SearchBar
-        handleProjectSearch={handleProjectSearch}
-        inputQuery={inputQuery}
-        setInputQuery={setInputQuery}
-      />
-      {!inputQuery && !selectedProjectStatus && (
-        <Projects projectsList={projectsList} />
-      )}
-      {!inputQuery && <Projects projectsList={selectedProjects} />}
-      {inputQuery && <Projects projectsList={searchedProject} />}
-
+      <Heading>Knit Together</Heading>
+      <SubTitle top="4rem">Welcome</SubTitle>
+      <InfoWrapper>
+        Keep up! your projects &nbsp;<ColoredFont>overview </ColoredFont>
+        &nbsp;so far
+      </InfoWrapper>
+      {/* <OverviewContainer>
+        <OverViewItem>{`${completedProject.length} completed Projects`}</OverViewItem>
+      </OverviewContainer> */}
+      {/* <ChartContainer ref={domRef}></ChartContainer> */}
+      <PieChart
+        plannedProject={plannedProject}
+        activeProject={activeProject}
+        completedProject={completedProject}
+        hibernatedProject={hibernatedProject}
+        projects={projects}
+      />{" "}
+      <SubTitle top="2rem">Active Projects</SubTitle>
+      <ActiveProjectContainer>
+        {activeProject.map((project) => (
+          <ProjectItemWrapper key={project._id}>
+            <p>{project.name}</p>
+            <ImageContainer>
+              <StyledLink href={`/${project._id}`}>
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  width={150}
+                  height={120}
+                />
+              </StyledLink>
+            </ImageContainer>
+          </ProjectItemWrapper>
+        ))}
+      </ActiveProjectContainer>
       <Navigation />
     </Main>
   );
 }
 
-const ProjectSumInfo = styled.p`
+// const ChartContainer = styled.div`
+//   width: 100vw;
+//   height: 65vw;
+// `;
+
+const OverviewContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: repeat(2, 50%);
+`;
+const OverViewItem = styled.div`
+  width: 10rem;
+  height: 5rem;
+  background-color: var(--color-grey);
+`;
+const SubTitle = styled.p`
+  font-size: 1.2rem;
+  align-self: flex-start;
+  transform: translateX(2rem);
+  margin-top: ${({ top }) => top};
+`;
+
+const InfoWrapper = styled.div`
   display: flex;
-  position: absolute;
-  top: 9rem;
-  font-size: 0.8rem;
-  font-weight: 700;
+`;
+
+const ActiveProjectContainer = styled.section`
+  width: 90%;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: visible;
+  white-space: nowrap;
+  gap: 1rem;
+  position: relative;
+  top: 2rem;
+  margin: 0 2rem;
+  transform: translateY(-1rem);
+`;
+const ProjectItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  overflow: hidden;
 `;

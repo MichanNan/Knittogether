@@ -30,7 +30,7 @@ export default function NeedleStockList({ isNeedleEdit, setIsNeedleEdit }) {
   const editedNeedleStock = needleList.find(
     (needle) => needle._id === needleId
   );
-  console.log(editedNeedleStock);
+
   function handleChangeDeleteExistedNeedleStatus(id) {
     setDeleteNeedleStockStatus(true);
     setNeedleId(id);

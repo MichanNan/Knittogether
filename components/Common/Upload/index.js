@@ -55,7 +55,7 @@ export default function Upload({
     const data = new FormData();
     data.append("file", e.target.files[0]);
     data.append("upload_preset", "project-image");
-    data.append("cloud_name", "dw4kyffua");
+    data.append("cloud_name", process.env.CLOUDINARY_CLOUD_NAME);
 
     const url = await uploading(data);
 
@@ -108,13 +108,9 @@ const Wrapper = styled.div`
 const Label = styled.label`
   width: 9rem;
   height: 2rem;
-  /* background-color: #f5f5f5; */
-  /* border-radius: 0.5rem; */
   line-height: 2rem;
   text-align: center;
   margin: 0 auto;
-  /* border: solid 0.1rem #e07008; */
-
   box-shadow: 0.1rem 0.1rem 0.3rem #cccccc;
   font-weight: 100;
 `;

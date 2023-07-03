@@ -4,11 +4,14 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navigation() {
   const [selectedNavItem, setSelectedNavItem] = useLocalStorageState(
-    "projects",
-    { defaultValue: "projects" }
+    "selectedNavItem",
+    {
+      defaultValue: "home",
+    }
   );
 
   function handleNavOnClick(event) {
@@ -20,13 +23,20 @@ export default function Navigation() {
     <Nav>
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
+        className="home"
+        selectedNavItem={selectedNavItem}
+      >
+        <FontAwesomeIcon icon={faHouse}> Home</FontAwesomeIcon>
+        <StyledLink href="/">Home</StyledLink>
+      </NavItem>
+      <NavItem
+        onClick={(event) => handleNavOnClick(event)}
         className="projects"
         selectedNavItem={selectedNavItem}
       >
         <FontAwesomeIcon icon={faListCheck}>Projects</FontAwesomeIcon>
-        <StyledLink href="/">Projects</StyledLink>
+        <StyledLink href="/project">Projects</StyledLink>
       </NavItem>
-
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
         className="stocks"
@@ -49,7 +59,7 @@ const Nav = styled.nav`
   font-weight: 400;
   width: 100%;
   text-align: center;
-  background-color: #ffffff;
+  background-color: var(--color-white);
   text-decoration: none;
 `;
 const NavItem = styled.div`
@@ -58,10 +68,10 @@ const NavItem = styled.div`
   justify-content: center;
   gap: 0.6rem;
   width: 50%;
-  background-color: #fff;
+  background-color: var(--color-white);
   color: ${({ selectedNavItem, className }) =>
     selectedNavItem && className.includes(selectedNavItem)
-      ? " #e07008"
-      : "#000"};
+      ? " var(--color-orange)"
+      : "var(--color-black)"};
 `;
 //

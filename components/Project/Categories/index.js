@@ -41,8 +41,8 @@ const CategoryContainer = styled.div`
   top: 5rem;
   display: flex;
   justify-content: center;
-  border-bottom: 0.1rem solid #e07008;
-  border-top: 0.1rem solid #e07008;
+  border-bottom: 0.1rem solid var(--color-orange);
+  border-top: 0.1rem solid var(--color-orange);
 `;
 const CategoryCard = styled.span`
   height: 3rem;
@@ -51,10 +51,10 @@ const CategoryCard = styled.span`
   line-height: 3rem;
   background-color: ${({ className, selectedProjectStatus }) =>
     selectedProjectStatus && className.includes(selectedProjectStatus)
-      ? "#e07008"
-      : "#fff"};
+      ? "var(--color-orange)"
+      : "var(--color-white)"};
   color: ${({ className, selectedProjectStatus }) =>
     selectedProjectStatus && className.includes(selectedProjectStatus)
-      ? "#ffffff"
+      ? "var(--color-white)"
       : "#000"};
 `;

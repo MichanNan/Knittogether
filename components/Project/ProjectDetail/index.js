@@ -49,7 +49,7 @@ export default function ProjectDetail({ project, id }) {
       body: JSON.stringify(proId),
     });
     mutate();
-    router.push("/");
+    router.push("/project");
   }
 
   return (
@@ -77,7 +77,7 @@ export default function ProjectDetail({ project, id }) {
           <Heading>
             <BackIcon
               handleGoBack={() => {
-                router.push("/");
+                router.back();
               }}
             />
             {project.name}
@@ -105,106 +105,58 @@ export default function ProjectDetail({ project, id }) {
                 <ColoredFont>Details</ColoredFont>
               </SubTitle>
               <DetailRowSection>
-                <HeavyFont>
-                  <p>The project is for:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.details[0].recipient}</span>
-                </LightFont>
+                <HeavyFont>The project is for:</HeavyFont>
+                <LightFont>{project.details[0].recipient}</LightFont>
 
-                <HeavyFont>
-                  <p>Size:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.details[0].size}</span>
-                </LightFont>
+                <HeavyFont>Size:</HeavyFont>
+                <LightFont>{project.details[0].size}</LightFont>
               </DetailRowSection>
               <DetailRowSection>
-                <HeavyFont>
-                  <p>Gauge:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.details[0].gauge}</span>
-                </LightFont>
+                <HeavyFont>Gauge:</HeavyFont>
+                <LightFont>{project.details[0].gauge}</LightFont>
 
-                <HeavyFont>
-                  <p>Needle Size:</p>
-                </HeavyFont>
-                <LightFont>
-                  <span>{project.details[0].needleSize}</span>
-                </LightFont>
+                <HeavyFont>Needle Size:</HeavyFont>
+                <LightFont>{project.details[0].needleSize}</LightFont>
               </DetailRowSection>
               <DetailRowSection>
-                <HeavyFont>
-                  <p>Start:</p>
-                </HeavyFont>
+                <HeavyFont>Start:</HeavyFont>
                 <LightFont>
-                  <span>
-                    {dayjs(project.details[0].start).format("DD-MM-YYYY")}
-                  </span>
+                  {dayjs(project.details[0].start).format("DD-MM-YYYY")}
                 </LightFont>
 
-                <HeavyFont>
-                  <p>End:</p>
-                </HeavyFont>
+                <HeavyFont>End:</HeavyFont>
                 <LightFont>
-                  <span>
-                    {dayjs(project.details[0].end).format("DD-MM-YYYY")}
-                  </span>
+                  {dayjs(project.details[0].end).format("DD-MM-YYYY")}
                 </LightFont>
               </DetailRowSection>
             </ProjectSectionContainer>
 
             {project.yarn.map((yarnData) => (
-              <ProjectSectionContainer key={yarnData.index}>
+              <ProjectSectionContainer key={yarnData._id}>
                 <SubTitle>
                   <ColoredFont>Yarn</ColoredFont>
                 </SubTitle>
 
                 <DetailRowSection>
-                  <HeavyFont>
-                    <p>Brand:</p>
-                  </HeavyFont>
-                  <LightFont>
-                    <span>{yarnData?.brand}</span>
-                  </LightFont>
+                  <HeavyFont>Brand:</HeavyFont>
+                  <LightFont>{yarnData?.brand}</LightFont>
 
-                  <HeavyFont>
-                    <p>Skein:</p>
-                  </HeavyFont>
-                  <LightFont>
-                    <span>{yarnData?.skein}</span>
-                  </LightFont>
+                  <HeavyFont>Skein:</HeavyFont>
+                  <LightFont>{yarnData?.skein}</LightFont>
                 </DetailRowSection>
                 <DetailRowSection>
-                  <HeavyFont>
-                    <p>Type:</p>
-                  </HeavyFont>
-                  <LightFont>
-                    <span>{yarnData?.type}</span>
-                  </LightFont>
+                  <HeavyFont>Type:</HeavyFont>
+                  <LightFont>{yarnData?.type}</LightFont>
 
-                  <HeavyFont>
-                    <p>Gramm:</p>
-                  </HeavyFont>
-                  <LightFont>
-                    <span>{yarnData?.gramm}</span>
-                  </LightFont>
+                  <HeavyFont>Gramm:</HeavyFont>
+                  <LightFont>{yarnData?.gramm}</LightFont>
                 </DetailRowSection>
                 <DetailRowSection>
-                  <HeavyFont>
-                    <p>Color:</p>
-                  </HeavyFont>
-                  <LightFont>
-                    <span>{yarnData?.color}</span>
-                  </LightFont>
+                  <HeavyFont>Color:</HeavyFont>
+                  <LightFont>{yarnData?.color}</LightFont>
 
-                  <HeavyFont>
-                    <p>Meter:</p>
-                  </HeavyFont>
-                  <LightFont>
-                    <span>{yarnData?.meter}</span>
-                  </LightFont>
+                  <HeavyFont>Meter:</HeavyFont>
+                  <LightFont>{yarnData?.meter}</LightFont>
                 </DetailRowSection>
               </ProjectSectionContainer>
             ))}

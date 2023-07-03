@@ -97,5 +97,5 @@ const Wrapper = styled.div`
   width: 18rem;
   height: 10rem;
   z-index: 9999;
-  background-color: #f5f5f5;
+  background-color: var(--color-grey);
 `;
