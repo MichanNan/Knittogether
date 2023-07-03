@@ -139,7 +139,7 @@ export default function Home({ projectsList, setProjectName, router }) {
   );
 }
 
-const ProjectSumInfo = styled.p`
+const ProjectSumInfo = styled.span`
   display: flex;
   position: absolute;
   top: 9rem;

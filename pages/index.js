@@ -1,18 +1,15 @@
 import Navigation from "../components/Common/Navigation";
 import Heading from "../components/Common/Heading";
-
+import PieChart from "../components/Common/PieChart";
 import { useEffect, useRef } from "react";
 import * as echarts from "echarts";
 
 import { ColoredFont, Main, StyledLink } from "../styles";
-import ProjectPreview from "../components/Project/ProjectPreview";
+
 import styled from "styled-components";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
 export default function Home({ projects }) {
-  //   const { data: allProjects } = useSWR("/api/project");
-
   const plannedProject = projects?.filter(
     (project) => project.status === "planned"
   );
@@ -26,54 +23,54 @@ export default function Home({ projects }) {
     (project) => project.status === "hibernated"
   );
 
-  const domRef = useRef();
-  const charInit = () => {
-    const myChart = echarts.init(domRef.current);
-    myChart.setOption({
-      tooltip: {
-        trigger: "item",
-      },
-      legend: {
-        top: "15%",
-        left: "center",
-        orient: "horizontal",
-        align: "left",
-      },
-      series: [
-        {
-          name: "Access From",
-          type: "pie",
-          radius: ["40%", "70%"],
-          center: ["50%", "65%"],
-          avoidLabelOverlap: false,
-          label: {
-            show: false,
-            position: "center",
-          },
-          emphasis: {
-            label: {
-              show: true,
-              fontSize: 40,
-              fontWeight: "bold",
-            },
-          },
-          labelLine: {
-            show: false,
-          },
-          data: [
-            { value: plannedProject?.length, name: "Planned" },
-            { value: activeProject?.length, name: "Active" },
-            { value: completedProject?.length, name: "Completed" },
-            { value: hibernatedProject?.length, name: "Hibernated" },
-          ],
-        },
-      ],
-    });
-  };
+  // const domRef = useRef();
+  // const charInit = () => {
+  //   const myChart = echarts.init(domRef.current);
+  //   myChart.setOption({
+  //     tooltip: {
+  //       trigger: "item",
+  //     },
+  //     legend: {
+  //       top: "15%",
+  //       left: "center",
+  //       orient: "horizontal",
+  //       align: "left",
+  //     },
+  //     series: [
+  //       {
+  //         name: "Access From",
+  //         type: "pie",
+  //         radius: ["40%", "70%"],
+  //         center: ["50%", "65%"],
+  //         avoidLabelOverlap: false,
+  //         label: {
+  //           show: false,
+  //           position: "center",
+  //         },
+  //         emphasis: {
+  //           label: {
+  //             show: true,
+  //             fontSize: 40,
+  //             fontWeight: "bold",
+  //           },
+  //         },
+  //         labelLine: {
+  //           show: false,
+  //         },
+  //         data: [
+  //           { value: plannedProject?.length, name: "Planned" },
+  //           { value: activeProject?.length, name: "Active" },
+  //           { value: completedProject?.length, name: "Completed" },
+  //           { value: hibernatedProject?.length, name: "Hibernated" },
+  //         ],
+  //       },
+  //     ],
+  //   });
+  // };
 
-  useEffect(() => {
-    charInit();
-  }, [projects]);
+  // useEffect(() => {
+  //   charInit();
+  // }, [projects]);
 
   return (
     <Main>
@@ -83,13 +80,23 @@ export default function Home({ projects }) {
         Keep up! your projects &nbsp;<ColoredFont>overview </ColoredFont>
         &nbsp;so far
       </InfoWrapper>
-      <ChartContainer ref={domRef}></ChartContainer>
+      {/* <OverviewContainer>
+        <OverViewItem>{`${completedProject.length} completed Projects`}</OverViewItem>
+      </OverviewContainer> */}
+      {/* <ChartContainer ref={domRef}></ChartContainer> */}
+      <PieChart
+        plannedProject={plannedProject}
+        activeProject={activeProject}
+        completedProject={completedProject}
+        hibernatedProject={hibernatedProject}
+        projects={projects}
+      />{" "}
       <SubTitle top="2rem">Active Projects</SubTitle>
       <ActiveProjectContainer>
         {activeProject.map((project) => (
           <ProjectItemWrapper key={project._id}>
             <p>{project.name}</p>
-            <ImageWrapper>
+            <ImageContainer>
               <StyledLink href={`/${project._id}`}>
                 <Image
                   src={project.image}
@@ -98,21 +105,30 @@ export default function Home({ projects }) {
                   height={120}
                 />
               </StyledLink>
-            </ImageWrapper>
+            </ImageContainer>
           </ProjectItemWrapper>
         ))}
       </ActiveProjectContainer>
-
       <Navigation />
     </Main>
   );
 }
 
-const ChartContainer = styled.div`
-  width: 100vw;
-  height: 65vw;
-`;
+// const ChartContainer = styled.div`
+//   width: 100vw;
+//   height: 65vw;
+// `;
 
+const OverviewContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: repeat(2, 50%);
+`;
+const OverViewItem = styled.div`
+  width: 10rem;
+  height: 5rem;
+  background-color: var(--color-grey);
+`;
 const SubTitle = styled.p`
   font-size: 1.2rem;
   align-self: flex-start;
@@ -143,7 +159,7 @@ const ProjectItemWrapper = styled.div`
   align-items: center;
 `;
 
-const ImageWrapper = styled.div`
+const ImageContainer = styled.div`
   width: 100%;
   height: 100%;
   position: relative;

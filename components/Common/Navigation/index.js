@@ -7,9 +7,12 @@ import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navigation() {
-  const [selectedNavItem, setSelectedNavItem] = useLocalStorageState("home", {
-    defaultValue: "home",
-  });
+  const [selectedNavItem, setSelectedNavItem] = useLocalStorageState(
+    "selectedNavItem",
+    {
+      defaultValue: "home",
+    }
+  );
 
   function handleNavOnClick(event) {
     event.preventDefault();
