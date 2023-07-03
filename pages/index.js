@@ -80,7 +80,8 @@ export default function Home({ projects }) {
       <Heading>Knit Together</Heading>
       <SubTitle top="4rem">Welcome</SubTitle>
       <InfoWrapper>
-        your &nbsp;<ColoredFont>overview </ColoredFont>&nbsp;so far
+        Keep up! your projects &nbsp;<ColoredFont>overview </ColoredFont>
+        &nbsp;so far
       </InfoWrapper>
       <ChartContainer ref={domRef}></ChartContainer>
       <SubTitle top="2rem">Active Projects</SubTitle>

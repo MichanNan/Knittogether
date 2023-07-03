@@ -432,7 +432,7 @@ const ProjectItemForm = styled.form`
 const StyledTextArea = styled.textarea`
   border-radius: 0.6rem;
   border: none;
-  background-color: #f5f5f5;
+  background-color: var(--color-grey);
   width: 20rem;
   font-size: 1.5rem;
   &:focus {
@@ -489,16 +489,16 @@ const ToggleYarnButton = styled.div`
   height: 1.5rem;
   font-weight: 700;
   text-align: center;
-  color: #fff;
-  background-color: #e07008;
-  box-shadow: 0.1rem 0.1rem 0.3rem #ad5707;
+  color: var(--color-white);
+  background-color: var(--color-orange);
+  box-shadow: 0.1rem 0.1rem 0.3rem var(--color-shadow);
 `;
 const ProjectInput = styled(({ name, defaultValue, type, maxLength }) => (
   <StyledInput
     radius="0.5rem"
     height="2rem"
     width="20rem"
-    backgroundColor="#f5f5f5"
+    backgroundColor="var(--color-grey)"
     name={name}
     defaultValue={defaultValue}
     type={type}

@@ -3,6 +3,14 @@ import styled from "styled-components";
 import Link from "next/link";
 
 export default createGlobalStyle`
+:root{ 
+    --color-white: #ffffff;
+    --color-orange: #e07008;
+    --color-grey:#f5f5f5;
+    --color-black:#000000;
+    --color-shadow:#ad5707
+  
+  }
   *,
   *::before,
   *::after {
@@ -42,8 +50,8 @@ export const AddItemButton = styled.button`
   height: 3rem;
   font-weight: 700;
   text-align: center;
-  color: #fff;
-  background-color: #e07008;
+  color: var(--color-white);
+  background-color: var(--color-orange);
   box-shadow: 0.1rem 0.1rem 0.5rem #ad5707;
 `;
 
@@ -59,8 +67,8 @@ export const ToggleButton = styled.div`
   height: 1.5rem;
   font-weight: 700;
   text-align: center;
-  color: #fff;
-  background-color: #e07008;
+  color: var(--color-white);
+  background-color: var(--color-orange);
   box-shadow: 0.1rem 0.1rem 0.3rem #ad5707;
 `;
 export const ImageWrapper = styled.div`
@@ -71,7 +79,7 @@ export const HeavyFont = styled.p`
   font-weight: 700;
 `;
 export const ColoredFont = styled.p`
-  color: #e07008;
+  color: var(--color-orange);
 `;
 export const LightFont = styled.p`
   font-weight: 300;
@@ -94,7 +102,7 @@ export const ButtonContainer = styled.div`
   margin-top: 1rem;
   gap: 1rem;
 `;
-export const SubTitle = styled.p`
+export const SubTitle = styled.span`
   font-size: 1.2rem;
   font-weight: 700;
   margin: 1rem auto;

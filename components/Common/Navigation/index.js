@@ -56,7 +56,7 @@ const Nav = styled.nav`
   font-weight: 400;
   width: 100%;
   text-align: center;
-  background-color: #ffffff;
+  background-color: var(--color-white);
   text-decoration: none;
 `;
 const NavItem = styled.div`
@@ -65,10 +65,10 @@ const NavItem = styled.div`
   justify-content: center;
   gap: 0.6rem;
   width: 50%;
-  background-color: #fff;
+  background-color: var(--color-white);
   color: ${({ selectedNavItem, className }) =>
     selectedNavItem && className.includes(selectedNavItem)
-      ? " #e07008"
-      : "#000"};
+      ? " var(--color-orange)"
+      : "var(--color-black)"};
 `;
 //

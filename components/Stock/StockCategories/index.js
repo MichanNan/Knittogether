@@ -28,8 +28,8 @@ const Wrapper = styled.div`
   justify-content: center;
   margin-top: 4rem;
   gap: 1rem;
-  border-top: solid 0.1rem #e07008;
-  border-bottom: solid 0.1rem #e07008;
+  border-top: solid 0.1rem var(--color-orange);
+  border-bottom: solid 0.1rem var(--color-orange);
   height: 3rem;
   align-items: center;
 `;
@@ -38,14 +38,14 @@ const Item = styled.div`
   padding: 0 0.5rem;
   border: none;
   line-height: 3rem;
-  border-top: solid 0.1rem #e07008;
-  border-bottom: solid 0.1rem #e07008;
+  border-top: solid 0.1rem var(--color-orange);
+  border-bottom: solid 0.1rem var(--color-orange);
   background-color: ${({ stockContent, className }) =>
     stockContent && stockContent.toLowerCase().includes(className)
-      ? "#e07008"
-      : "#fff"};
+      ? "var(--color-orange)"
+      : "var(--color-white)"};
   color: ${({ stockContent, className }) =>
     stockContent && stockContent.toLowerCase().includes(className)
-      ? "#ffffff"
-      : "#000"};
+      ? "var(--color-white)"
+      : "var(--color-black)"};
 `;

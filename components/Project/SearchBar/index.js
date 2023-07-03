@@ -15,7 +15,7 @@ export default function SearchBar({
         width="18rem"
         height="2rem"
         name="project-search"
-        backgroundColor="#f5f5f5"
+        backgroundColor="var(--color-grey)"
         value={inputQuery}
         onChange={(event) => setInputQuery(event.target.value)}
       ></StyledInput>
@@ -31,7 +31,7 @@ const SearchbarForm = styled.form`
   justify-content: center;
   top: 11rem;
   padding: 0 1rem;
-  background-color: #f5f5f5;
+  background-color: var(--color-grey);
   border-radius: 1rem;
   height: 2.5rem;
 `;

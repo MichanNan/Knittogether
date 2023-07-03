@@ -182,7 +182,7 @@ const YarnInput = styled(({ name, defaultValue, maxLength }) => (
     width="15rem"
     height="3rem"
     radius="1rem"
-    backgroundColor="#f5f5f5"
+    backgroundColor="var(--color-grey)"
     name={name}
     defaultValue={defaultValue}
     maxLength={maxLength}

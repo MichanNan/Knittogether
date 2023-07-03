@@ -9,7 +9,7 @@ export default function BackIcon({ handleGoBack }) {
     </BackItem>
   );
 }
-const BackItem = styled.div`
+const BackItem = styled.span`
   position: absolute;
   left: 2.5rem;
   z-index: 99;

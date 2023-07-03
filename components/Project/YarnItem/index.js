@@ -68,7 +68,7 @@ const YarnItemInput = styled(({ name, defaultValue, onChange, maxLength }) => (
     radius="0.5rem"
     height="2rem"
     width="7rem"
-    backgroundColor="#f5f5f5"
+    backgroundColor="var(--color-grey)"
     name={name}
     defaultValue={defaultValue}
     onChange={onChange}

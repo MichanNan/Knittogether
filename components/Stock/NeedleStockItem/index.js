@@ -23,5 +23,5 @@ const NeedleItemContainer = styled.div`
   column-gap: 0.5rem;
   width: 100%;
 
-  border-bottom: solid 0.1rem #e07008;
+  border-bottom: solid 0.1rem var(--color-orange);
 `;

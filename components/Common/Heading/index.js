@@ -9,7 +9,7 @@ const Heading = styled.h1`
   line-height: 6rem;
   font-size: 2rem;
   font-weight: 400;
-  background-color: #ffffff;
+  background-color: var(--color-white);
   z-index: 1;
 `;
 export default Heading;
