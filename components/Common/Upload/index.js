@@ -41,7 +41,7 @@ export default function Upload({
   const [file, setFile] = useState(initImage);
   async function uploading(data) {
     const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dw4kyffua/image/upload",
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
       {
         method: "post",
         body: data,
@@ -55,7 +55,7 @@ export default function Upload({
     const data = new FormData();
     data.append("file", e.target.files[0]);
     data.append("upload_preset", "project-image");
-    data.append("cloud_name", process.env.CLOUDINARY_CLOUD_NAME);
+    data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
 
     const url = await uploading(data);
 

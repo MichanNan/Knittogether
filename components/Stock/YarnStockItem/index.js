@@ -6,7 +6,7 @@ export default function YarnStockItem({ yarn }) {
   return (
     <>
       <YarnItemContainer>
-        <ImageWrapper>
+        <ImageWrapper radius="1rem">
           <Image
             src={yarn.image}
             alt={yarn.brand}

@@ -3,13 +3,9 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-export default function SearchBar({
-  handleProjectSearch,
-  inputQuery,
-  setInputQuery,
-}) {
+export default function SearchBar({ inputQuery, setInputQuery }) {
   return (
-    <SearchbarForm onSubmit={(event) => handleProjectSearch(event)}>
+    <SearchbarForm>
       <label htmlFor="project-search"></label>
       <StyledInput
         width="18rem"

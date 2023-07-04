@@ -1,10 +1,13 @@
 import { StyledLink } from "../../../styles";
-import useLocalStorageState from "use-local-storage-state";
 import styled from "styled-components";
+
+import useLocalStorageState from "use-local-storage-state";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faVolleyball } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navigation() {
   const [selectedNavItem, setSelectedNavItem] = useLocalStorageState(
@@ -26,24 +29,40 @@ export default function Navigation() {
         className="home"
         selectedNavItem={selectedNavItem}
       >
-        <FontAwesomeIcon icon={faHouse}> Home</FontAwesomeIcon>
-        <StyledLink href="/">Home</StyledLink>
+        <NavLink href="/">
+          <FontAwesomeIcon icon={faHouse} />
+          Home
+        </NavLink>
       </NavItem>
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
         className="projects"
         selectedNavItem={selectedNavItem}
       >
-        <FontAwesomeIcon icon={faListCheck}>Projects</FontAwesomeIcon>
-        <StyledLink href="/project">Projects</StyledLink>
+        <NavLink href="/project">
+          <FontAwesomeIcon icon={faListCheck} />
+          Projects
+        </NavLink>
       </NavItem>
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
         className="stocks"
         selectedNavItem={selectedNavItem}
       >
-        <FontAwesomeIcon icon={faBoxArchive}> Stocks</FontAwesomeIcon>
-        <StyledLink href="/stock">Stocks</StyledLink>
+        <NavLink href="/stock">
+          <FontAwesomeIcon icon={faBoxArchive} />
+          Stocks
+        </NavLink>
+      </NavItem>
+      <NavItem
+        onClick={(event) => handleNavOnClick(event)}
+        className="pattern"
+        selectedNavItem={selectedNavItem}
+      >
+        <NavLink href="/pattern">
+          <FontAwesomeIcon icon={faVolleyball} />
+          Pattern
+        </NavLink>
       </NavItem>
     </Nav>
   );
@@ -74,4 +93,7 @@ const NavItem = styled.div`
       ? " var(--color-orange)"
       : "var(--color-black)"};
 `;
-//
+const NavLink = styled(StyledLink)`
+  display: flex;
+  flex-direction: column;
+`;

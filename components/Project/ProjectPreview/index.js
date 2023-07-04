@@ -8,7 +8,7 @@ export default function ProjectPreview({ project, width, height }) {
     <ProjectItem key={project._id} width={width} height={height}>
       <ProjectPreviewTitle>{project.name}</ProjectPreviewTitle>
       <Link href={`/${project._id}`}>
-        <ImageWrapper>
+        <ImageWrapper radius="2rem">
           <Image
             src={project.image}
             alt="project-image"

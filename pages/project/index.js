@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Main, ColoredFont, BackDrop } from "../../styles";
 
 import { AddItemButton } from "../../styles";
-export default function Home({ projectsList, setProjectName, router }) {
+export default function ProjectPage({ projectsList, setProjectName, router }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
   const [selectedProjectStatus, setSelectedProjectStatus] = useState("");
   const [inputQuery, setInputQuery] = useState();
@@ -54,14 +54,6 @@ export default function Home({ projectsList, setProjectName, router }) {
         return project.status === selectedProjectStatus;
       }));
 
-  //get search input value
-  function handleProjectSearch(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-    setInputQuery(data["project-search"]);
-  }
-  //search for project based on project status
   const searchedProject = selectedProjects.filter((project) => {
     return project.name.toLowerCase().includes(inputQuery);
   });
@@ -124,7 +116,7 @@ export default function Home({ projectsList, setProjectName, router }) {
       )}
 
       <SearchBar
-        handleProjectSearch={handleProjectSearch}
+        // handleProjectSearch={handleProjectSearch}
         inputQuery={inputQuery}
         setInputQuery={setInputQuery}
       />
