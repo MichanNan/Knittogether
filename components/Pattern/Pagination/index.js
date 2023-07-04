@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import css from "styled-jsx/css";
+
 import { usePagination, DOTS } from "../usePagination";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +8,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 import { uid } from "uid";
+
 export default function Pagination({
   onPageChange,
   totalCount,
@@ -90,6 +92,3 @@ const PaginationList = styled.li`
       : "";
   }}
 `;
-//  background-color: ${({ pageNumber, currentPage }) => {
-//     return pageNumber === currentPage ? "var(--color-grey)" : "";
-//   }};

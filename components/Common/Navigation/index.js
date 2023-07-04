@@ -1,6 +1,8 @@
 import { StyledLink } from "../../../styles";
-import useLocalStorageState from "use-local-storage-state";
 import styled from "styled-components";
+
+import useLocalStorageState from "use-local-storage-state";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";

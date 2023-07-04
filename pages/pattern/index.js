@@ -1,7 +1,6 @@
 import StyledInput from "../../components/Common/StyledInput";
 import Heading from "../../components/Common/Heading";
 import Navigation from "../../components/Common/Navigation";
-import { usePagination, DOTS } from "../../components/Pattern/usePagination";
 
 import styled from "styled-components";
 import { ImageWrapper, Main } from "../../styles";
