@@ -11,6 +11,8 @@ export default function StyledInput({
   required,
   onChange,
   backgroundColor,
+  placeholderColor,
+  placeholder,
 }) {
   return (
     <InputItem
@@ -24,6 +26,8 @@ export default function StyledInput({
       required={required}
       defaultValue={defaultValue}
       backgroundColor={backgroundColor}
+      placeholderColor={placeholderColor}
+      placeholder={placeholder}
     ></InputItem>
   );
 }
@@ -38,4 +42,7 @@ const InputItem = styled.input`
     outline: none;
   }
   text-indent: 1rem;
+  ::placeholder {
+    color: ${({ placeholderColor }) => placeholderColor};
+  }
 `;

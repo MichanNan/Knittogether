@@ -72,7 +72,7 @@ export const ToggleButton = styled.div`
   box-shadow: 0.1rem 0.1rem 0.3rem #ad5707;
 `;
 export const ImageWrapper = styled.div`
-  border-radius: 2rem;
+  border-radius: ${({ radius }) => radius};
   overflow: hidden;
 `;
 export const HeavyFont = styled.span`

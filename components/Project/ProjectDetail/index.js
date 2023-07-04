@@ -83,7 +83,7 @@ export default function ProjectDetail({ project, id }) {
             {project.name}
           </Heading>
           <DetailContainer>
-            <ImageWrapper>
+            <ImageWrapper radius="2rem">
               <Image
                 src={project.image}
                 alt={project.name}

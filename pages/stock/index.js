@@ -8,7 +8,7 @@ import NeedleStockForm from "../../components/Stock/NeedleStockForm";
 
 import { AddItemButton, Main } from "../../styles";
 import { useState } from "react";
-export default function YarnsStockPage() {
+export default function StockPage() {
   const [stockContent, setStockContent] = useState("Yarn Stock");
   const [addYarnStockStatus, setAddYarnStockStatus] = useState(false);
   const [isYarnEdit, setIsYarnEdit] = useState(false);

@@ -14,6 +14,9 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    customKey: "my-value",
+  },
 };
 
 module.exports = nextConfig;

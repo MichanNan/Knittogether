@@ -17,6 +17,7 @@ export default async function handler(request, response) {
   if (request.method === "POST") {
     try {
       const data = request.body;
+      console.log(typeof data);
       await Needle.create(data);
       response.status(201).json({ message: "Needle Created" });
     } catch (error) {

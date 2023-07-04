@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faVolleyball } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navigation() {
   const [selectedNavItem, setSelectedNavItem] = useLocalStorageState(
@@ -44,6 +45,14 @@ export default function Navigation() {
       >
         <FontAwesomeIcon icon={faBoxArchive}> Stocks</FontAwesomeIcon>
         <StyledLink href="/stock">Stocks</StyledLink>
+      </NavItem>
+      <NavItem
+        onClick={(event) => handleNavOnClick(event)}
+        className="pattern"
+        selectedNavItem={selectedNavItem}
+      >
+        <FontAwesomeIcon icon={faVolleyball}> Pattern</FontAwesomeIcon>
+        <StyledLink href="/pattern">Pattern</StyledLink>
       </NavItem>
     </Nav>
   );
