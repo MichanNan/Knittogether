@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import css from "styled-jsx/css";
 import { usePagination, DOTS } from "../usePagination";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -49,9 +50,14 @@ export default function Pagination({
           return <li key={uid()}>&#8230;</li>;
         }
         return (
-          <li key={uid()} onClick={() => onPageChange(pageNumber)}>
+          <PaginationList
+            key={uid()}
+            onClick={() => onPageChange(pageNumber)}
+            pageNumber={pageNumber}
+            currentPage={currentPage}
+          >
             {pageNumber}
-          </li>
+          </PaginationList>
         );
       })}
 
@@ -69,3 +75,21 @@ const PaginationContainer = styled.ul`
   gap: 1rem;
   margin: 3rem auto;
 `;
+const PaginationList = styled.li`
+  ${({ pageNumber, currentPage }) => {
+    return pageNumber === currentPage
+      ? css`
+          background-color: var(--color-orange);
+          width: 1.5rem;
+          height: 1.5rem;
+          text-align: center;
+          border-radius: 50%;
+          color: var(--color-white);
+          line-height: 1.5rem;
+        `
+      : "";
+  }}
+`;
+//  background-color: ${({ pageNumber, currentPage }) => {
+//     return pageNumber === currentPage ? "var(--color-grey)" : "";
+//   }};
