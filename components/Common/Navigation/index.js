@@ -27,32 +27,40 @@ export default function Navigation() {
         className="home"
         selectedNavItem={selectedNavItem}
       >
-        <FontAwesomeIcon icon={faHouse}> Home</FontAwesomeIcon>
-        <StyledLink href="/">Home</StyledLink>
+        <NavLink href="/">
+          <FontAwesomeIcon icon={faHouse} />
+          Home
+        </NavLink>
       </NavItem>
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
         className="projects"
         selectedNavItem={selectedNavItem}
       >
-        <FontAwesomeIcon icon={faListCheck}>Projects</FontAwesomeIcon>
-        <StyledLink href="/project">Projects</StyledLink>
+        <NavLink href="/project">
+          <FontAwesomeIcon icon={faListCheck} />
+          Projects
+        </NavLink>
       </NavItem>
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
         className="stocks"
         selectedNavItem={selectedNavItem}
       >
-        <FontAwesomeIcon icon={faBoxArchive}> Stocks</FontAwesomeIcon>
-        <StyledLink href="/stock">Stocks</StyledLink>
+        <NavLink href="/stock">
+          <FontAwesomeIcon icon={faBoxArchive} />
+          Stocks
+        </NavLink>
       </NavItem>
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
         className="pattern"
         selectedNavItem={selectedNavItem}
       >
-        <FontAwesomeIcon icon={faVolleyball}> Pattern</FontAwesomeIcon>
-        <StyledLink href="/pattern">Pattern</StyledLink>
+        <NavLink href="/pattern">
+          <FontAwesomeIcon icon={faVolleyball} />
+          Pattern
+        </NavLink>
       </NavItem>
     </Nav>
   );
@@ -83,4 +91,7 @@ const NavItem = styled.div`
       ? " var(--color-orange)"
       : "var(--color-black)"};
 `;
-//
+const NavLink = styled(StyledLink)`
+  display: flex;
+  flex-direction: column;
+`;
