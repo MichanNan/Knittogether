@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import StyledButton from "../../Common/StyledButton";
 import StyledInput from "../../Common/StyledInput";
-import Upload from "../../Common/Upload";
 import { ColoredFont, SubTitle, ButtonContainer } from "../../../styles";
+
+import Upload from "../../Common/Upload";
 import YarnItem from "../YarnItem";
+
 import { uid } from "uid";
 import { useState } from "react";
 import { useEffect } from "react";
