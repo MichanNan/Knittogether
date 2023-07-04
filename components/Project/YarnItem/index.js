@@ -62,6 +62,7 @@ const YarnWrapper = styled.div`
   grid-template-rows: repeat(3, 33.33%);
   grid-gap: 0.5rem 0rem;
   z-index: 99;
+  margin-top: 1rem;
 `;
 const YarnItemInput = styled(({ name, defaultValue, onChange, maxLength }) => (
   <StyledInput

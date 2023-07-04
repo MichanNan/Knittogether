@@ -103,9 +103,10 @@ export const ButtonContainer = styled.div`
   gap: 1rem;
 `;
 export const SubTitle = styled.span`
+  display: block;
   font-size: 1.2rem;
   font-weight: 700;
-  margin: 1rem auto;
+  margin-bottom: 0.5rem;
 `;
 export const StyledLink = styled(Link)`
   text-decoration: none;

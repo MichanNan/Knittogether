@@ -5,6 +5,7 @@ import { ColoredFont, SubTitle, ButtonContainer } from "../../../styles";
 
 import Upload from "../../Common/Upload";
 import YarnItem from "../YarnItem";
+import UploadFile from "../../Common/UploadFile";
 
 import { uid } from "uid";
 import { useState } from "react";
@@ -21,7 +22,7 @@ export default function ProjectForm({
   buttonContentRight,
   projectName,
 }) {
-  const buttonPosition = 52;
+  const buttonPosition = 56;
   const buttonPositionIndex = 11.2;
   //initial data for edit mode(edit a detail page)
   const [existedYarn, setExistedYarn] = useState([]);
@@ -250,11 +251,10 @@ export default function ProjectForm({
         {/* --------------------------------------------------------------end name input section------------------------------------------------------- */}
         {/* --------------------------------------------------------------start details input section-------------------------------------------------- */}
         <ColumnSection>
-          <section>
-            <SubTitle>
-              <ColoredFont>Details</ColoredFont>
-            </SubTitle>
-          </section>
+          <SubTitle>
+            <ColoredFont>Details</ColoredFont>
+          </SubTitle>
+
           <label htmlFor="recipient" required="required">
             The project is for
           </label>
@@ -299,6 +299,15 @@ export default function ProjectForm({
           />
         </ColumnSection>
         {/* -------------------------------------------------------------end detail input section------------------------------------------------------- */}
+        {/* -------------------------------------------------------------start pattern upload section------------------------------------------------------- */}
+        <ColumnSection>
+          <SubTitle>
+            <ColoredFont>Pattern</ColoredFont>
+          </SubTitle>
+
+          <UploadFile />
+        </ColumnSection>
+        {/* -------------------------------------------------------------end pattern upload section------------------------------------------------------- */}
         {/* --------------------------------------------------------start yarn input section------------------------------------------------------------- */}
         {/* -------------------render when create project and there is no yarn input field ---------------*/}
         <ColumnSection>
@@ -390,7 +399,6 @@ export default function ProjectForm({
             ))}
         </ColumnSection>
         {/* --------------------------------------------------------------end yarn input section------------------------------------------------------- */}
-
         {/* --------------------------------------------------------------start note input section---------------------------------------------------- */}
         <NoteSection>
           <label htmlFor="note">
@@ -464,10 +472,10 @@ const ColumnSection = styled.section`
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-
   gap: 0.5rem;
 `;
 const YarnFormSection = styled.section`
+  margin-top: 1rem;
   width: 120%;
 `;
 const NoteSection = styled.section`

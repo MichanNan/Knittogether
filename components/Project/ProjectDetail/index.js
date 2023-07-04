@@ -18,6 +18,7 @@ import {
 import dayjs from "dayjs";
 
 import ConfirmDelete from "../../Common/ConfirmDelete";
+import Navigation from "../../Common/Navigation";
 
 export default function ProjectDetail({ project, id }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -185,6 +186,7 @@ export default function ProjectDetail({ project, id }) {
               onDelete={handleDeleteProject}
             />
           )}
+          <Navigation />
         </Main>
       )}
     </>
