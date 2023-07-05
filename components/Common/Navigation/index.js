@@ -34,6 +34,7 @@ export default function Navigation() {
           Home
         </NavLink>
       </NavItem>
+
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
         className="projects"
@@ -44,6 +45,7 @@ export default function Navigation() {
           Projects
         </NavLink>
       </NavItem>
+
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
         className="stocks"
@@ -54,6 +56,7 @@ export default function Navigation() {
           Stocks
         </NavLink>
       </NavItem>
+
       <NavItem
         onClick={(event) => handleNavOnClick(event)}
         className="pattern"

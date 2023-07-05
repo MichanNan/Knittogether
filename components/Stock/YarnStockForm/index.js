@@ -155,11 +155,12 @@ export default function YarnStockForm({
             <StyledButton
               width="8rem"
               height="3rem"
+              fontSize="1.2rem"
               onClick={handleCancelAddYarnStock}
             >
               Cancel
             </StyledButton>
-            <StyledButton width="8rem" height="3rem">
+            <StyledButton width="8rem" height="3rem" fontSize="1.2rem">
               Create
             </StyledButton>
           </ButtonContainer>

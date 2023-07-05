@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import StyledInput from "../../Common/StyledInput";
-export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
+export default function YarnItem({
+  defaultYarn,
+  isEdit,
+  handleInputChange,
+  children,
+}) {
   return (
     <>
       <YarnWrapper>
@@ -52,6 +57,7 @@ export default function YarnItem({ defaultYarn, isEdit, handleInputChange }) {
           defaultValue={isEdit ? defaultYarn.meter : ""}
           onChange={(event) => handleInputChange(event, defaultYarn.id)}
         />
+        {children}
       </YarnWrapper>
     </>
   );
@@ -60,14 +66,16 @@ const YarnWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 15% 35%);
   grid-template-rows: repeat(3, 33.33%);
-  grid-gap: 0.5rem 0rem;
+  grid-gap: 0.5rem 0.5rem;
   z-index: 99;
+  margin-top: 1rem;
+  position: relative;
 `;
 const YarnItemInput = styled(({ name, defaultValue, onChange, maxLength }) => (
   <StyledInput
     radius="0.5rem"
     height="2rem"
-    width="7rem"
+    width="6rem"
     backgroundColor="var(--color-grey)"
     name={name}
     defaultValue={defaultValue}

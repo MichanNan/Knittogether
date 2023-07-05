@@ -18,18 +18,27 @@ import {
 import dayjs from "dayjs";
 
 import ConfirmDelete from "../../Common/ConfirmDelete";
+import Navigation from "../../Common/Navigation";
 
 export default function ProjectDetail({ project, id }) {
   const [isEdit, setIsEdit] = useState(false);
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
     useState(false);
+  // initialize pattern id, if there is no pattern for the project, give it a id which is stored in database, there is no effect to de detail page, otherwise it will throw error.
+  const patternId = project.pattern
+    ? project.pattern
+    : "64a3135fcee80e505638d800";
 
   const { mutate } = useSWR("/api/project");
+  const { data: pattern } = useSWR(`/api/pattern?id=${patternId}`);
 
   function onEdit() {
     setIsEdit(true);
   }
   const router = useRouter();
+  if (!pattern) {
+    return;
+  }
 
   function cancelDelete() {
     setConfirmDeleteProjectStatus(false);
@@ -51,7 +60,13 @@ export default function ProjectDetail({ project, id }) {
     mutate();
     router.push("/project");
   }
+  function openWin() {
+    window.open(`/pattern/${patternId}`);
+  }
 
+  if (!pattern) {
+    return;
+  }
   return (
     <>
       {isEdit ? (
@@ -70,6 +85,7 @@ export default function ProjectDetail({ project, id }) {
             project={project}
             buttonContentLeft="Cancel"
             buttonContentRight="Confirm"
+            pattern={pattern}
           />
         </Main>
       ) : (
@@ -131,6 +147,27 @@ export default function ProjectDetail({ project, id }) {
               </DetailRowSection>
             </ProjectSectionContainer>
 
+            <ProjectSectionContainer>
+              <SubTitle>
+                <ColoredFont>Pattern</ColoredFont>
+              </SubTitle>
+              {project.pattern ? (
+                <PatternSection>
+                  <StyledButton
+                    width="6rem"
+                    height="1.5rem"
+                    radius="1rem"
+                    onClick={openWin}
+                  >
+                    show pattern
+                  </StyledButton>
+                  <p>{pattern?.body?.patternName}</p>
+                </PatternSection>
+              ) : (
+                <LightFont>no pattern for this project</LightFont>
+              )}
+            </ProjectSectionContainer>
+
             {project.yarn.map((yarnData) => (
               <ProjectSectionContainer key={yarnData._id}>
                 <SubTitle>
@@ -170,10 +207,20 @@ export default function ProjectDetail({ project, id }) {
             </ProjectSectionContainer>
 
             <ButtonRowSection>
-              <StyledButton width="8rem" height="3rem" onClick={confirmDelete}>
+              <StyledButton
+                width="8rem"
+                height="3rem"
+                fontSize="1.2rem"
+                onClick={confirmDelete}
+              >
                 Delete
               </StyledButton>
-              <StyledButton width="8rem" height="3rem" onClick={onEdit}>
+              <StyledButton
+                width="8rem"
+                height="3rem"
+                fontSize="1.2rem"
+                onClick={onEdit}
+              >
                 Edit
               </StyledButton>
             </ButtonRowSection>
@@ -185,6 +232,7 @@ export default function ProjectDetail({ project, id }) {
               onDelete={handleDeleteProject}
             />
           )}
+          <Navigation />
         </Main>
       )}
     </>
@@ -215,9 +263,15 @@ const DetailRowSection = styled.div`
   display: flex;
   gap: 1.2rem;
 `;
+const PatternSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
 const ButtonRowSection = styled.section`
   width: 100%;
   display: flex;
   justify-content: center;
   gap: 0.8rem;
+  margin-bottom: 3rem;
 `;

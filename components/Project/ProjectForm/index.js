@@ -5,11 +5,12 @@ import { ColoredFont, SubTitle, ButtonContainer } from "../../../styles";
 
 import Upload from "../../Common/Upload";
 import YarnItem from "../YarnItem";
+import UploadFile from "../../Common/UploadFile";
 
+import { handleProjectRestructure } from "../handleProjectRestructure";
 import { uid } from "uid";
 import { useState } from "react";
 import { useEffect } from "react";
-import { handleProjectRestructure } from "../handleProjectRestructure";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -20,12 +21,14 @@ export default function ProjectForm({
   buttonContentLeft,
   buttonContentRight,
   projectName,
+  pattern,
 }) {
-  const buttonPosition = 52;
-  const buttonPositionIndex = 11.2;
-  //initial data for edit mode(edit a detail page)
+  //store pattern id in the state
+  const [patternId, setPatternId] = useState("");
+
+  //initial yarn data for edit mode(edit a detail page)
   const [existedYarn, setExistedYarn] = useState([]);
-  //initial data for create mode(creating a new project)
+  //initial yarn data for create mode(creating a new project)
   let yarnDataOrg = [
     {
       id: uid(),
@@ -39,9 +42,15 @@ export default function ProjectForm({
       meter: "",
     },
   ];
+  const [loading, setLoading] = useState(false);
+
+  //by edit mode to see if there is already yarn data for the existing project.
+  //If there is yarn data, give initial yarn the existed yarn. If there is no yarn data, then render a empty
+  //yarn form that allow the user to add new yarn.
   useEffect(() => {
     if (isEdit) {
       let initialYarn = project?.yarn ? project.yarn : yarnData;
+
       initialYarn.map((a) => {
         a.id = uid();
         delete a._id;
@@ -68,30 +77,17 @@ export default function ProjectForm({
     }
   }
 
-  //function for update project information in edit mode
-  async function handleUpdate(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-
-    let newProject = handleProjectRestructure(
-      data,
-      data.name,
-      existedYarn,
-      projectImageUrl
-    );
-
-    const response = await fetch(`/api/project?id=${project._id}`, {
-      method: "PUT",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProject),
+  //function for input change(controlled input)
+  function handleInputChange(event, id) {
+    const newYarnData = yarnData.map((yarn) => {
+      if (id === yarn.id) {
+        const { name, value } = event.target;
+        return { ...yarn, [name]: value };
+      }
+      return yarn;
     });
 
-    setIsEdit(!isEdit);
-    mutate();
+    setYarnData(newYarnData);
   }
 
   //function for create a new project
@@ -103,7 +99,8 @@ export default function ProjectForm({
       data,
       projectName,
       yarnData,
-      projectImageUrl
+      projectImageUrl,
+      patternId
     );
 
     const response = await fetch("/api/project", {
@@ -119,7 +116,34 @@ export default function ProjectForm({
     mutate();
   }
 
-  // function for add more yarn in create mode
+  //function for update project information in edit mode
+  async function handleUpdate(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    let newProject = handleProjectRestructure(
+      data,
+      data.name,
+      existedYarn,
+      projectImageUrl,
+      patternId
+    );
+
+    const response = await fetch(`/api/project?id=${project._id}`, {
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProject),
+    });
+
+    setIsEdit(!isEdit);
+    mutate();
+  }
+
+  // function for add more yarn input field in create mode
   function handleAddYarnClick() {
     setYarnData([
       ...yarnData,
@@ -136,16 +160,8 @@ export default function ProjectForm({
       },
     ]);
   }
-  //function for delete yarn input field in create mode
-  function handleDeleteYarn(id) {
-    const allYarn = [...yarnData];
-    allYarn.splice(
-      allYarn.findIndex((yarn) => yarn.id === id),
-      1
-    );
-    setYarnData(allYarn);
-  }
-  //function for create more yarn input field in edit mode
+
+  //function for add more yarn input field in edit mode
   function handleAddExistedYarnClick() {
     setExistedYarn([
       ...existedYarn,
@@ -163,31 +179,6 @@ export default function ProjectForm({
     ]);
   }
 
-  //function for delete yarn input field in edit mode
-  function handleDeleteExistedYarn(id) {
-    const allYarn = [...existedYarn];
-
-    allYarn.splice(
-      allYarn.findIndex((yarn) => yarn.id === id),
-      1
-    );
-    setExistedYarn(allYarn);
-    setYarnData(allYarn);
-  }
-
-  //function for input change(controlled input)
-  function handleInputChange(event, id) {
-    const newYarnData = yarnData.map((yarn) => {
-      if (id === yarn.id) {
-        const { name, value } = event.target;
-        return { ...yarn, [name]: value };
-      }
-      return yarn;
-    });
-
-    setYarnData(newYarnData);
-  }
-
   //function for update yarn information in edit mode
   function handleExistedInputChange(event, id) {
     const newYarnData = existedYarn.map((yarn) => {
@@ -200,6 +191,29 @@ export default function ProjectForm({
     setExistedYarn(newYarnData);
     setYarnData(newYarnData);
   }
+
+  //function for delete yarn input field in create mode
+  function handleDeleteYarn(id) {
+    const allYarn = [...yarnData];
+    allYarn.splice(
+      allYarn.findIndex((yarn) => yarn.id === id),
+      1
+    );
+    setYarnData(allYarn);
+  }
+
+  //function for delete yarn input field in edit mode
+  function handleDeleteExistedYarn(id) {
+    const allYarn = [...existedYarn];
+
+    allYarn.splice(
+      allYarn.findIndex((yarn) => yarn.id === id),
+      1
+    );
+    setExistedYarn(allYarn);
+    setYarnData(allYarn);
+  }
+
   return (
     <>
       <ProjectItemForm onSubmit={!isEdit ? handleCreate : handleUpdate}>
@@ -238,7 +252,9 @@ export default function ProjectForm({
         {/* ----------------------------------------------------------start name input section------------------------------------------------------- */}
         <ColumnSection>
           <label htmlFor="name" required="required">
-            Name
+            <SubTitle>
+              <ColoredFont>Name</ColoredFont>
+            </SubTitle>
           </label>
           <ProjectInput
             name="name"
@@ -250,11 +266,10 @@ export default function ProjectForm({
         {/* --------------------------------------------------------------end name input section------------------------------------------------------- */}
         {/* --------------------------------------------------------------start details input section-------------------------------------------------- */}
         <ColumnSection>
-          <section>
-            <SubTitle>
-              <ColoredFont>Details</ColoredFont>
-            </SubTitle>
-          </section>
+          <SubTitle>
+            <ColoredFont>Details</ColoredFont>
+          </SubTitle>
+
           <label htmlFor="recipient" required="required">
             The project is for
           </label>
@@ -299,6 +314,21 @@ export default function ProjectForm({
           />
         </ColumnSection>
         {/* -------------------------------------------------------------end detail input section------------------------------------------------------- */}
+        {/* -------------------------------------------------------------start pattern upload section------------------------------------------------------- */}
+        <ColumnSection>
+          <SubTitle>
+            <ColoredFont>Pattern</ColoredFont>
+          </SubTitle>
+
+          <UploadFile
+            setPatternId={setPatternId}
+            isEdit={isEdit}
+            oldPattern={pattern}
+            loading={loading}
+            setLoading={setLoading}
+          />
+        </ColumnSection>
+        {/* -------------------------------------------------------------end pattern upload section------------------------------------------------------- */}
         {/* --------------------------------------------------------start yarn input section------------------------------------------------------------- */}
         {/* -------------------render when create project and there is no yarn input field ---------------*/}
         <ColumnSection>
@@ -308,8 +338,8 @@ export default function ProjectForm({
                 <ColoredFont>Add new yarn</ColoredFont>
               </SubTitle>
               <ToggleYarnButton
-                left="16rem"
-                top={`${buttonPosition}rem`}
+                left="15rem"
+                top="58.5rem"
                 onClick={handleAddYarnClick}
               >
                 +
@@ -323,24 +353,26 @@ export default function ProjectForm({
                 <SubTitle>
                   <ColoredFont>Yarn</ColoredFont>
                 </SubTitle>
-                <ToggleYarnButton
-                  left="20rem"
-                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
-                  onClick={handleAddYarnClick}
-                >
-                  +
-                </ToggleYarnButton>
-                <ToggleYarnButton
-                  left="17rem"
-                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
-                  onClick={() => handleDeleteYarn(yarn.id)}
-                >
-                  -
-                </ToggleYarnButton>
+
                 <YarnItem
                   defaultYarn={yarn}
                   handleInputChange={handleInputChange}
-                />
+                >
+                  <ToggleYarnButton
+                    left="15rem"
+                    top="-3rem"
+                    onClick={handleAddYarnClick}
+                  >
+                    +
+                  </ToggleYarnButton>
+                  <ToggleYarnButton
+                    left="18rem"
+                    top="-3rem"
+                    onClick={() => handleDeleteYarn(yarn.id)}
+                  >
+                    -
+                  </ToggleYarnButton>
+                </YarnItem>
               </YarnFormSection>
             ))}
           {/* --------------render when edit project and there is no yarn input field -----------------*/}
@@ -350,11 +382,10 @@ export default function ProjectForm({
                 <ColoredFont>Add new yarn</ColoredFont>
               </SubTitle>
               <ToggleYarnButton
-                left="16rem"
-                top="55rem"
+                left="15rem"
+                top="58.5rem"
                 onClick={handleAddExistedYarnClick}
               >
-                {" "}
                 +
               </ToggleYarnButton>
             </YarnFormSection>
@@ -367,37 +398,38 @@ export default function ProjectForm({
                 <SubTitle>
                   <ColoredFont>Yarn</ColoredFont>
                 </SubTitle>
-                <ToggleYarnButton
-                  left="20rem"
-                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
-                  onClick={handleAddExistedYarnClick}
-                >
-                  +
-                </ToggleYarnButton>
-                <ToggleYarnButton
-                  left="17rem"
-                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
-                  onClick={() => handleDeleteExistedYarn(yarn.id)}
-                >
-                  -
-                </ToggleYarnButton>
+
                 <YarnItem
                   defaultYarn={yarn}
                   isEdit={isEdit}
                   handleInputChange={handleExistedInputChange}
-                />
+                >
+                  <ToggleYarnButton
+                    left="18rem"
+                    top="-3rem"
+                    onClick={handleAddExistedYarnClick}
+                  >
+                    +
+                  </ToggleYarnButton>
+                  <ToggleYarnButton
+                    left="15rem"
+                    top="-3rem"
+                    onClick={() => handleDeleteExistedYarn(yarn.id)}
+                  >
+                    -
+                  </ToggleYarnButton>
+                </YarnItem>
               </YarnFormSection>
             ))}
         </ColumnSection>
         {/* --------------------------------------------------------------end yarn input section------------------------------------------------------- */}
-
         {/* --------------------------------------------------------------start note input section---------------------------------------------------- */}
         <NoteSection>
-          <label htmlFor="note">
-            <SubTitle>
-              <ColoredFont>Note</ColoredFont>
-            </SubTitle>
-          </label>
+          <label htmlFor="note"> </label>
+          <SubTitle>
+            <ColoredFont>Note</ColoredFont>
+          </SubTitle>
+
           <StyledTextArea name="note" />
         </NoteSection>
         {/* --------------------------------------------------------------end note input section------------------------------------------------------- */}
@@ -407,11 +439,18 @@ export default function ProjectForm({
             type="cancel"
             width="8rem"
             height="3rem"
+            fontSize="1.2rem"
             onClick={handleCancel}
           >
             {buttonContentLeft}
           </StyledButton>
-          <StyledButton type="submit" width="8rem" height="3rem">
+          <StyledButton
+            type="submit"
+            width="8rem"
+            height="3rem"
+            fontSize="1.2rem"
+            disabled={loading}
+          >
             {buttonContentRight}
           </StyledButton>
           {/* --------------------------------------------------------------end button section------------------------------------------------------- */}
@@ -427,6 +466,7 @@ const ProjectItemForm = styled.form`
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+  justify-content: center;
   width: 80%;
   padding-bottom: 5rem;
 `;
@@ -463,20 +503,24 @@ const ColumnSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: start;
-
+  align-items: center;
   gap: 0.5rem;
 `;
 const YarnFormSection = styled.section`
-  width: 120%;
-`;
-const NoteSection = styled.section`
+  margin-top: 1rem;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
+`;
+const NoteSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 1rem;
+  width: 100%;
 `;
 
 const ToggleYarnButton = styled.div`

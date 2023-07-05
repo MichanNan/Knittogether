@@ -43,7 +43,7 @@ export const AddItemButton = styled.button`
   right: 3rem;
   z-index: 99;
   font-size: 3rem;
-  line-height: 3rem;
+  line-height: 1rem;
   border-radius: 3rem;
   border: 1px solid transparent;
   width: 3rem;
@@ -89,7 +89,7 @@ export const BackDrop = styled.div`
   top: 0;
   left: 0;
   float: right;
-  width: 500px;
+  width: 100%;
   height: 100%;
   background-color: #cccccc;
   opacity: 0.6;
@@ -103,9 +103,11 @@ export const ButtonContainer = styled.div`
   gap: 1rem;
 `;
 export const SubTitle = styled.span`
+  display: block;
   font-size: 1.2rem;
   font-weight: 700;
-  margin: 1rem auto;
+  margin-bottom: 0.5rem;
+  align-self: start;
 `;
 export const StyledLink = styled(Link)`
   text-decoration: none;
