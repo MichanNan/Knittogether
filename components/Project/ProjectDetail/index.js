@@ -274,10 +274,20 @@ export default function ProjectDetail({ project, id }) {
             </ProjectSectionContainer>
 
             <ButtonRowSection>
-              <StyledButton width="8rem" height="3rem" onClick={confirmDelete}>
+              <StyledButton
+                width="8rem"
+                height="3rem"
+                fontSize="1.2rem"
+                onClick={confirmDelete}
+              >
                 Delete
               </StyledButton>
-              <StyledButton width="8rem" height="3rem" onClick={onEdit}>
+              <StyledButton
+                width="8rem"
+                height="3rem"
+                fontSize="1.2rem"
+                onClick={onEdit}
+              >
                 Edit
               </StyledButton>
             </ButtonRowSection>

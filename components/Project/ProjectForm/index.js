@@ -23,11 +23,12 @@ export default function ProjectForm({
   projectName,
   pattern,
 }) {
+  //store pattern id in the state
   const [patternId, setPatternId] = useState("");
 
-  //initial data for edit mode(edit a detail page)
+  //initial yarn data for edit mode(edit a detail page)
   const [existedYarn, setExistedYarn] = useState([]);
-  //initial data for create mode(creating a new project)
+  //initial yarn data for create mode(creating a new project)
   let yarnDataOrg = [
     {
       id: uid(),
@@ -43,6 +44,9 @@ export default function ProjectForm({
   ];
   const [loading, setLoading] = useState(false);
 
+  //by edit mode to see if there is already yarn data for the existing project.
+  //If there is yarn data, give initial yarn the existed yarn. If there is no yarn data, then render a empty
+  //yarn form that allow the user to add new yarn.
   useEffect(() => {
     if (isEdit) {
       let initialYarn = project?.yarn ? project.yarn : yarnData;
@@ -73,31 +77,17 @@ export default function ProjectForm({
     }
   }
 
-  //function for update project information in edit mode
-  async function handleUpdate(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-
-    let newProject = handleProjectRestructure(
-      data,
-      data.name,
-      existedYarn,
-      projectImageUrl,
-      patternId
-    );
-
-    const response = await fetch(`/api/project?id=${project._id}`, {
-      method: "PUT",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProject),
+  //function for input change(controlled input)
+  function handleInputChange(event, id) {
+    const newYarnData = yarnData.map((yarn) => {
+      if (id === yarn.id) {
+        const { name, value } = event.target;
+        return { ...yarn, [name]: value };
+      }
+      return yarn;
     });
 
-    setIsEdit(!isEdit);
-    mutate();
+    setYarnData(newYarnData);
   }
 
   //function for create a new project
@@ -126,7 +116,34 @@ export default function ProjectForm({
     mutate();
   }
 
-  // function for add more yarn in create mode
+  //function for update project information in edit mode
+  async function handleUpdate(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    let newProject = handleProjectRestructure(
+      data,
+      data.name,
+      existedYarn,
+      projectImageUrl,
+      patternId
+    );
+
+    const response = await fetch(`/api/project?id=${project._id}`, {
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProject),
+    });
+
+    setIsEdit(!isEdit);
+    mutate();
+  }
+
+  // function for add more yarn input field in create mode
   function handleAddYarnClick() {
     setYarnData([
       ...yarnData,
@@ -143,16 +160,8 @@ export default function ProjectForm({
       },
     ]);
   }
-  //function for delete yarn input field in create mode
-  function handleDeleteYarn(id) {
-    const allYarn = [...yarnData];
-    allYarn.splice(
-      allYarn.findIndex((yarn) => yarn.id === id),
-      1
-    );
-    setYarnData(allYarn);
-  }
-  //function for create more yarn input field in edit mode
+
+  //function for add more yarn input field in edit mode
   function handleAddExistedYarnClick() {
     setExistedYarn([
       ...existedYarn,
@@ -170,31 +179,6 @@ export default function ProjectForm({
     ]);
   }
 
-  //function for delete yarn input field in edit mode
-  function handleDeleteExistedYarn(id) {
-    const allYarn = [...existedYarn];
-
-    allYarn.splice(
-      allYarn.findIndex((yarn) => yarn.id === id),
-      1
-    );
-    setExistedYarn(allYarn);
-    setYarnData(allYarn);
-  }
-
-  //function for input change(controlled input)
-  function handleInputChange(event, id) {
-    const newYarnData = yarnData.map((yarn) => {
-      if (id === yarn.id) {
-        const { name, value } = event.target;
-        return { ...yarn, [name]: value };
-      }
-      return yarn;
-    });
-
-    setYarnData(newYarnData);
-  }
-
   //function for update yarn information in edit mode
   function handleExistedInputChange(event, id) {
     const newYarnData = existedYarn.map((yarn) => {
@@ -207,6 +191,29 @@ export default function ProjectForm({
     setExistedYarn(newYarnData);
     setYarnData(newYarnData);
   }
+
+  //function for delete yarn input field in create mode
+  function handleDeleteYarn(id) {
+    const allYarn = [...yarnData];
+    allYarn.splice(
+      allYarn.findIndex((yarn) => yarn.id === id),
+      1
+    );
+    setYarnData(allYarn);
+  }
+
+  //function for delete yarn input field in edit mode
+  function handleDeleteExistedYarn(id) {
+    const allYarn = [...existedYarn];
+
+    allYarn.splice(
+      allYarn.findIndex((yarn) => yarn.id === id),
+      1
+    );
+    setExistedYarn(allYarn);
+    setYarnData(allYarn);
+  }
+
   return (
     <>
       <ProjectItemForm onSubmit={!isEdit ? handleCreate : handleUpdate}>
@@ -432,7 +439,7 @@ export default function ProjectForm({
             type="cancel"
             width="8rem"
             height="3rem"
-            fontSize="1.5rem"
+            fontSize="1.2rem"
             onClick={handleCancel}
           >
             {buttonContentLeft}
@@ -441,7 +448,7 @@ export default function ProjectForm({
             type="submit"
             width="8rem"
             height="3rem"
-            fontSize="1.5rem"
+            fontSize="1.2rem"
             disabled={loading}
           >
             {buttonContentRight}
