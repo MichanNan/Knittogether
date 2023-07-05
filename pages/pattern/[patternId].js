@@ -1,12 +1,14 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
+import BackIcon from "../../components/Common/BackIcon/BackIcon";
+import StyledButton from "../../components/Common/StyledButton";
 
 export default function PatternPage() {
   const router = useRouter();
 
   const { patternId } = router.query;
-  console.log(patternId);
+
   useEffect(() => {
     handleDownload();
   });
@@ -224,13 +226,18 @@ export default function PatternPage() {
     });
   }
   return (
-    <>
-      <Embed id="view"></Embed>
-    </>
+    <Wrapper>
+      <Iframe id="view"></Iframe>
+    </Wrapper>
   );
 }
-
-const Embed = styled.iframe`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const Iframe = styled.iframe`
   width: 100%;
   height: 667px;
 `;
