@@ -25,12 +25,20 @@ export default function ProjectDetail({ project, id }) {
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
     useState(false);
 
+  const patternId = project.pattern
+    ? project.pattern
+    : "64a3135fcee80e505638d800";
+  console.log(patternId);
   const { mutate } = useSWR("/api/project");
+  const { data: pattern } = useSWR(`/api/pattern?id=${patternId}`);
 
   function onEdit() {
     setIsEdit(true);
   }
   const router = useRouter();
+  // if (!pattern) {
+  //   return;
+  // }
 
   function cancelDelete() {
     setConfirmDeleteProjectStatus(false);
@@ -53,6 +61,79 @@ export default function ProjectDetail({ project, id }) {
     router.push("/project");
   }
 
+  // async function handleDownload() {
+  //   fetch(`/api/pattern?id=${patternId}`, {
+  //     method: "get",
+  //   })
+  //     .then((response) => {
+  //       //read ReadableStream response
+  //       const reader = response.body.getReader();
+  //       return new ReadableStream({
+  //         start(controller) {
+  //           return pump();
+  //           function pump() {
+  //             return reader.read().then(({ done, value }) => {
+  //               // When no more data needs to be consumed, close the stream
+  //               if (done) {
+  //                 controller.close();
+  //                 return;
+  //               } // Enqueue the next data chunk into our target stream
+  //               controller.enqueue(value);
+  //               return pump();
+  //             });
+  //           }
+  //         },
+  //       });
+  //     })
+  //     .then((stream) => new Response(stream)) // Create an object URL for the response
+  //     .then((response) => response.blob())
+  //     .then((blob) => {
+  //       return blob.text();
+  //     })
+  //     .then((text) => {
+  //       const Pattern = JSON.parse(text).body;
+  //       console.log(Pattern);
+  //       if (Pattern.totalChunkNumber) {
+  //         if (Pattern.nextChunkId) {
+  //         } else {
+  //         }
+  //       }
+  //       const downloaded64 = Pattern.fileBase64String;
+
+  //       let downFile = base64toFile(downloaded64, Pattern.patternName);
+  //       console.log("downFile", downFile);
+  //       const objectURL = window.URL.createObjectURL(downFile);
+  //       // const iframe = document.getElementById("view");
+  //       const embed = document.getElementById("view");
+  //       // iframe.setAttribute("src", objectURL);
+  //       embed.setAttribute("src", objectURL);
+
+  //       //var link = document.createElement("a");
+  //       //link.href = objectURL;
+  //       //link.download = Pattern.patternName;
+  //       //link.click();
+  //       //window.URL.revokeObjectURL(objectURL);
+  //     });
+
+  //   function base64toFile(dataurl, filename) {
+  //     let arr = dataurl.split(",");
+  //     let mime = arr[0].match(/:(.*?);/)[1];
+  //     let suffix = mime.split("/")[1];
+  //     let bstr = atob(arr[1]);
+  //     let n = bstr.length;
+  //     let u8arr = new Uint8Array(n);
+  //     while (n--) {
+  //       u8arr[n] = bstr.charCodeAt(n);
+  //     }
+  //     return new File([u8arr], `${filename}.${suffix}`, {
+  //       type: mime,
+  //     });
+  //   }
+  // }
+
+  if (!pattern) {
+    return;
+  }
   return (
     <>
       {isEdit ? (
@@ -71,6 +152,7 @@ export default function ProjectDetail({ project, id }) {
             project={project}
             buttonContentLeft="Cancel"
             buttonContentRight="Confirm"
+            pattern={pattern}
           />
         </Main>
       ) : (
@@ -130,6 +212,27 @@ export default function ProjectDetail({ project, id }) {
                   {dayjs(project.details[0].end).format("DD-MM-YYYY")}
                 </LightFont>
               </DetailRowSection>
+            </ProjectSectionContainer>
+
+            <ProjectSectionContainer>
+              <SubTitle>
+                <ColoredFont>Pattern</ColoredFont>
+              </SubTitle>
+              {project.pattern ? (
+                <PatternSection>
+                  <StyledButton
+                    width="6rem"
+                    height="1.5rem"
+                    radius="1rem"
+                    onClick={() => router.push(`/pattern/${patternId}`)}
+                  >
+                    show pattern
+                  </StyledButton>
+                  <p>{pattern?.body?.patternName}</p>
+                </PatternSection>
+              ) : (
+                <LightFont>no pattern for this project</LightFont>
+              )}
             </ProjectSectionContainer>
 
             {project.yarn.map((yarnData) => (
@@ -217,9 +320,15 @@ const DetailRowSection = styled.div`
   display: flex;
   gap: 1.2rem;
 `;
+const PatternSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
 const ButtonRowSection = styled.section`
   width: 100%;
   display: flex;
   justify-content: center;
   gap: 0.8rem;
+  margin-bottom: 3rem;
 `;

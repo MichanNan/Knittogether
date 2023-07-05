@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
 export function handleProjectRestructure(
   data,
   projectName,
   yarnData,
-  projectImageUrl
+  projectImageUrl,
+  patternId
 ) {
   const newStart = new Date(data.start).toLocaleDateString();
   const newEnd = new Date(data.end).toLocaleDateString();
@@ -24,7 +24,7 @@ export function handleProjectRestructure(
         end: endDate,
       },
     ],
-    pattern: "",
+    pattern: patternId,
     yarn: yarnData,
     note: data.note,
   };

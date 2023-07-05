@@ -7,10 +7,10 @@ import Upload from "../../Common/Upload";
 import YarnItem from "../YarnItem";
 import UploadFile from "../../Common/UploadFile";
 
+import { handleProjectRestructure } from "../handleProjectRestructure";
 import { uid } from "uid";
 import { useState } from "react";
 import { useEffect } from "react";
-import { handleProjectRestructure } from "../handleProjectRestructure";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -21,9 +21,12 @@ export default function ProjectForm({
   buttonContentLeft,
   buttonContentRight,
   projectName,
+  pattern,
 }) {
-  const buttonPosition = 56;
+  const buttonPosition = 58;
   const buttonPositionIndex = 11.2;
+  const [patternId, setPatternId] = useState("");
+
   //initial data for edit mode(edit a detail page)
   const [existedYarn, setExistedYarn] = useState([]);
   //initial data for create mode(creating a new project)
@@ -40,14 +43,28 @@ export default function ProjectForm({
       meter: "",
     },
   ];
+
+  // const initialPattern = project.pattern ? project.pattern : "";
+  // const [existedPatternId, setExistedPatternId] = useState("");
+
+  // //store the existed pattern in the state
+  // const [existedPattern, setExistedPattern] = useState({});
+
+  // const { data: pattern } = useSWR(`/api/pattern?id=${existedPatternId}`);
+  // pattern ? setExistedPattern(pattern) : setExistedPattern("");
+
   useEffect(() => {
     if (isEdit) {
       let initialYarn = project?.yarn ? project.yarn : yarnData;
+
       initialYarn.map((a) => {
         a.id = uid();
         delete a._id;
       });
+      // let initialPattern = project.pattern ? project.pattern : "";
       setExistedYarn(initialYarn);
+      // setExistedPatternId(initialPattern);
+      // setExistedPatternId(initialPattern);
     }
   }, [isEdit]);
 
@@ -57,6 +74,10 @@ export default function ProjectForm({
   //to get the image url store url in projectImageUrl state
   const [projectImageUrl, setProjectImageUrl] = useState("");
 
+  // const { data: pattern } = useSWR(`/api/pattern?id=${existedPatternId}`);
+  // if (existedPatternId) {
+  //   setExistedPattern(pattern);
+  // }
   const router = useRouter();
   const { mutate } = useSWR("/api/project");
 
@@ -79,7 +100,8 @@ export default function ProjectForm({
       data,
       data.name,
       existedYarn,
-      projectImageUrl
+      projectImageUrl,
+      patternId
     );
 
     const response = await fetch(`/api/project?id=${project._id}`, {
@@ -104,7 +126,8 @@ export default function ProjectForm({
       data,
       projectName,
       yarnData,
-      projectImageUrl
+      projectImageUrl,
+      patternId
     );
 
     const response = await fetch("/api/project", {
@@ -305,7 +328,12 @@ export default function ProjectForm({
             <ColoredFont>Pattern</ColoredFont>
           </SubTitle>
 
-          <UploadFile />
+          <UploadFile
+            setPatternId={setPatternId}
+            isEdit={isEdit}
+            oldPattern={pattern}
+            // setExistedPatternId={setExistedPatternId}
+          />
         </ColumnSection>
         {/* -------------------------------------------------------------end pattern upload section------------------------------------------------------- */}
         {/* --------------------------------------------------------start yarn input section------------------------------------------------------------- */}
@@ -333,14 +361,14 @@ export default function ProjectForm({
                   <ColoredFont>Yarn</ColoredFont>
                 </SubTitle>
                 <ToggleYarnButton
-                  left="20rem"
+                  left="19rem"
                   top={`${buttonPosition + index * buttonPositionIndex}rem`}
                   onClick={handleAddYarnClick}
                 >
                   +
                 </ToggleYarnButton>
                 <ToggleYarnButton
-                  left="17rem"
+                  left="16rem"
                   top={`${buttonPosition + index * buttonPositionIndex}rem`}
                   onClick={() => handleDeleteYarn(yarn.id)}
                 >
@@ -363,7 +391,6 @@ export default function ProjectForm({
                 top="55rem"
                 onClick={handleAddExistedYarnClick}
               >
-                {" "}
                 +
               </ToggleYarnButton>
             </YarnFormSection>
@@ -377,14 +404,14 @@ export default function ProjectForm({
                   <ColoredFont>Yarn</ColoredFont>
                 </SubTitle>
                 <ToggleYarnButton
-                  left="20rem"
+                  left="18rem"
                   top={`${buttonPosition + index * buttonPositionIndex}rem`}
                   onClick={handleAddExistedYarnClick}
                 >
                   +
                 </ToggleYarnButton>
                 <ToggleYarnButton
-                  left="17rem"
+                  left="15rem"
                   top={`${buttonPosition + index * buttonPositionIndex}rem`}
                   onClick={() => handleDeleteExistedYarn(yarn.id)}
                 >
@@ -476,7 +503,7 @@ const ColumnSection = styled.section`
 `;
 const YarnFormSection = styled.section`
   margin-top: 1rem;
-  width: 120%;
+  width: 110%;
 `;
 const NoteSection = styled.section`
   width: 100%;

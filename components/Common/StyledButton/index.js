@@ -6,6 +6,7 @@ export default function StyledButton({
   children,
   onClick,
   className,
+  fontSize,
 }) {
   return (
     <ButtonItem
@@ -13,6 +14,7 @@ export default function StyledButton({
       height={height}
       onClick={onClick}
       className={className}
+      fontSize={fontSize}
     >
       {children}
     </ButtonItem>
@@ -23,9 +25,9 @@ const ButtonItem = styled.button`
   width: ${({ width }) => width};
   height: ${(height) => height};
   border: none;
-  border-radius: 1rem;
+  border-radius: 0.6rem;
   box-shadow: 0.1rem 0.1rem 0.5 #cccccc;
   background-color: var(--color-orange);
   color: var(--color-white);
-  font-size: 1.2rem;
+  font-size: ${({ fontSize }) => fontSize};
 `;

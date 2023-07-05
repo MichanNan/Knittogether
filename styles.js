@@ -43,7 +43,7 @@ export const AddItemButton = styled.button`
   right: 3rem;
   z-index: 99;
   font-size: 3rem;
-  line-height: 3rem;
+  line-height: 1rem;
   border-radius: 3rem;
   border: 1px solid transparent;
   width: 3rem;

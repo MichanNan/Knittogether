@@ -1,7 +1,45 @@
-import { Button } from "@mui/material";
+import { useState } from "react";
 import styled from "styled-components";
 
-export default function UploadFile({}) {
+export default function UploadFile({
+  setPatternId,
+  //   setExistedPatternId,
+  isEdit,
+  oldPattern,
+}) {
+  const [pattern, setPattern] = useState({});
+  const [existedPattern, setExistedPattern] = useState(oldPattern);
+  //   useEffect(() => {
+  //     if (isEdit) {
+  //       setPattern(existedPattern);
+  //     }
+  //   });
+
+  console.log(pattern);
+  let showUploadInfo = "";
+
+  //   Object.keys(pattern).length === 0
+  //     ? (showUploadInfo = "No file uploaded!")
+  //     : (showUploadInfo = `${pattern.response.patternName} uploaded successful`);
+
+  if (isEdit) {
+    console.log(isEdit);
+
+    if (existedPattern) {
+      console.log(existedPattern);
+      showUploadInfo = existedPattern.body?.patternName
+        ? existedPattern.body.patternName
+        : existedPattern.response.patternName;
+    } else {
+      showUploadInfo = "no pattern for this project";
+    }
+  } else {
+    if (Object.keys(pattern).length === 0) {
+      showUploadInfo = "No file uploaded!";
+    } else {
+      showUploadInfo = `${pattern.response.patternName} uploaded successful`;
+    }
+  }
   let patternId =
     ""; /****************************************************************************************************large string slice into strArr */
 
@@ -13,67 +51,13 @@ export default function UploadFile({}) {
     }
     return strArr;
   } /****************************************************************************************************download*******/
-  async function handleDownload() {
-    console.log("download", patternId);
-    patternId = patternId ? patternId : "64a3135fcee80e505638d800";
-
-    fetch(`/api/pattern?id=${patternId}`, {
-      method: "get",
-    })
-      .then((response) => {
-        //read ReadableStream response
-        const reader = response.body.getReader();
-        return new ReadableStream({
-          start(controller) {
-            return pump();
-            function pump() {
-              return reader.read().then(({ done, value }) => {
-                // When no more data needs to be consumed, close the stream
-                if (done) {
-                  controller.close();
-                  return;
-                } // Enqueue the next data chunk into our target stream
-                controller.enqueue(value);
-                return pump();
-              });
-            }
-          },
-        });
-      })
-      .then((stream) => new Response(stream)) // Create an object URL for the response
-      .then((response) => response.blob())
-      .then((blob) => {
-        //console.log(blob)
-        return blob.text();
-      })
-      .then((text) => {
-        const Pattern = JSON.parse(text).body;
-        console.log(Pattern);
-        if (Pattern.totalChunkNumber) {
-          if (Pattern.nextChunkId) {
-          } else {
-          }
-        }
-        const downloaded64 = Pattern.fileBase64String;
-        debugger;
-        let downFile = base64toFile(downloaded64, Pattern.patternName);
-        console.log("downFile", downFile);
-        const objectURL = window.URL.createObjectURL(downFile);
-        const iframe = document.getElementById("download");
-        iframe.setAttribute("src", objectURL);
-
-        var link = document.createElement("a");
-        link.href = objectURL;
-        link.download = Pattern.patternName; // link.click();
-        window.URL.revokeObjectURL(objectURL);
-      });
-  }
 
   let localFile;
   let localFileName;
   let local64;
   /****************************************************************************************************upload*************** */
   async function handleChange(e) {
+    console.log("uploadfile");
     if (!e) {
       return;
     } //get file and transfer to base64 string
@@ -83,7 +67,7 @@ export default function UploadFile({}) {
 
     const objectURL = window.URL.createObjectURL(localFile);
     const iframe = document.getElementById("viewer");
-    iframe.setAttribute("src", objectURL);
+    //iframe.setAttribute("src", objectURL);
     window.URL.revokeObjectURL(objectURL); //if string is larger than 1mb, split into several substrings
 
     if (local64.length > 1000000) {
@@ -130,7 +114,13 @@ export default function UploadFile({}) {
     });
 
     const resj = await res.json();
-    patternId = resj.response._id;
+
+    // isEdit
+    //   ? setExistedPatternId(resj.response._id) && setPattern(resj)
+    setPatternId(resj.response._id);
+
+    isEdit ? setExistedPattern(resj) : setPattern(resj);
+    // console.log("resj", resj);
     return;
   }
   /***************************************************************************************************base64 transform */
@@ -198,10 +188,10 @@ export default function UploadFile({}) {
       {/* <HeavyFont>
           <ColoredFont>Add Image:</ColoredFont>
         </HeavyFont> */}
-      <Label htmlFor="file">Click here to Upload </Label>
+      <Label htmlFor="pdfFile">Click here to Upload</Label>
 
       <Input
-        id="file"
+        id="pdfFile"
         name="file"
         width="20rem"
         height="2rem"
@@ -209,6 +199,9 @@ export default function UploadFile({}) {
         accept=".pdf"
         onChange={handleChange}
       />
+
+      <p> {showUploadInfo}</p>
+
       {/*         <Button onClick={handleDownload}>Download</Button>     
         <Button onClick={testAPI}>TestAPI</Button>      */}
 
@@ -231,7 +224,7 @@ const UploadedFile = styled.div`
 //   gap: 2rem;
 // `;
 const Label = styled.label`
-  width: 9rem;
+  width: 12rem;
   height: 2rem;
   line-height: 2rem;
   text-align: center;
