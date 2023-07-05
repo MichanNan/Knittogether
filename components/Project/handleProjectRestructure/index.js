@@ -5,8 +5,6 @@ export function handleProjectRestructure(
   projectImageUrl,
   patternId
 ) {
-  const newStart = new Date(data.start).toLocaleDateString();
-  const newEnd = new Date(data.end).toLocaleDateString();
   const startDate = data.start ? data.start : "not available";
   const endDate = data.end ? data.end : "not available";
   const newProject = {

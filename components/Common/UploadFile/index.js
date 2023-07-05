@@ -9,7 +9,6 @@ export default function UploadFile({
   loading,
   setLoading,
 }) {
-  // const [loading, setLoading] = useState(false);
   const initialPattern = oldPattern ? oldPattern : "";
   const [pattern, setPattern] = useState({});
   const [existedPattern, setExistedPattern] = useState(initialPattern);
@@ -58,12 +57,6 @@ export default function UploadFile({
     //if string is larger than 1mb, split into several substrings
     if (local64.length > 1000000) {
       const localArr = slice64String(local64);
-      /*fileBase64String: { type: String },
-          patternName: { type: String },
-          totalChunks: { type: String },
-          ChunkNumber: { type: String },
-          previousChunkId: { type: String },
-          */
       const totalChunks = localArr.length;
 
       let idArr = [];
@@ -108,9 +101,6 @@ export default function UploadFile({
 
   return (
     <UploadedFile className="App">
-      {/* <HeavyFont>
-          <ColoredFont>Add Image:</ColoredFont>
-        </HeavyFont> */}
       <Label htmlFor="pdfFile">Click here to Upload</Label>
 
       <Input
@@ -124,14 +114,6 @@ export default function UploadFile({
       />
       {loading && <p>Loading pattern...</p>}
       <p> {showUploadInfo}</p>
-
-      {/*         <Button onClick={handleDownload}>Download</Button>     
-        <Button onClick={testAPI}>TestAPI</Button>      */}
-
-      {/*       <br />
-            <iframe id="viewer" />
-            <br />
-            <iframe id="download" />    */}
     </UploadedFile>
   );
 }
@@ -141,11 +123,6 @@ const UploadedFile = styled.div`
   flex-direction: column;
   gap: 1rem;
 `;
-// const Wrapper = styled.div`
-//   display: flex;
-//   justify-content: start;
-//   gap: 2rem;
-// `;
 const Label = styled.label`
   width: 12rem;
   height: 2rem;

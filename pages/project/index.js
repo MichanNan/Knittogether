@@ -1,14 +1,14 @@
 import Heading from "../../components/Common/Heading";
 import Projects from "../../components/Project/Projects";
 import Navigation from "../../components/Common/Navigation/index";
-import styled from "styled-components";
+
 import PreAddProject from "../../components/Project/PreAddProject";
 import Categories from "../../components/Project/Categories";
 import SearchBar from "../../components/Project/SearchBar";
 import { useState } from "react";
-import { Main, ColoredFont, BackDrop } from "../../styles";
+import { Main, ColoredFont, BackDrop, AddItemButton } from "../../styles";
+import styled from "styled-components";
 
-import { AddItemButton } from "../../styles";
 export default function ProjectPage({ projectsList, setProjectName, router }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
   const [selectedProjectStatus, setSelectedProjectStatus] = useState("");

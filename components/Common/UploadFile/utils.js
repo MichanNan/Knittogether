@@ -14,14 +14,12 @@ export function getBase64(file) {
     return;
   }
   return new Promise((resolve, reject) => {
-    ///FileReader类就是专门用来读文件的
     const reader = new FileReader();
-    //开始读文件
-    //readAsDataURL: dataurl它的本质就是图片的二进制数据， 进行base64加密后形成的一个字符串，
+
     reader.readAsDataURL(file);
-    // 成功和失败返回对应的信息，reader.result一个base64，可以直接使用
+
     reader.onload = () => resolve(reader.result);
-    // 失败返回失败的信息
+
     reader.onerror = (error) => reject(error);
   });
 }

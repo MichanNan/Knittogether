@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
-import BackIcon from "../../components/Common/BackIcon/BackIcon";
-import StyledButton from "../../components/Common/StyledButton";
 
 export default function PatternPage() {
   const router = useRouter();
@@ -54,16 +52,8 @@ export default function PatternPage() {
         let downFile = base64toFile(downloaded64, Pattern.patternName);
         console.log("downFile", downFile);
         const objectURL = window.URL.createObjectURL(downFile);
-        // const iframe = document.getElementById("view");
         const embed = document.getElementById("view");
-        // iframe.setAttribute("src", objectURL);
         embed.setAttribute("src", objectURL);
-
-        //var link = document.createElement("a");
-        //link.href = objectURL;
-        //link.download = Pattern.patternName;
-        //link.click();
-        //window.URL.revokeObjectURL(objectURL);
       });
 
     function base64toFile(dataurl, filename) {
@@ -113,7 +103,6 @@ export default function PatternPage() {
       // Create an object URL for the response
       .then((response) => response.blob())
       .then((blob) => {
-        //console.log(blob)
         return blob.text();
       })
       .then((text) => {
@@ -127,7 +116,6 @@ export default function PatternPage() {
           console.log("multi");
           const fetchPromises = [];
           for (const item of Pattern.chunks) {
-            //console.log(item)
             const fetchPromise = fetch(`/api/pattern?id=${item}`, {
               method: "get",
             })
@@ -162,15 +150,11 @@ export default function PatternPage() {
                 return blob.text();
               })
               .then((text) => {
-                //console.log("text", text)
                 const singlePattern = JSON.parse(text).body;
-                //console.log(multiFile)
+
                 multiFile[item] = singlePattern.fileBase64String;
-                //multiFile = { item: singlePattern.fileBase64String }
-                //console.log(multiFile)
-                // console.log(downloaded64)
               });
-            //console.log(fetchPromise)
+
             fetchPromises.push(fetchPromise);
           }
           Promise.all(fetchPromises)
