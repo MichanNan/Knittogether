@@ -23,8 +23,6 @@ export default function ProjectForm({
   projectName,
   pattern,
 }) {
-  const buttonPosition = 58;
-  const buttonPositionIndex = 11.2;
   const [patternId, setPatternId] = useState("");
 
   //initial data for edit mode(edit a detail page)
@@ -43,15 +41,7 @@ export default function ProjectForm({
       meter: "",
     },
   ];
-
-  // const initialPattern = project.pattern ? project.pattern : "";
-  // const [existedPatternId, setExistedPatternId] = useState("");
-
-  // //store the existed pattern in the state
-  // const [existedPattern, setExistedPattern] = useState({});
-
-  // const { data: pattern } = useSWR(`/api/pattern?id=${existedPatternId}`);
-  // pattern ? setExistedPattern(pattern) : setExistedPattern("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (isEdit) {
@@ -61,10 +51,7 @@ export default function ProjectForm({
         a.id = uid();
         delete a._id;
       });
-      // let initialPattern = project.pattern ? project.pattern : "";
       setExistedYarn(initialYarn);
-      // setExistedPatternId(initialPattern);
-      // setExistedPatternId(initialPattern);
     }
   }, [isEdit]);
 
@@ -74,10 +61,6 @@ export default function ProjectForm({
   //to get the image url store url in projectImageUrl state
   const [projectImageUrl, setProjectImageUrl] = useState("");
 
-  // const { data: pattern } = useSWR(`/api/pattern?id=${existedPatternId}`);
-  // if (existedPatternId) {
-  //   setExistedPattern(pattern);
-  // }
   const router = useRouter();
   const { mutate } = useSWR("/api/project");
 
@@ -262,7 +245,9 @@ export default function ProjectForm({
         {/* ----------------------------------------------------------start name input section------------------------------------------------------- */}
         <ColumnSection>
           <label htmlFor="name" required="required">
-            Name
+            <SubTitle>
+              <ColoredFont>Name</ColoredFont>
+            </SubTitle>
           </label>
           <ProjectInput
             name="name"
@@ -332,7 +317,8 @@ export default function ProjectForm({
             setPatternId={setPatternId}
             isEdit={isEdit}
             oldPattern={pattern}
-            // setExistedPatternId={setExistedPatternId}
+            loading={loading}
+            setLoading={setLoading}
           />
         </ColumnSection>
         {/* -------------------------------------------------------------end pattern upload section------------------------------------------------------- */}
@@ -345,8 +331,8 @@ export default function ProjectForm({
                 <ColoredFont>Add new yarn</ColoredFont>
               </SubTitle>
               <ToggleYarnButton
-                left="16rem"
-                top={`${buttonPosition}rem`}
+                left="15rem"
+                top="58.5rem"
                 onClick={handleAddYarnClick}
               >
                 +
@@ -360,24 +346,26 @@ export default function ProjectForm({
                 <SubTitle>
                   <ColoredFont>Yarn</ColoredFont>
                 </SubTitle>
-                <ToggleYarnButton
-                  left="19rem"
-                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
-                  onClick={handleAddYarnClick}
-                >
-                  +
-                </ToggleYarnButton>
-                <ToggleYarnButton
-                  left="16rem"
-                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
-                  onClick={() => handleDeleteYarn(yarn.id)}
-                >
-                  -
-                </ToggleYarnButton>
+
                 <YarnItem
                   defaultYarn={yarn}
                   handleInputChange={handleInputChange}
-                />
+                >
+                  <ToggleYarnButton
+                    left="15rem"
+                    top="-3rem"
+                    onClick={handleAddYarnClick}
+                  >
+                    +
+                  </ToggleYarnButton>
+                  <ToggleYarnButton
+                    left="18rem"
+                    top="-3rem"
+                    onClick={() => handleDeleteYarn(yarn.id)}
+                  >
+                    -
+                  </ToggleYarnButton>
+                </YarnItem>
               </YarnFormSection>
             ))}
           {/* --------------render when edit project and there is no yarn input field -----------------*/}
@@ -387,8 +375,8 @@ export default function ProjectForm({
                 <ColoredFont>Add new yarn</ColoredFont>
               </SubTitle>
               <ToggleYarnButton
-                left="16rem"
-                top="55rem"
+                left="15rem"
+                top="58.5rem"
                 onClick={handleAddExistedYarnClick}
               >
                 +
@@ -403,36 +391,38 @@ export default function ProjectForm({
                 <SubTitle>
                   <ColoredFont>Yarn</ColoredFont>
                 </SubTitle>
-                <ToggleYarnButton
-                  left="18rem"
-                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
-                  onClick={handleAddExistedYarnClick}
-                >
-                  +
-                </ToggleYarnButton>
-                <ToggleYarnButton
-                  left="15rem"
-                  top={`${buttonPosition + index * buttonPositionIndex}rem`}
-                  onClick={() => handleDeleteExistedYarn(yarn.id)}
-                >
-                  -
-                </ToggleYarnButton>
+
                 <YarnItem
                   defaultYarn={yarn}
                   isEdit={isEdit}
                   handleInputChange={handleExistedInputChange}
-                />
+                >
+                  <ToggleYarnButton
+                    left="18rem"
+                    top="-3rem"
+                    onClick={handleAddExistedYarnClick}
+                  >
+                    +
+                  </ToggleYarnButton>
+                  <ToggleYarnButton
+                    left="15rem"
+                    top="-3rem"
+                    onClick={() => handleDeleteExistedYarn(yarn.id)}
+                  >
+                    -
+                  </ToggleYarnButton>
+                </YarnItem>
               </YarnFormSection>
             ))}
         </ColumnSection>
         {/* --------------------------------------------------------------end yarn input section------------------------------------------------------- */}
         {/* --------------------------------------------------------------start note input section---------------------------------------------------- */}
         <NoteSection>
-          <label htmlFor="note">
-            <SubTitle>
-              <ColoredFont>Note</ColoredFont>
-            </SubTitle>
-          </label>
+          <label htmlFor="note"> </label>
+          <SubTitle>
+            <ColoredFont>Note</ColoredFont>
+          </SubTitle>
+
           <StyledTextArea name="note" />
         </NoteSection>
         {/* --------------------------------------------------------------end note input section------------------------------------------------------- */}
@@ -442,11 +432,18 @@ export default function ProjectForm({
             type="cancel"
             width="8rem"
             height="3rem"
+            fontSize="1.5rem"
             onClick={handleCancel}
           >
             {buttonContentLeft}
           </StyledButton>
-          <StyledButton type="submit" width="8rem" height="3rem">
+          <StyledButton
+            type="submit"
+            width="8rem"
+            height="3rem"
+            fontSize="1.5rem"
+            disabled={loading}
+          >
             {buttonContentRight}
           </StyledButton>
           {/* --------------------------------------------------------------end button section------------------------------------------------------- */}
@@ -462,6 +459,7 @@ const ProjectItemForm = styled.form`
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+  justify-content: center;
   width: 80%;
   padding-bottom: 5rem;
 `;
@@ -498,20 +496,24 @@ const ColumnSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   gap: 0.5rem;
 `;
 const YarnFormSection = styled.section`
   margin-top: 1rem;
-  width: 110%;
-`;
-const NoteSection = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
+`;
+const NoteSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 1rem;
+  width: 100%;
 `;
 
 const ToggleYarnButton = styled.div`

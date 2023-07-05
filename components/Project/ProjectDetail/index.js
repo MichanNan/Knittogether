@@ -24,11 +24,11 @@ export default function ProjectDetail({ project, id }) {
   const [isEdit, setIsEdit] = useState(false);
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
     useState(false);
-
+  // initialize pattern id, if there is no pattern for the project, give it a id which is stored in database, there is no effect to de detail page, otherwise it will throw error.
   const patternId = project.pattern
     ? project.pattern
     : "64a3135fcee80e505638d800";
-  console.log(patternId);
+
   const { mutate } = useSWR("/api/project");
   const { data: pattern } = useSWR(`/api/pattern?id=${patternId}`);
 

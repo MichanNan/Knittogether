@@ -7,6 +7,7 @@ export default function StyledButton({
   onClick,
   className,
   fontSize,
+  disabled,
 }) {
   return (
     <ButtonItem
@@ -15,6 +16,7 @@ export default function StyledButton({
       onClick={onClick}
       className={className}
       fontSize={fontSize}
+      disabled={disabled}
     >
       {children}
     </ButtonItem>

@@ -89,7 +89,7 @@ export const BackDrop = styled.div`
   top: 0;
   left: 0;
   float: right;
-  width: 500px;
+  width: 100%;
   height: 100%;
   background-color: #cccccc;
   opacity: 0.6;
@@ -107,6 +107,7 @@ export const SubTitle = styled.span`
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  align-self: start;
 `;
 export const StyledLink = styled(Link)`
   text-decoration: none;
