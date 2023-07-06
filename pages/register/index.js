@@ -100,6 +100,7 @@ export default function LoginPage() {
 
         <AuthLabel htmlFor="eamil">Email</AuthLabel>
         <StyledInput
+          type="email"
           name="email"
           id="email"
           value={email}
@@ -107,6 +108,7 @@ export default function LoginPage() {
           height="2rem"
           radius="0.6rem"
           backgroundColor="var(--color-grey)"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           onChange={(event) => handleEmailOnChange(event)}
         ></StyledInput>
         <AuthLabel htmlFor="password">Password</AuthLabel>
@@ -145,27 +147,3 @@ export default function LoginPage() {
     </Main>
   );
 }
-
-// const AuthForm = styled.form`
-//   margin-top: 2rem;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 1rem;
-// `;
-
-// const AuthInfoContainer = styled.div`
-//   margin-top: 3rem;
-// `;
-// const AuthInfo = styled.p`
-//   margin-top: 1rem;
-//   margin-left: ${({ left }) => left};
-//   font-size: ${({ fontSize }) => fontSize};
-// `;
-// const AuthLabel = styled.label`
-//   align-self: start;
-// `;
-// const AuthLink = styled(StyledLink)`
-//   transform: translateX(1rem);
-//   font-size: 0.8rem;
-// `;

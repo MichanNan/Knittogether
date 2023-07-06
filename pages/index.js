@@ -23,6 +23,8 @@ export default function LoginPage({ mutate }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loginError, setLoginError] = useState("");
+
   const { data, status } = useSession();
   const router = useRouter();
 
@@ -41,6 +43,9 @@ export default function LoginPage({ mutate }) {
         email,
         password,
       });
+      if (!data.ok) {
+        setLoginError(data.error);
+      }
       mutate();
     } catch (error) {
       console.log(error);
@@ -68,7 +73,10 @@ export default function LoginPage({ mutate }) {
           backgroundColor="var(--color-grey)"
           fontSize="1.2rem"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setLoginError("");
+            setEmail(e.target.value);
+          }}
         ></StyledInput>
         <AuthLabel htmlFor="password">Password</AuthLabel>
         <StyledInput
@@ -81,8 +89,16 @@ export default function LoginPage({ mutate }) {
           fontSize="1.2rem"
           id="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setLoginError("");
+            setPassword(e.target.value);
+          }}
         ></StyledInput>
+        {Object.keys(loginError).length !== 0 && (
+          <HeavyFont>
+            <ColoredFont>inValid account</ColoredFont>
+          </HeavyFont>
+        )}
         <AuthLink href="/register">
           <LightFont>Click here to create a new account</LightFont>
         </AuthLink>
