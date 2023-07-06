@@ -52,13 +52,10 @@ export default function Pagination({
           return <li key={uid()}>&#8230;</li>;
         }
         return (
-          <PaginationList
-            key={uid()}
-            onClick={() => onPageChange(pageNumber)}
-            pageNumber={pageNumber}
-            currentPage={currentPage}
-          >
-            {pageNumber}
+          <PaginationList key={uid()} onClick={() => onPageChange(pageNumber)}>
+            <Number pageNumber={pageNumber} currentPage={currentPage}>
+              {pageNumber}
+            </Number>
           </PaginationList>
         );
       })}
@@ -78,17 +75,21 @@ const PaginationContainer = styled.ul`
   margin: 3rem auto;
 `;
 const PaginationList = styled.li`
+  color: #000;
+`;
+
+const Number = styled.span`
   ${({ pageNumber, currentPage }) => {
     return pageNumber === currentPage
       ? css`
-          background-color: var(--color-orange);
-          width: 1.5rem;
-          height: 1.5rem;
-          text-align: center;
-          border-radius: 50%;
-          color: var(--color-white);
-          line-height: 1.5rem;
-        `
+        background-color: var(--color-orange);
+        width: 120%;
+        height: 100%
+        text-align: center;
+        border-radius: 10%;
+        color: var(--color-white);
+        line-height: 1.5rem;
+      `
       : "";
   }}
 `;

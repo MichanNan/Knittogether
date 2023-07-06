@@ -16,9 +16,8 @@ export default function YarnStockForm({
   setIsYarnEdit,
   editedYarnStock,
 }) {
-  const initYarnImage = isYarnEdit ? editedYarnStock.image : "";
-  const [yarnImageUrl, setYarnImageUrl] = useState(initYarnImage);
-
+  const [yarnImageUrl, setYarnImageUrl] = useState("");
+  const [imageLoading, setImageLoading] = useState(false);
   const { mutate } = useSWR("/api/yarn");
 
   const id = editedYarnStock?._id;
@@ -83,6 +82,8 @@ export default function YarnStockForm({
             setYarnImageUrl={setYarnImageUrl}
             isYarnEdit={isYarnEdit}
             editedYarnStock={editedYarnStock}
+            yarnImageLoading={imageLoading}
+            setYarnImageLoading={setImageLoading}
           />
 
           <label htmlFor="brand">Brand</label>
@@ -130,14 +131,18 @@ export default function YarnStockForm({
             >
               Cancel
             </StyledButton>
-            <StyledButton width="8rem" height="3rem">
+            <StyledButton width="8rem" height="3rem" disabled={imageLoading}>
               Confirm
             </StyledButton>
           </ButtonContainer>
         </YarnForm>
       ) : (
         <YarnForm onSubmit={(event) => handleAddYarnStockSubmit(event)}>
-          <Upload setYarnImageUrl={setYarnImageUrl} />
+          <Upload
+            setYarnImageUrl={setYarnImageUrl}
+            yarnImageLoading={imageLoading}
+            setYarnImageLoading={setImageLoading}
+          />
           <label htmlFor="brand">Brand</label>
           <YarnInput name="brand" maxLength={10} />
           <label htmlFor="type">Type</label>
@@ -160,7 +165,12 @@ export default function YarnStockForm({
             >
               Cancel
             </StyledButton>
-            <StyledButton width="8rem" height="3rem" fontSize="1.2rem">
+            <StyledButton
+              width="8rem"
+              height="3rem"
+              fontSize="1.2rem"
+              disabled={imageLoading}
+            >
               Create
             </StyledButton>
           </ButtonContainer>

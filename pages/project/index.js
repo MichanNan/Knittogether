@@ -8,6 +8,7 @@ import SearchBar from "../../components/Project/SearchBar";
 import { useState } from "react";
 import { Main, ColoredFont, BackDrop, AddItemButton } from "../../styles";
 import styled from "styled-components";
+import Header from "../../components/Common/Heading";
 
 export default function ProjectPage({ projectsList, setProjectName, router }) {
   const [addNewProjectStatus, setAddNewProjectStatus] = useState(false);
@@ -67,7 +68,7 @@ export default function ProjectPage({ projectsList, setProjectName, router }) {
           }}
         />
       )}
-      <Heading>My Projects</Heading>
+      <Header>My Projects</Header>
       <Categories
         handleClick={handleStatusClick}
         selectedProjectStatus={selectedProjectStatus}

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import "./User.js";
 
 const { Schema } = mongoose;
 const detailSchema = new Schema({
@@ -20,6 +21,7 @@ const yarnSchema = new Schema({
 
 const projectSchema = new Schema(
   {
+    user: { type: [Schema.Types.ObjectId], ref: "User" },
     name: String,
     status: String,
     happiness: String,

@@ -7,9 +7,14 @@ export default function Upload({
   setYarnImageUrl,
   isYarnEdit,
   editedYarnStock,
+  projectImageUrl,
   setProjectImageUrl,
   isProjectEdit,
   existedProject,
+  projectImageLoading,
+  setProjectImageLoading,
+  yarnImageLoading,
+  setYarnImageLoading,
 }) {
   let initImage = "";
 
@@ -31,10 +36,10 @@ export default function Upload({
 
   useEffect(() => {
     if (setYarnImageUrl) {
-      setYarnImageUrl("/yarn.jpeg");
+      setYarnImageUrl(initImage);
     }
     if (setProjectImageUrl) {
-      setProjectImageUrl("/knitting.jpeg");
+      setProjectImageUrl(initImage);
     }
   }, []);
 
@@ -52,6 +57,7 @@ export default function Upload({
     return resj.url;
   }
   async function handleChange(e) {
+    projectImageUrl ? setProjectImageLoading(true) : setYarnImageLoading(true);
     const data = new FormData();
     data.append("file", e.target.files[0]);
     data.append("upload_preset", "project-image");
@@ -62,19 +68,22 @@ export default function Upload({
     setFile(url);
     if (setProjectImageUrl) {
       setProjectImageUrl(url);
+      setProjectImageLoading(false);
     }
 
     if (setYarnImageUrl) {
       setYarnImageUrl(url);
+      setYarnImageLoading(false);
     }
   }
-
+  console.log(projectImageLoading);
   return (
     <UploadedFile className="App">
       <Wrapper>
         <HeavyFont>
           <ColoredFont>Add Image:</ColoredFont>
         </HeavyFont>
+
         <Label htmlFor="file">Click here to Upload </Label>
         <Input
           id="file"
@@ -85,6 +94,11 @@ export default function Upload({
           onChange={handleChange}
         />
       </Wrapper>
+
+      {projectImageUrl
+        ? projectImageLoading && <p>Loading image...</p>
+        : yarnImageLoading && <p>Loading image...</p>}
+
       {file && (
         <Image src={file} alt="project-image" width={200} height={150} />
       )}

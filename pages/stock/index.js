@@ -8,6 +8,7 @@ import NeedleStockForm from "../../components/Stock/NeedleStockForm";
 
 import { AddItemButton, Main } from "../../styles";
 import { useState } from "react";
+import Header from "../../components/Common/Heading";
 export default function StockPage() {
   const [stockContent, setStockContent] = useState("Yarn Stock");
   const [addYarnStockStatus, setAddYarnStockStatus] = useState(false);
@@ -25,7 +26,7 @@ export default function StockPage() {
   }
   return (
     <Main>
-      <Heading>My Stock</Heading>
+      <Header>My Stock</Header>
       {!addYarnStockStatus && stockContent === "Yarn Stock" && (
         <>
           {!isYarnEdit && (

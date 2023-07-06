@@ -1,12 +1,18 @@
 import dbConnect from "../../db/connect";
 import Yarn from "../../db/models/Yarn";
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
+
 export default async function handler(request, response) {
   await dbConnect();
 
+  const session = await getServerSession(request, response, authOptions);
+  const userId = session?.user.id;
+
   if (request.method === "GET") {
     try {
-      const yarns = await Yarn.find().sort({ createdAt: -1 });
+      const yarns = await Yarn.find({ user: userId }).sort({ createdAt: -1 });
       response.status(200).json(yarns);
     } catch (error) {
       console.log(error);
@@ -17,7 +23,8 @@ export default async function handler(request, response) {
   if (request.method === "POST") {
     try {
       const data = request.body;
-      await Yarn.create(data);
+
+      await Yarn.create({ user: userId, ...data });
       response.status(201).json({ message: "Yarn Created" });
     } catch (error) {
       console.log(error);
@@ -28,7 +35,8 @@ export default async function handler(request, response) {
   if (request.method === "PUT") {
     try {
       const { id } = request.query;
-      await Yarn.findByIdAndUpdate(id, { $set: request.body });
+      const newYarn = { user: userId, ...request.body };
+      await Yarn.findByIdAndUpdate(id, { $set: newYarn });
       response.status(201).json({ message: "yarn successfully updated" });
     } catch (error) {
       console.log(error);

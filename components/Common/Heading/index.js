@@ -1,5 +1,27 @@
 import styled from "styled-components";
+import { signOut } from "next-auth/react";
+import { LightFont } from "../../../styles";
 
+export default function Header({ children, checkOut }) {
+  return (
+    <>
+      <Heading>
+        <ChildrenWrapper>{children}</ChildrenWrapper>
+        <InfoWrapper>
+          {!checkOut && (
+            <LightFont
+              onClick={() => {
+                signOut({ callbackUrl: "http://localhost:3000" });
+              }}
+            >
+              Sign out
+            </LightFont>
+          )}
+        </InfoWrapper>
+      </Heading>
+    </>
+  );
+}
 const Heading = styled.h1`
   position: fixed;
   top: 0;
@@ -7,9 +29,19 @@ const Heading = styled.h1`
   width: 100%;
   height: 5rem;
   line-height: 6rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 400;
   background-color: var(--color-white);
   z-index: 1;
 `;
-export default Heading;
+
+const ChildrenWrapper = styled.div`
+  margin: 0 auto;
+`;
+const InfoWrapper = styled.div`
+  position: absolute;
+  top: 2.5rem;
+  right: 1rem;
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+`;
