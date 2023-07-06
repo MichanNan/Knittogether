@@ -113,3 +113,26 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
 `;
+export const AuthForm = styled.form`
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`;
+export const AuthInfoContainer = styled.div`
+  margin-top: 4rem;
+`;
+export const AuthInfo = styled.p`
+  margin-top: 1rem;
+  margin-left: ${({ left }) => left};
+  font-size: ${({ fontSize }) => fontSize};
+  text-align: center;
+`;
+export const AuthLabel = styled.label`
+  align-self: start;
+`;
+export const AuthLink = styled(StyledLink)`
+  transform: translateX(1rem);
+  font-size: 0.8rem;
+`;

@@ -1,20 +1,21 @@
 import Navigation from "../components/Common/Navigation";
-import Heading from "../components/Common/Heading";
+import Header from "../components/Common/Heading";
 import PieChart from "../components/Common/PieChart";
 
 import { ColoredFont, HeavyFont, Main, StyledLink } from "../styles";
-
 import styled from "styled-components";
+
 import Image from "next/image";
 
 import { useSession } from "next-auth/react";
-import Header from "../components/Common/Heading";
 
-export default function HomePage({ projects }) {
-  const { data: session } = useSession();
-  if (session) {
-    console.log(session);
+export default function HomePage({ projects, mutate }) {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return "";
   }
+
   const plannedProject = projects?.filter(
     (project) => project.status === "planned"
   );
@@ -28,9 +29,9 @@ export default function HomePage({ projects }) {
     (project) => project.status === "hibernated"
   );
 
-  return (
+  return session ? (
     <Main>
-      <Header>Knit Together</Header>
+      <Header mutate={mutate}>Knit Together</Header>
       <SubTitle top="4rem">
         Welcome &nbsp;<HeavyFont>{`${session?.user.name}`}</HeavyFont>
       </SubTitle>
@@ -65,14 +66,29 @@ export default function HomePage({ projects }) {
       </ActiveProjectContainer>
       <Navigation />
     </Main>
+  ) : (
+    <Main>
+      <Header checkOut mutate={mutate}>
+        Knit Together
+      </Header>
+      <SubTitle top="8rem">
+        Please
+        <StyledLink href="/">
+          &nbsp;<ColoredFont>Sign in </ColoredFont>
+        </StyledLink>
+        &nbsp;first 🧶
+      </SubTitle>
+      <SubTitle top="1rem">
+        Having no account?
+        <StyledLink href="/register">
+          &nbsp;
+          <ColoredFont>Sign up</ColoredFont>
+        </StyledLink>
+        &nbsp; here 🧶
+      </SubTitle>
+    </Main>
   );
 }
-
-const OverviewContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  grid-template-rows: repeat(2, 50%);
-`;
 
 const SubTitle = styled.p`
   font-size: 1.2rem;

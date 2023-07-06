@@ -42,7 +42,9 @@ export default function ProjectForm({
       meter: "",
     },
   ];
-  const [loading, setLoading] = useState(false);
+  //set the loading state of pattern file, while loading will show loading information to the user and the confirm or create button is disabled.
+  const [fileLoading, setFileLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
 
   //by edit mode to see if there is already yarn data for the existing project.
   //If there is yarn data, give initial yarn the existed yarn. If there is no yarn data, then render a empty
@@ -244,9 +246,12 @@ export default function ProjectForm({
           </StyledSelect>
         </RowSection>
         <Upload
+          projectImageUrl={projectImageUrl}
           setProjectImageUrl={setProjectImageUrl}
           isProjectEdit={isEdit}
           existedProject={project}
+          projectImageLoading={imageLoading}
+          setProjectImageLoading={setImageLoading}
         />
         {/* -----------------------------------------------------end status and happiness select section------------------------------------------ */}
         {/* ----------------------------------------------------------start name input section------------------------------------------------------- */}
@@ -324,8 +329,8 @@ export default function ProjectForm({
             setPatternId={setPatternId}
             isEdit={isEdit}
             oldPattern={pattern}
-            loading={loading}
-            setLoading={setLoading}
+            loading={fileLoading}
+            setLoading={setFileLoading}
           />
         </ColumnSection>
         {/* -------------------------------------------------------------end pattern upload section------------------------------------------------------- */}
@@ -449,7 +454,7 @@ export default function ProjectForm({
             width="8rem"
             height="3rem"
             fontSize="1.2rem"
-            disabled={loading}
+            disabled={fileLoading || imageLoading}
           >
             {buttonContentRight}
           </StyledButton>

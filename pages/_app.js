@@ -36,10 +36,11 @@ export default function App({
 
   const router = useRouter();
 
-  const { data: projects } = useSWR("/api/project", fetcher);
+  const { data: projects, mutate } = useSWR("/api/project", fetcher);
   if (!projects) {
     return;
   }
+
   return (
     <main className={lato.className}>
       <SWRConfig value={{ fetcher }}>
@@ -57,6 +58,7 @@ export default function App({
             yarnData={yarnData}
             router={router}
             projects={projects}
+            mutate={mutate}
           />
         </SessionProvider>
       </SWRConfig>

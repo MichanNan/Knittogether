@@ -5,12 +5,15 @@ import {
   HeavyFont,
   LightFont,
   Main,
-  StyledLink,
+  AuthForm,
+  AuthInfoContainer,
+  AuthInfo,
+  AuthLabel,
+  AuthLink,
 } from "../../styles";
 import StyledInput from "../../components/Common/StyledInput";
 import StyledButton from "../../components/Common/StyledButton";
-import Heading from "../../components/Common/Heading";
-import { signIn } from "next-auth/react";
+
 import { useRouter } from "next/router";
 import Header from "../../components/Common/Heading";
 
@@ -20,7 +23,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   function handleNameOnChange(event) {
@@ -37,6 +40,7 @@ export default function LoginPage() {
   }
   async function submitHandler(e) {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData(e.target);
     const userData = Object.fromEntries(formData);
     try {
@@ -52,6 +56,7 @@ export default function LoginPage() {
       if (!response.ok) {
         setErrorMessage(jsonResponse.message);
       } else {
+        setLoading(false);
         router.push("/");
       }
     } catch (error) {
@@ -62,26 +67,26 @@ export default function LoginPage() {
     <Main>
       <Header checkOut>Register</Header>
 
-      <InfoContainer>
-        <Info left="-2rem">
+      <AuthInfoContainer>
+        <AuthInfo left="-2rem">
           Welcome to &nbsp;
           <HeavyFont>
             <ColoredFont>Knittogether</ColoredFont>&nbsp;
           </HeavyFont>
-        </Info>
+        </AuthInfo>
 
-        <Info left="6rem" fontSize="1.2rem">
+        <AuthInfo left="6rem" fontSize="1.2rem">
           <ColoredFont>Sign up</ColoredFont> now
-        </Info>
-        <Info left="2rem">
-          Let&apos;s
+        </AuthInfo>
+        <AuthInfo left="2rem">
+          Let&apos;s &nbsp;
           <HeavyFont>
             <ColoredFont>knitting!</ColoredFont>
           </HeavyFont>
-        </Info>
-      </InfoContainer>
-      <RegisterForm onSubmit={submitHandler}>
-        <RegisterLabel htmlFor="name">name</RegisterLabel>
+        </AuthInfo>
+      </AuthInfoContainer>
+      <AuthForm onSubmit={submitHandler}>
+        <AuthLabel htmlFor="name">name</AuthLabel>
         <StyledInput
           name="name"
           id="name"
@@ -93,7 +98,7 @@ export default function LoginPage() {
           onChange={(event) => handleNameOnChange(event)}
         ></StyledInput>
 
-        <RegisterLabel htmlFor="eamil">Email</RegisterLabel>
+        <AuthLabel htmlFor="eamil">Email</AuthLabel>
         <StyledInput
           name="email"
           id="email"
@@ -104,7 +109,7 @@ export default function LoginPage() {
           backgroundColor="var(--color-grey)"
           onChange={(event) => handleEmailOnChange(event)}
         ></StyledInput>
-        <RegisterLabel htmlFor="password">Password</RegisterLabel>
+        <AuthLabel htmlFor="password">Password</AuthLabel>
         <StyledInput
           type="password"
           name="password"
@@ -118,16 +123,16 @@ export default function LoginPage() {
         ></StyledInput>
 
         {errorMessage && (
-          <Info>
+          <AuthInfo>
             <HeavyFont>
               <ColoredFont>{errorMessage}</ColoredFont>
             </HeavyFont>
-          </Info>
+          </AuthInfo>
         )}
-
-        <Link href="/">
+        {loading && <p>registering, please wait a moment</p>}
+        <AuthLink href="/">
           <LightFont>Already have an account? Click here to login</LightFont>
-        </Link>
+        </AuthLink>
         <StyledButton
           width="6rem"
           height="2rem"
@@ -136,31 +141,31 @@ export default function LoginPage() {
         >
           sign up
         </StyledButton>
-      </RegisterForm>
+      </AuthForm>
     </Main>
   );
 }
 
-const RegisterForm = styled.form`
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-`;
+// const AuthForm = styled.form`
+//   margin-top: 2rem;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 1rem;
+// `;
 
-const InfoContainer = styled.div`
-  margin-top: 3rem;
-`;
-const Info = styled.p`
-  margin-top: 1rem;
-  margin-left: ${({ left }) => left};
-  font-size: ${({ fontSize }) => fontSize};
-`;
-const RegisterLabel = styled.label`
-  align-self: start;
-`;
-const Link = styled(StyledLink)`
-  transform: translateX(1rem);
-  font-size: 0.8rem;
-`;
+// const AuthInfoContainer = styled.div`
+//   margin-top: 3rem;
+// `;
+// const AuthInfo = styled.p`
+//   margin-top: 1rem;
+//   margin-left: ${({ left }) => left};
+//   font-size: ${({ fontSize }) => fontSize};
+// `;
+// const AuthLabel = styled.label`
+//   align-self: start;
+// `;
+// const AuthLink = styled(StyledLink)`
+//   transform: translateX(1rem);
+//   font-size: 0.8rem;
+// `;

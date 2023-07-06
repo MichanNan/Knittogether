@@ -10,7 +10,9 @@ export default function Header({ children, checkOut }) {
         <InfoWrapper>
           {!checkOut && (
             <LightFont
-              onClick={() => signOut({ callbackUrl: "http://localhost:3000" })}
+              onClick={() => {
+                signOut({ callbackUrl: "http://localhost:3000" });
+              }}
             >
               Sign out
             </LightFont>

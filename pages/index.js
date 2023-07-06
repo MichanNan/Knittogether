@@ -2,14 +2,24 @@ import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 
 import { useRouter } from "next/router";
-import styled from "styled-components";
-import Heading from "../components/Common/Heading";
-import { ColoredFont, HeavyFont, LightFont, Main, StyledLink } from "../styles";
+
+import {
+  ColoredFont,
+  HeavyFont,
+  LightFont,
+  Main,
+  AuthForm,
+  AuthInfoContainer,
+  AuthInfo,
+  AuthLabel,
+  AuthLink,
+} from "../styles";
+
 import StyledInput from "../components/Common/StyledInput";
 import StyledButton from "../components/Common/StyledButton";
 import Header from "../components/Common/Heading";
 
-export default function LoginPage() {
+export default function LoginPage({ mutate }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,6 +41,7 @@ export default function LoginPage() {
         email,
         password,
       });
+      mutate();
     } catch (error) {
       console.log(error);
     }
@@ -38,16 +49,16 @@ export default function LoginPage() {
   return (
     <Main>
       <Header checkOut>Login </Header>
-      <InfoContainer>
-        <Info fontSize="1.5rem">
+      <AuthInfoContainer>
+        <AuthInfo fontSize="1.5rem">
           Welcome &nbsp;
           <HeavyFont>
             <ColoredFont>Back</ColoredFont>&nbsp;
           </HeavyFont>
-        </Info>
-      </InfoContainer>
-      <LoginForm onSubmit={submitHandler}>
-        <LoginLabel htmlFor="eamil">Email</LoginLabel>
+        </AuthInfo>
+      </AuthInfoContainer>
+      <AuthForm onSubmit={submitHandler}>
+        <AuthLabel htmlFor="eamil">Email</AuthLabel>
         <StyledInput
           name="email"
           id="email"
@@ -59,7 +70,7 @@ export default function LoginPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         ></StyledInput>
-        <LoginLabel htmlFor="password">Password</LoginLabel>
+        <AuthLabel htmlFor="password">Password</AuthLabel>
         <StyledInput
           type="password"
           name="password"
@@ -72,9 +83,9 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         ></StyledInput>
-        <Link href="/register">
+        <AuthLink href="/register">
           <LightFont>Click here to create a new account</LightFont>
-        </Link>
+        </AuthLink>
         <StyledButton
           width="6rem"
           height="2rem"
@@ -83,31 +94,7 @@ export default function LoginPage() {
         >
           Log in
         </StyledButton>
-      </LoginForm>
+      </AuthForm>
     </Main>
   );
 }
-
-const LoginForm = styled.form`
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-`;
-const InfoContainer = styled.div`
-  margin-top: 6rem;
-`;
-const Info = styled.p`
-  margin-top: 1rem;
-  margin-left: ${({ left }) => left};
-  font-size: ${({ fontSize }) => fontSize};
-  text-align: center;
-`;
-const LoginLabel = styled.label`
-  align-self: start;
-`;
-const Link = styled(StyledLink)`
-  transform: translateX(1rem);
-  font-size: 0.8rem;
-`;
