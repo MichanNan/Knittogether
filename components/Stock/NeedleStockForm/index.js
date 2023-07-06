@@ -27,15 +27,14 @@ export default function NeedleStockForm({
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    console.log("data", data);
-    console.log("call api,request.body.type", typeof JSON.stringify(data));
+
     const response = await fetch("/api/needle", {
       method: "POST",
 
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ data }),
     });
     mutate();
     setAddNeedleStockStatus(false);

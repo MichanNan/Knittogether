@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
+import "./User.js";
 
 const { Schema } = mongoose;
 const yarnSchema = new Schema(
   {
+    user: { type: [Schema.Types.ObjectId], ref: "User" },
     image: { type: String },
     brand: { type: String },
     skein: { type: String },

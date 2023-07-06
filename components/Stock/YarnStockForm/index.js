@@ -7,7 +7,7 @@ import StyledButton from "../../Common/StyledButton";
 import BackIcon from "../../Common/BackIcon/BackIcon";
 
 import Upload from "../../Common/Upload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 export default function YarnStockForm({
@@ -16,8 +16,7 @@ export default function YarnStockForm({
   setIsYarnEdit,
   editedYarnStock,
 }) {
-  const initYarnImage = isYarnEdit ? editedYarnStock.image : "";
-  const [yarnImageUrl, setYarnImageUrl] = useState(initYarnImage);
+  const [yarnImageUrl, setYarnImageUrl] = useState("");
 
   const { mutate } = useSWR("/api/yarn");
 

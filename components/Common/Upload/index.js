@@ -31,10 +31,10 @@ export default function Upload({
 
   useEffect(() => {
     if (setYarnImageUrl) {
-      setYarnImageUrl("/yarn.jpeg");
+      setYarnImageUrl(initImage);
     }
     if (setProjectImageUrl) {
-      setProjectImageUrl("/knitting.jpeg");
+      setProjectImageUrl(initImage);
     }
   }, []);
 
