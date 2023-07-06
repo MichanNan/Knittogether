@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Pagination from "../../components/Pattern/Pagination";
 import { useEffect } from "react";
+import Header from "../../components/Common/Heading";
 
 export default function PatternPage() {
   const pageSize = 20;
@@ -26,7 +27,7 @@ export default function PatternPage() {
 
     const base = "https://api.ravelry.com";
     const url = `${base}/patterns/search.json?query=${searchString}&page_size=${pageSize}&page=${page}&sort=best`;
-    console.log(patternList);
+
     let headers = new Headers();
 
     headers.set(
@@ -50,7 +51,7 @@ export default function PatternPage() {
 
   return (
     <Main>
-      <Heading>Pattern</Heading>
+      <Header>Pattern</Header>
       <PatternSearchForm onSubmit={(event) => handleSubmit(event)}>
         <label htmlFor="pattern"></label>
         <StyledInput

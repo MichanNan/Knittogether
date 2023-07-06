@@ -6,6 +6,7 @@ import { SWRConfig } from "swr";
 import useSWR from "swr";
 import { Lato } from "@next/font/google";
 import { uid } from "uid";
+import { SessionProvider } from "next-auth/react";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -13,7 +14,10 @@ const lato = Lato({
 });
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   const [projectName, setProjectName] = useState("");
 
   const [yarnData, setYarnData] = useState([
@@ -39,20 +43,22 @@ export default function App({ Component, pageProps }) {
   return (
     <main className={lato.className}>
       <SWRConfig value={{ fetcher }}>
-        <GlobalStyle />
-        <Head>
-          <title>Capstone Project</title>
-        </Head>
-        <Component
-          {...pageProps}
-          projectName={projectName}
-          setProjectName={setProjectName}
-          projectsList={projects}
-          setYarnData={setYarnData}
-          yarnData={yarnData}
-          router={router}
-          projects={projects}
-        />
+        <SessionProvider session={session}>
+          <GlobalStyle />
+          <Head>
+            <title>Capstone Project</title>
+          </Head>
+          <Component
+            {...pageProps}
+            projectName={projectName}
+            setProjectName={setProjectName}
+            projectsList={projects}
+            setYarnData={setYarnData}
+            yarnData={yarnData}
+            router={router}
+            projects={projects}
+          />
+        </SessionProvider>
       </SWRConfig>
     </main>
   );
