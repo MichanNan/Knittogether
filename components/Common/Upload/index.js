@@ -76,7 +76,7 @@ export default function Upload({
       setYarnImageLoading(false);
     }
   }
-  console.log(projectImageLoading);
+
   return (
     <UploadedFile className="App">
       <Wrapper>

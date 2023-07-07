@@ -2,10 +2,14 @@ import Heading from "../../Common/Heading";
 import StyledButton from "../../Common/StyledButton";
 import ProjectForm from "../ProjectForm";
 import BackIcon from "../../Common/BackIcon/BackIcon";
+import ConfirmDelete from "../../Common/ConfirmDelete";
+import Navigation from "../../Common/Navigation";
+
 import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+
 import styled from "styled-components";
 import {
   ColoredFont,
@@ -14,11 +18,12 @@ import {
   Main,
   ImageWrapper,
   SubTitle,
+  AddItemButton,
 } from "../../../styles";
 import dayjs from "dayjs";
 
-import ConfirmDelete from "../../Common/ConfirmDelete";
-import Navigation from "../../Common/Navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShare } from "@fortawesome/free-solid-svg-icons";
 
 export default function ProjectDetail({ project, id }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -64,9 +69,22 @@ export default function ProjectDetail({ project, id }) {
     window.open(`/pattern/${patternId}`);
   }
 
+  function handleShareProject() {
+    const postName = project.name;
+    const postImage = project.image;
+
+    const response = fetch("/api/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postName, postImage }),
+    });
+  }
   if (!pattern) {
     return;
   }
+
   return (
     <>
       {isEdit ? (
@@ -232,6 +250,9 @@ export default function ProjectDetail({ project, id }) {
               onDelete={handleDeleteProject}
             />
           )}
+          <AddItemButton onClick={handleShareProject} fontSize="2rem">
+            <FontAwesomeIcon icon={faShare} />
+          </AddItemButton>
           <Navigation />
         </Main>
       )}

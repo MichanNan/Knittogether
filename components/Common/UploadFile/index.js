@@ -9,13 +9,15 @@ export default function UploadFile({
   loading,
   setLoading,
 }) {
-  const initialPattern = oldPattern ? oldPattern : "";
+  console.log(oldPattern);
+  const initialPattern = oldPattern._id ? oldPattern : "";
   const [pattern, setPattern] = useState({});
   const [existedPattern, setExistedPattern] = useState(initialPattern);
 
   let showUploadInfo = "";
 
   if (isEdit) {
+    setPatternId(initialPattern);
     if (Object.keys(existedPattern).length !== 0) {
       showUploadInfo = existedPattern.body?.patternName
         ? existedPattern?.body.patternName
@@ -78,11 +80,11 @@ export default function UploadFile({
         chunks: idArr,
         totalChunks: totalChunks,
       };
-      console.log(data);
+
       const res = await uploading(data);
-      console.log(res);
+
       patternId = res.response._id;
-      console.log(patternId);
+
       setPatternId(res.response._id);
       isEdit ? setExistedPattern(res) : setPattern(res);
     } else {

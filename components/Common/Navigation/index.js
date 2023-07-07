@@ -4,10 +4,11 @@ import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faListCheck } from "@fortawesome/free-solid-svg-icons";
+import { faListCheck, faU } from "@fortawesome/free-solid-svg-icons";
 import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { faVolleyball } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navigation() {
   const [selectedNavItem, setSelectedNavItem] = useLocalStorageState(
@@ -67,6 +68,17 @@ export default function Navigation() {
           Pattern
         </NavLink>
       </NavItem>
+
+      <NavItem
+        onClick={(event) => handleNavOnClick(event)}
+        className="community"
+        selectedNavItem={selectedNavItem}
+      >
+        <NavLink href="community">
+          <FontAwesomeIcon icon={faUser} />
+          Community
+        </NavLink>
+      </NavItem>
     </Nav>
   );
 }
@@ -85,6 +97,7 @@ const Nav = styled.nav`
   text-decoration: none;
 `;
 const NavItem = styled.div`
+  font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

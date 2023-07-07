@@ -1,6 +1,5 @@
 import YarnStockList from "../../components/Stock/YarnStockList";
 import Navigation from "../../components/Common/Navigation";
-import Heading from "../../components/Common/Heading";
 import YarnStockForm from "../../components/Stock/YarnStockForm";
 import StockCategories from "../../components/Stock/StockCategories";
 import NeedleStockList from "../../components/Stock/NeedleStockList";
@@ -24,6 +23,7 @@ export default function StockPage() {
   function handleAddNeedleStock() {
     setAddNeedleStockStatus(!addNeedleStockStatus);
   }
+
   return (
     <Main>
       <Header>My Stock</Header>
@@ -41,7 +41,9 @@ export default function StockPage() {
           />
           <Navigation />
           {!isYarnEdit && (
-            <AddItemButton onClick={handleAddYarnStock}>+</AddItemButton>
+            <AddItemButton fontSize="3rem" onClick={handleAddYarnStock}>
+              +
+            </AddItemButton>
           )}
         </>
       )}
@@ -64,7 +66,9 @@ export default function StockPage() {
           />
           <Navigation />
           {!isNeedleEdit && (
-            <AddItemButton onClick={handleAddNeedleStock}>+</AddItemButton>
+            <AddItemButton fontSize="3rem" onClick={handleAddNeedleStock}>
+              +
+            </AddItemButton>
           )}
         </>
       )}
