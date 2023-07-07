@@ -8,13 +8,53 @@ import { HeavyFont, LightFont } from "../../../styles";
 
 import ReactTimeAgo from "react-time-ago";
 
-export default function PostContent({ name, image, user, createdAt }) {
+import useSWR from "swr";
+import css from "styled-jsx/css";
+import { useEffect } from "react";
+import { Light } from "@mui/icons-material";
+
+export default function PostContent({
+  name,
+  image,
+  user,
+  createdAt,
+  likesCount,
+  _id: postId,
+}) {
   const date = new Date(createdAt);
   const timestamp = date.getTime();
+
+  const { data: likes, mutate: updateLikes } = useSWR("/api/like");
+  const { mutate } = useSWR("/api/post");
+
+  useEffect(() => {
+    mutate();
+  }, [likesCount, toggleLike]);
+
+  async function toggleLike() {
+    const response = await fetch("/api/like", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postId }),
+    });
+
+    updateLikes();
+  }
+
+  const likedPost = likes?.map((post) => {
+    return post.post[0];
+  });
+
   return (
     <PostItem>
-      <PostTitle>{name}</PostTitle>
-
+      <TitleContainer>
+        <PostTitle>{name}</PostTitle>
+        <Time>
+          <ReactTimeAgo date={timestamp} timeStyle={"twitter"} /> ago
+        </Time>
+      </TitleContainer>
       <Image
         src={image}
         alt={name}
@@ -24,12 +64,10 @@ export default function PostContent({ name, image, user, createdAt }) {
       ></Image>
       <PostInfo>
         <HeavyFont>{`Knitter: ${user[0].name}`}</HeavyFont>
-        <Likes>
+        <Likes onClick={toggleLike} likedPost={likedPost} postId={postId}>
           <FontAwesomeIcon icon={faHeart} />
+          <p>{likesCount}</p>
         </Likes>
-        <LightFont>
-          <ReactTimeAgo date={timestamp} timeStyle={"twitter"} /> ago
-        </LightFont>
       </PostInfo>
     </PostItem>
   );
@@ -39,9 +77,19 @@ const PostItem = styled.div`
   width: 80%;
   margin: 0 auto;
 `;
+
+const TitleContainer = styled.div`
+  position: relative;
+`;
+const Time = styled(LightFont)`
+  position: absolute;
+  top: 0.4rem;
+  right: 0;
+`;
 const PostTitle = styled(LightFont)`
   font-size: 1.5rem;
   text-align: center;
+
   margin-bottom: 0.3rem;
 `;
 const PostInfo = styled.div`
@@ -51,6 +99,26 @@ const PostInfo = styled.div`
 `;
 
 const Likes = styled.span`
-  margin-left: 5rem;
-  color: var(--color-orange);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: 3rem;
+  ${({ likedPost, postId }) => {
+    if (!likedPost) {
+      return css`
+        color: var(--color-black);
+      `;
+    } else {
+      if (likedPost.includes(postId)) {
+        return css`
+          color: var(--color-orange);
+        `;
+      } else {
+        return css`
+          color: var(--color-black);
+        `;
+      }
+    }
+  }}
 `;

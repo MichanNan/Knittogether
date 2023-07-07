@@ -10,13 +10,13 @@ export default function Community() {
   if (!posts) {
     return;
   }
-  console.log(posts);
+
   return (
     <Main>
       <Header>Community</Header>
       <PostContainer>
         {posts.map((post) => {
-          return <PostContent key={post._id} {...post} />;
+          return <PostContent key={post._id} {...post} mutate={mutate} />;
         })}
       </PostContainer>
       <Navigation />

@@ -69,6 +69,7 @@ export default function ProjectDetail({ project, id }) {
     window.open(`/pattern/${patternId}`);
   }
 
+  //the function for share the project
   function handleShareProject() {
     const postName = project.name;
     const postImage = project.image;
