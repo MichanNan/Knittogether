@@ -90,7 +90,7 @@ export default function ProjectDetail({ project, id }) {
       setShareStatus(false);
     }, 2000);
   }
-  console.log(shareStatus);
+
   if (!pattern) {
     return;
   }
