@@ -4,14 +4,14 @@ import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { HeavyFont, LightFont } from "../../../styles";
+import { HeavyFont, LightFont, StyledLink } from "../../../styles";
 
 import ReactTimeAgo from "react-time-ago";
 
 import useSWR from "swr";
 import css from "styled-jsx/css";
 import { useEffect } from "react";
-import { Light } from "@mui/icons-material";
+import { useSession } from "next-auth/react";
 
 export default function PostContent({
   name,
@@ -25,11 +25,13 @@ export default function PostContent({
   const timestamp = date.getTime();
 
   const { data: likes, mutate: updateLikes } = useSWR("/api/like");
-  const { mutate } = useSWR("/api/post");
+  const { mutate: updatePosts } = useSWR("/api/post");
+  const session = useSession();
+  console.log(user);
 
   useEffect(() => {
-    mutate();
-  }, [likesCount, toggleLike]);
+    updatePosts();
+  }, [likesCount, toggleLike, handleDeletePost]);
 
   async function toggleLike() {
     const response = await fetch("/api/like", {
@@ -47,21 +49,38 @@ export default function PostContent({
     return post.post[0];
   });
 
+  async function handleDeletePost(id) {
+    const response = await fetch("/api/post", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+    if (response.ok) {
+      updatePosts();
+    }
+  }
   return (
     <PostItem>
+      {user[0]._id === session.data.user.id && (
+        <button onClick={() => handleDeletePost(postId)}>x</button>
+      )}
       <TitleContainer>
         <PostTitle>{name}</PostTitle>
         <Time>
           <ReactTimeAgo date={timestamp} timeStyle={"twitter"} /> ago
         </Time>
       </TitleContainer>
-      <Image
-        src={image}
-        alt={name}
-        width={300}
-        height="0"
-        style={{ width: "100%", height: "auto" }}
-      ></Image>
+      <StyledLink href={`/community/${postId}`}>
+        <Image
+          src={image}
+          alt={name}
+          width={300}
+          height="0"
+          style={{ width: "100%", height: "auto" }}
+        ></Image>
+      </StyledLink>
       <PostInfo>
         <HeavyFont>{`Knitter: ${user[0].name}`}</HeavyFont>
         <Likes onClick={toggleLike} likedPost={likedPost} postId={postId}>

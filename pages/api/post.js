@@ -15,7 +15,6 @@ export default async function handler(request, response) {
     response.status(200).json(posts);
   }
   if (request.method === "POST") {
-    console.log(request.body);
     const { postName, postImage } = request.body;
     await Post.create({
       user: userId,
@@ -23,5 +22,17 @@ export default async function handler(request, response) {
       image: postImage,
     });
     response.status(200).json({ message: "post created" });
+  }
+
+  if (request.method === "DELETE") {
+    try {
+      const { id } = request.body;
+
+      await Post.findByIdAndDelete(id);
+      response.status(200).json({ message: "post deleted" });
+    } catch (error) {
+      response.status(404).json({ message: "Not Found" });
+      console.log(error);
+    }
   }
 }
