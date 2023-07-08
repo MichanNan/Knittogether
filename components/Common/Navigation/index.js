@@ -1,10 +1,11 @@
+import useLocalStorageState from "use-local-storage-state";
+import { signOut } from "next-auth/react";
+
 import { StyledLink } from "../../../styles";
 import styled from "styled-components";
 
-import useLocalStorageState from "use-local-storage-state";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faListCheck, faU } from "@fortawesome/free-solid-svg-icons";
+import { faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { faVolleyball } from "@fortawesome/free-solid-svg-icons";

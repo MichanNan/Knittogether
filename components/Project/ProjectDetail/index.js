@@ -19,6 +19,7 @@ import {
   ImageWrapper,
   SubTitle,
   AddItemButton,
+  BackDrop,
 } from "../../../styles";
 import dayjs from "dayjs";
 
@@ -29,6 +30,8 @@ export default function ProjectDetail({ project, id }) {
   const [isEdit, setIsEdit] = useState(false);
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
     useState(false);
+
+  const [shareStatus, setShareStatus] = useState(false);
   // initialize pattern id, if there is no pattern for the project, give it a id which is stored in database, there is no effect to de detail page, otherwise it will throw error.
   const patternId = project.pattern
     ? project.pattern
@@ -81,7 +84,13 @@ export default function ProjectDetail({ project, id }) {
       },
       body: JSON.stringify({ postName, postImage }),
     });
+
+    setShareStatus(true);
+    setTimeout(() => {
+      setShareStatus(false);
+    }, 2000);
   }
+  console.log(shareStatus);
   if (!pattern) {
     return;
   }
@@ -251,6 +260,12 @@ export default function ProjectDetail({ project, id }) {
               onDelete={handleDeleteProject}
             />
           )}
+          {shareStatus && (
+            <>
+              <SharedInfo>post to community successfully</SharedInfo>
+              <BackDrop />
+            </>
+          )}
           <AddItemButton onClick={handleShareProject} fontSize="2rem">
             <FontAwesomeIcon icon={faShare} />
           </AddItemButton>
@@ -296,4 +311,18 @@ const ButtonRowSection = styled.section`
   justify-content: center;
   gap: 0.8rem;
   margin-bottom: 3rem;
+`;
+const SharedInfo = styled.span`
+  position: fixed;
+  bottom: 9rem;
+  right: 4rem;
+  width: 15rem;
+  height: 6rem;
+  border-radius: 1rem;
+  text-align: center;
+  line-height: 6rem;
+  color: var(--color-orange);
+  background-color: var(--color-grey);
+  box-shadow: 0.1rem 0.1rem 0.6rem var(--color-shadow-grey);
+  z-index: 9999;
 `;

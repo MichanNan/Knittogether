@@ -8,7 +8,8 @@ export default createGlobalStyle`
     --color-orange: #e07008;
     --color-grey:#f5f5f5;
     --color-black:#000000;
-    --color-shadow:#ad5707
+    --color-shadow:#ad5707;
+    --color-shadow-grey:#999
   
   }
   *,
@@ -74,6 +75,7 @@ export const ToggleButton = styled.div`
 export const ImageWrapper = styled.div`
   border-radius: ${({ radius }) => radius};
   overflow: hidden;
+  margin-top: ${({ top }) => top};
 `;
 export const HeavyFont = styled.span`
   font-weight: 700;
@@ -135,4 +137,16 @@ export const AuthLabel = styled.label`
 export const AuthLink = styled(StyledLink)`
   transform: translateX(1rem);
   font-size: 0.8rem;
+`;
+export const DeleteButton = styled.button`
+  position: ${({ position }) => position};
+  top: ${({ top }) => top};
+  left: ${({ left }) => left};
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--color-orange);
+  color: var(--color-white);
+  margin-left: ${({ marginLeft }) => marginLeft};
 `;

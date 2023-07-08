@@ -1,17 +1,23 @@
 import Image from "next/image";
 
+import useSWR from "swr";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+
 import styled from "styled-components";
+import css from "styled-jsx/css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { HeavyFont, LightFont, StyledLink } from "../../../styles";
+import {
+  HeavyFont,
+  ImageWrapper,
+  LightFont,
+  StyledLink,
+  DeleteButton,
+} from "../../../styles";
 
 import ReactTimeAgo from "react-time-ago";
-
-import useSWR from "swr";
-import css from "styled-jsx/css";
-import { useEffect } from "react";
-import { useSession } from "next-auth/react";
 
 export default function PostContent({
   name,
@@ -27,7 +33,6 @@ export default function PostContent({
   const { data: likes, mutate: updateLikes } = useSWR("/api/like");
   const { mutate: updatePosts } = useSWR("/api/post");
   const session = useSession();
-  console.log(user);
 
   useEffect(() => {
     updatePosts();
@@ -63,23 +68,32 @@ export default function PostContent({
   }
   return (
     <PostItem>
-      {user[0]._id === session.data.user.id && (
-        <button onClick={() => handleDeletePost(postId)}>x</button>
-      )}
       <TitleContainer>
+        {user[0]._id === session.data.user.id && (
+          <DeleteButton
+            position="absolute"
+            top="0.6rem"
+            left="0.3rem"
+            onClick={() => handleDeletePost(postId)}
+          >
+            x
+          </DeleteButton>
+        )}
         <PostTitle>{name}</PostTitle>
         <Time>
           <ReactTimeAgo date={timestamp} timeStyle={"twitter"} /> ago
         </Time>
       </TitleContainer>
       <StyledLink href={`/community/${postId}`}>
-        <Image
-          src={image}
-          alt={name}
-          width={300}
-          height="0"
-          style={{ width: "100%", height: "auto" }}
-        ></Image>
+        <ImageWrapper radius="1rem">
+          <Image
+            src={image}
+            alt={name}
+            width={300}
+            height="0"
+            style={{ width: "100%", height: "auto" }}
+          ></Image>
+        </ImageWrapper>
       </StyledLink>
       <PostInfo>
         <HeavyFont>{`Knitter: ${user[0].name}`}</HeavyFont>
@@ -100,9 +114,11 @@ const PostItem = styled.div`
 const TitleContainer = styled.div`
   position: relative;
 `;
+
 const Time = styled(LightFont)`
   position: absolute;
-  top: 0.4rem;
+  font-size: 0.8rem;
+  top: 0.6rem;
   right: 0;
 `;
 const PostTitle = styled(LightFont)`
