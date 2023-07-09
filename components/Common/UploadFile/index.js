@@ -12,7 +12,7 @@ export default function UploadFile({
   const initialPattern = oldPattern?.body === null ? "" : oldPattern?.body;
   const [pattern, setPattern] = useState({});
   const [existedPattern, setExistedPattern] = useState(initialPattern);
-  s;
+
   let showUploadInfo = "";
 
   if (isEdit) {
@@ -31,7 +31,7 @@ export default function UploadFile({
       showUploadInfo = `${pattern.response.patternName} uploaded successful`;
     }
   }
-  let patternId = "";
+
   /****************************************************************************************************download*******/
 
   let localFile;

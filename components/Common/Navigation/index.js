@@ -1,5 +1,4 @@
 import useLocalStorageState from "use-local-storage-state";
-import { signOut } from "next-auth/react";
 
 import { StyledLink } from "../../../styles";
 import styled from "styled-components";

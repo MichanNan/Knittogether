@@ -35,10 +35,15 @@ export default function HomePage({ projects, mutate }) {
       <SubTitle top="4rem">
         Welcome &nbsp;<HeavyFont>{`${session?.user.name}`}</HeavyFont>
       </SubTitle>
-      <InfoWrapper>
-        Keep up! your projects &nbsp;<ColoredFont>overview </ColoredFont>
-        &nbsp;so far
-      </InfoWrapper>
+      {projects.length !== 0 ? (
+        <InfoWrapper>
+          Keep up! your projects &nbsp;<ColoredFont>overview </ColoredFont>
+          &nbsp;so far
+        </InfoWrapper>
+      ) : (
+        <InfoWrapper> no project yet, maybe add one? </InfoWrapper>
+      )}
+
       <PieChart
         plannedProject={plannedProject}
         activeProject={activeProject}
