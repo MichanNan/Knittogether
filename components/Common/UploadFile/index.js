@@ -9,18 +9,17 @@ export default function UploadFile({
   loading,
   setLoading,
 }) {
-  console.log(oldPattern);
-  const initialPattern = oldPattern._id ? oldPattern : "";
+  const initialPattern = oldPattern?.body === null ? "" : oldPattern?.body;
   const [pattern, setPattern] = useState({});
   const [existedPattern, setExistedPattern] = useState(initialPattern);
-
+  console.log(oldPattern);
   let showUploadInfo = "";
 
   if (isEdit) {
     setPatternId(initialPattern);
     if (Object.keys(existedPattern).length !== 0) {
-      showUploadInfo = existedPattern.body?.patternName
-        ? existedPattern?.body.patternName
+      showUploadInfo = existedPattern?.patternName
+        ? existedPattern?.patternName
         : existedPattern?.response?.patternName;
     } else {
       showUploadInfo = "no pattern for this project";
