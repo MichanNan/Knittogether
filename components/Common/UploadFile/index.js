@@ -9,16 +9,17 @@ export default function UploadFile({
   loading,
   setLoading,
 }) {
-  const initialPattern = oldPattern ? oldPattern : "";
+  const initialPattern = oldPattern?.body === null ? "" : oldPattern?.body;
   const [pattern, setPattern] = useState({});
   const [existedPattern, setExistedPattern] = useState(initialPattern);
 
   let showUploadInfo = "";
 
   if (isEdit) {
+    setPatternId(initialPattern);
     if (Object.keys(existedPattern).length !== 0) {
-      showUploadInfo = existedPattern.body?.patternName
-        ? existedPattern?.body.patternName
+      showUploadInfo = existedPattern?.patternName
+        ? existedPattern?.patternName
         : existedPattern?.response?.patternName;
     } else {
       showUploadInfo = "no pattern for this project";
@@ -30,7 +31,7 @@ export default function UploadFile({
       showUploadInfo = `${pattern.response.patternName} uploaded successful`;
     }
   }
-  let patternId = "";
+
   /****************************************************************************************************download*******/
 
   let localFile;
@@ -78,11 +79,11 @@ export default function UploadFile({
         chunks: idArr,
         totalChunks: totalChunks,
       };
-      console.log(data);
+
       const res = await uploading(data);
-      console.log(res);
+
       patternId = res.response._id;
-      console.log(patternId);
+
       setPatternId(res.response._id);
       isEdit ? setExistedPattern(res) : setPattern(res);
     } else {

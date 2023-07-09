@@ -35,6 +35,7 @@ export default async function handler(request, response) {
   if (request.method === "PUT") {
     try {
       const { id } = request.query;
+
       const newProject = { user: userId, ...request.body };
       await Project.findByIdAndUpdate(id, { $set: newProject });
       response.status(201).json({ message: "project successfully updated" });

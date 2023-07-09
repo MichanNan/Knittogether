@@ -7,6 +7,10 @@ import useSWR from "swr";
 import { Lato } from "@next/font/google";
 import { uid } from "uid";
 import { SessionProvider } from "next-auth/react";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+
+TimeAgo.addDefaultLocale(en);
 
 const lato = Lato({
   subsets: ["latin"],

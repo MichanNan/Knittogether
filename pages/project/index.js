@@ -73,7 +73,9 @@ export default function ProjectPage({ projectsList, setProjectName, router }) {
         handleClick={handleStatusClick}
         selectedProjectStatus={selectedProjectStatus}
       />
-      <AddItemButton onClick={handleAddNewProject}>+</AddItemButton>
+      <AddItemButton fontSize="3rem" onClick={handleAddNewProject}>
+        +
+      </AddItemButton>
       {addNewProjectStatus && (
         <PreAddProject
           onCancel={handleCancel}

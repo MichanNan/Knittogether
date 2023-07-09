@@ -2,10 +2,14 @@ import Heading from "../../Common/Heading";
 import StyledButton from "../../Common/StyledButton";
 import ProjectForm from "../ProjectForm";
 import BackIcon from "../../Common/BackIcon/BackIcon";
+import ConfirmDelete from "../../Common/ConfirmDelete";
+import Navigation from "../../Common/Navigation";
+
 import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+
 import styled from "styled-components";
 import {
   ColoredFont,
@@ -14,16 +18,20 @@ import {
   Main,
   ImageWrapper,
   SubTitle,
+  AddItemButton,
+  BackDrop,
 } from "../../../styles";
 import dayjs from "dayjs";
 
-import ConfirmDelete from "../../Common/ConfirmDelete";
-import Navigation from "../../Common/Navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShare } from "@fortawesome/free-solid-svg-icons";
 
 export default function ProjectDetail({ project, id }) {
   const [isEdit, setIsEdit] = useState(false);
   const [confirmDeleteProjectStatus, setConfirmDeleteProjectStatus] =
     useState(false);
+
+  const [shareStatus, setShareStatus] = useState(false);
   // initialize pattern id, if there is no pattern for the project, give it a id which is stored in database, there is no effect to de detail page, otherwise it will throw error.
   const patternId = project.pattern
     ? project.pattern
@@ -64,9 +72,29 @@ export default function ProjectDetail({ project, id }) {
     window.open(`/pattern/${patternId}`);
   }
 
+  //the function for share the project
+  function handleShareProject() {
+    const postName = project.name;
+    const postImage = project.image;
+
+    const response = fetch("/api/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postName, postImage }),
+    });
+
+    setShareStatus(true);
+    setTimeout(() => {
+      setShareStatus(false);
+    }, 2000);
+  }
+
   if (!pattern) {
     return;
   }
+
   return (
     <>
       {isEdit ? (
@@ -232,6 +260,15 @@ export default function ProjectDetail({ project, id }) {
               onDelete={handleDeleteProject}
             />
           )}
+          {shareStatus && (
+            <>
+              <SharedInfo>post to community successfully</SharedInfo>
+              <BackDrop />
+            </>
+          )}
+          <AddItemButton onClick={handleShareProject} fontSize="2rem">
+            <FontAwesomeIcon icon={faShare} />
+          </AddItemButton>
           <Navigation />
         </Main>
       )}
@@ -274,4 +311,18 @@ const ButtonRowSection = styled.section`
   justify-content: center;
   gap: 0.8rem;
   margin-bottom: 3rem;
+`;
+const SharedInfo = styled.span`
+  position: fixed;
+  bottom: 9rem;
+  right: 4rem;
+  width: 15rem;
+  height: 6rem;
+  border-radius: 1rem;
+  text-align: center;
+  line-height: 6rem;
+  color: var(--color-orange);
+  background-color: var(--color-grey);
+  box-shadow: 0.1rem 0.1rem 0.6rem var(--color-shadow-grey);
+  z-index: 9999;
 `;
