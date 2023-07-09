@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import { signOut } from "next-auth/react";
 import { LightFont } from "../../../styles";
-import { useRouter } from "next/router";
 
 export default function Header({ children, checkOut }) {
-  const router = useRouter();
-
   function handleClick() {
     localStorage.clear();
     signOut({ callbackUrl: "http://localhost:3000/" });
