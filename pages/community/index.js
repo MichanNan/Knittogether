@@ -24,5 +24,5 @@ export default function Community() {
   );
 }
 const PostContainer = styled.div`
-  margin-top: 4rem;
+  margin-top: 2rem;
 `;

@@ -104,12 +104,3 @@ const CommentItem = styled.li`
   display: flex;
   gap: 1rem;
 `;
-// const DeleteButton = styled.button`
-//   width: 1rem;
-//   height: 1rem;
-//   border-radius: 50%;
-//   border: none;
-//   background-color: var(--color-orange);
-//   color: var(--color-white);
-//   margin-left: auto;
-// `;

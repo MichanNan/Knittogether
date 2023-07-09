@@ -108,7 +108,7 @@ export default function PostContent({
 
 const PostItem = styled.div`
   width: 80%;
-  margin: 0 auto;
+  margin: 2rem auto;
 `;
 
 const TitleContainer = styled.div`

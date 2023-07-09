@@ -12,7 +12,7 @@ export default function UploadFile({
   const initialPattern = oldPattern?.body === null ? "" : oldPattern?.body;
   const [pattern, setPattern] = useState({});
   const [existedPattern, setExistedPattern] = useState(initialPattern);
-  console.log(oldPattern);
+  s;
   let showUploadInfo = "";
 
   if (isEdit) {
