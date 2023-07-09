@@ -75,7 +75,7 @@ export default function Navigation() {
         className="community"
         selectedNavItem={selectedNavItem}
       >
-        <NavLink href="community">
+        <NavLink href="/community">
           <FontAwesomeIcon icon={faUser} />
           Community
         </NavLink>
