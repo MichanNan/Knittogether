@@ -170,7 +170,9 @@ export default function ProjectDetail({ project, id }) {
 
                 <HeavyFont>End:</HeavyFont>
                 <LightFont>
-                  {dayjs(project.details[0].end).format("DD-MM-YYYY")}
+                  {project.status === "completed"
+                    ? dayjs(project.details[0].end).format("DD-MM-YYYY")
+                    : "not finished"}
                 </LightFont>
               </DetailRowSection>
             </ProjectSectionContainer>
