@@ -7,7 +7,7 @@ export default async function handler(request, response) {
   const { postId } = request.query;
 
   if (request.method === "GET") {
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate("user");
 
     response.status(200).json(post);
   }
