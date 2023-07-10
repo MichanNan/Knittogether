@@ -28,7 +28,7 @@ export default function PostPage() {
   const { postId } = router.query;
 
   //get single post by the post id
-  const { data: post } = useSWR(`/api/post?id=${postId}`);
+  const { data: post } = useSWR(`/api/${postId}`);
 
   //get all comments of this post
   const { data: comments, mutate: updateComments } = useSWR(
@@ -56,19 +56,19 @@ export default function PostPage() {
     <Main>
       <Header bottom="5rem">
         <BackIcon handleGoBack={() => router.push("/community")} />
-        {post[0].name}
+        {post.name}
       </Header>
 
       <ImageWrapper radius="2rem" top="4rem">
         <Image
-          src={post[0].image}
-          alt={post[0].name}
+          src={post.image}
+          alt={post.name}
           width={200}
           height="0"
           style={{ width: "100", height: "auto" }}
         />
       </ImageWrapper>
-      <HeavyFont>Knitter: {`${post[0].user[0].name}`}</HeavyFont>
+      <HeavyFont>Knitter: {`${post.user.name}`}</HeavyFont>
       <CommentForm postId={postId} updateComments={updateComments} />
       <CommentContainer>
         {comments.map((comment) => (

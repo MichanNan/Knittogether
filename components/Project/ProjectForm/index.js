@@ -435,7 +435,11 @@ export default function ProjectForm({
             <ColoredFont>Note</ColoredFont>
           </SubTitle>
 
-          <StyledTextArea name="note" />
+          <StyledTextArea
+            name="note"
+            rows={3}
+            defaultValue={isEdit ? project.note : ""}
+          />
         </NoteSection>
         {/* --------------------------------------------------------------end note input section------------------------------------------------------- */}
         {/* --------------------------------------------------------------start button section------------------------------------------------------- */}
@@ -481,7 +485,7 @@ const StyledTextArea = styled.textarea`
   border: none;
   background-color: var(--color-grey);
   width: 20rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
   &:focus {
     outline: none;
   }
@@ -490,6 +494,7 @@ const StyledTextArea = styled.textarea`
 const StyledSelect = styled.select`
   width: 6rem;
   height: 2rem;
+
   border-radius: 0.5rem;
   &:focus {
     outline: none;
