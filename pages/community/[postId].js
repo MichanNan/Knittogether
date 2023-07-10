@@ -29,7 +29,7 @@ export default function PostPage() {
 
   //get single post by the post id
   const { data: post } = useSWR(`/api/${postId}`);
-  console.log(post);
+
   //get all comments of this post
   const { data: comments, mutate: updateComments } = useSWR(
     `/api/comment?postId=${postId}`
@@ -68,7 +68,7 @@ export default function PostPage() {
           style={{ width: "100", height: "auto" }}
         />
       </ImageWrapper>
-      <HeavyFont>Knitter: {`${post.user[0].name}`}</HeavyFont>
+      <HeavyFont>Knitter: {`${post?.user[0].name}`}</HeavyFont>
       <CommentForm postId={postId} updateComments={updateComments} />
       <CommentContainer>
         {comments.map((comment) => (
