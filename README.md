@@ -1,7 +1,8 @@
 # Capstone project knittogether
 
 Knittogether is an app for recording and sharing knitting projects. Knittiers can create their own accounts to record their knitting projects, yarn and needle inventory. They can search for patterns through Ravelry API. Even more exciting is that knitters can share their projects to the community and also explore projects shared by other knitters.
-
+## App  demo
+[Knittogether](https://knittogether.vercel.app/)
 ## App  impression
 
 
