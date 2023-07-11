@@ -96,7 +96,7 @@ export default function LoginPage({ mutate }) {
         ></StyledInput>
         {Object.keys(loginError).length !== 0 && (
           <HeavyFont>
-            <ColoredFont>inValid account</ColoredFont>
+            <ColoredFont>Invalid account</ColoredFont>
           </HeavyFont>
         )}
         <AuthLink href="/register">
