@@ -48,6 +48,11 @@ export default function PatternPage() {
     event.preventDefault();
     remoteSearch(searchContent, currentPage);
   }
+  function openWin(pattern) {
+    window.open(
+      `https://www.ravelry.com/patterns/library/${pattern.permalink}`
+    );
+  }
 
   return (
     <Main>
@@ -72,9 +77,7 @@ export default function PatternPage() {
           <>
             {patternList.patterns.map((pattern) => (
               <PatternItem key={pattern.id}>
-                <Link
-                  href={`https://www.ravelry.com/patterns/library/${pattern.permalink}`}
-                >
+                <div onClick={() => openWin(pattern)}>
                   <ImageWrapper radius="1.2rem">
                     <Image
                       src={
@@ -87,7 +90,7 @@ export default function PatternPage() {
                       height={150}
                     />
                   </ImageWrapper>
-                </Link>
+                </div>
                 <p>{pattern.name}</p>
               </PatternItem>
             ))}

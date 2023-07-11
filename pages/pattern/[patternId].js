@@ -10,67 +10,7 @@ export default function PatternPage() {
   useEffect(() => {
     handleDownload();
   });
-  async function handleDownloadOrg() {
-    fetch(`/api/pattern?id=${patternId}`, {
-      method: "get",
-    })
-      .then((response) => {
-        //read ReadableStream response
-        const reader = response.body.getReader();
-        return new ReadableStream({
-          start(controller) {
-            return pump();
-            function pump() {
-              return reader.read().then(({ done, value }) => {
-                // When no more data needs to be consumed, close the stream
-                if (done) {
-                  controller.close();
-                  return;
-                } // Enqueue the next data chunk into our target stream
-                controller.enqueue(value);
-                return pump();
-              });
-            }
-          },
-        });
-      })
-      .then((stream) => new Response(stream)) // Create an object URL for the response
-      .then((response) => response.blob())
-      .then((blob) => {
-        return blob.text();
-      })
-      .then((text) => {
-        const Pattern = JSON.parse(text).body;
-        console.log(Pattern);
-        if (Pattern.totalChunkNumber) {
-          if (Pattern.nextChunkId) {
-          } else {
-          }
-        }
-        const downloaded64 = Pattern.fileBase64String;
 
-        let downFile = base64toFile(downloaded64, Pattern.patternName);
-        console.log("downFile", downFile);
-        const objectURL = window.URL.createObjectURL(downFile);
-        const embed = document.getElementById("view");
-        embed.setAttribute("src", objectURL);
-      });
-
-    function base64toFile(dataurl, filename) {
-      let arr = dataurl.split(",");
-      let mime = arr[0].match(/:(.*?);/)[1];
-      let suffix = mime.split("/")[1];
-      let bstr = atob(arr[1]);
-      let n = bstr.length;
-      let u8arr = new Uint8Array(n);
-      while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-      }
-      return new File([u8arr], `${filename}.${suffix}`, {
-        type: mime,
-      });
-    }
-  }
   async function handleDownload() {
     let id = patternId;
     let multiFile = {};
@@ -190,7 +130,6 @@ export default function PatternPage() {
     var link = document.createElement("a");
     link.href = objectURL;
     link.download = patternName;
-    // link.click();
 
     window.URL.revokeObjectURL(objectURL);
   }
