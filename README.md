@@ -1,38 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Capstone project knittogether
 
-## Getting Started
+Knittogether is an app for recording and sharing knitting projects. Knittiers can create their own accounts to record their knitting projects, yarn and needle inventory. They can search for patterns through Ravelry API. Even more exciting is that knitters can share their projects to the community and also explore projects shared by other knitters.
 
-First, run the development server:
+## App  impression
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+https://github.com/MichanNan/Knittogether/assets/101557182/49246be3-6d80-494a-b121-4698873b1994
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<img width="2648" alt="overview" src="https://github.com/MichanNan/Knittogether/assets/101557182/4085d650-6e2f-40c0-9d1f-d20ed4db657b">
+## App  impression
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Tech stack
+- React
+- React Hooks
+- React Router
+- Next.js
+- Node.js
+- NextAuth
+- MongoDB Atlas
+- Mongoose
+- useSWR
+- Cloudinary
+- Styled Components
+- npm
+- React Testing Library
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Project set up
+- clone this repository
+- install all npm dependencies `npm install`
+- to run the app in development mode `npm run dev`, then open http://localhost:3000 to view it in the browser
+- to run React Testing Library & Jest `npm test`
+- You need to add MONGODB_URI, CLOUDINARY_CLOUD_NAME, RAVELRY_USERNAME, RAVELRY_PASSWORD, NEXTAUTH_SECRET, NEXTAUTH_URL to .env.local - please check to have added env.local in your .gitignore
