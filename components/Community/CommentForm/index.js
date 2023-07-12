@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import StyledInput from "../../Common/StyledInput";
 import StyledButton from "../../Common/StyledButton";
 export default function CommentForm({ postId, updateComments }) {
   const [comment, setComment] = useState("");

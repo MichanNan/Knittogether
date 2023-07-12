@@ -81,7 +81,7 @@ export default function PostContent({
         )}
         <PostTitle>{name}</PostTitle>
         <Time>
-          <ReactTimeAgo date={timestamp} timeStyle={"twitter"} /> ago
+          <ReactTimeAgo date={timestamp} locale="en-US" />
         </Time>
       </TitleContainer>
       <StyledLink href={`/community/${postId}`}>
