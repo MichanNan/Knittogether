@@ -29,6 +29,7 @@ export default function PieChart({
         <LegendText>Hibernated</LegendText>
       </LegendContainer>
       <MyPieChart
+        role="pieChart"
         plannedPercentEnd={plannedPercentEnd}
         activePercentEnd={activePercentEnd}
         completedPercentEnd={completedPercentEnd}

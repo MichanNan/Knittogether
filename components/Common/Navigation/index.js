@@ -26,6 +26,7 @@ export default function Navigation() {
   return (
     <Nav>
       <NavItem
+        role="navItem"
         onClick={(event) => handleNavOnClick(event)}
         className="home"
         selectedNavItem={selectedNavItem}
@@ -37,6 +38,7 @@ export default function Navigation() {
       </NavItem>
 
       <NavItem
+        role="navItem"
         onClick={(event) => handleNavOnClick(event)}
         className="projects"
         selectedNavItem={selectedNavItem}
@@ -48,6 +50,7 @@ export default function Navigation() {
       </NavItem>
 
       <NavItem
+        role="navItem"
         onClick={(event) => handleNavOnClick(event)}
         className="stocks"
         selectedNavItem={selectedNavItem}
@@ -59,6 +62,7 @@ export default function Navigation() {
       </NavItem>
 
       <NavItem
+        role="navItem"
         onClick={(event) => handleNavOnClick(event)}
         className="pattern"
         selectedNavItem={selectedNavItem}
@@ -70,6 +74,7 @@ export default function Navigation() {
       </NavItem>
 
       <NavItem
+        role="navItem"
         onClick={(event) => handleNavOnClick(event)}
         className="community"
         selectedNavItem={selectedNavItem}
