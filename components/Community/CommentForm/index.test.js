@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import CommentForm from ".";
 import userEvent from "@testing-library/user-event";
 
-test("submits comment form and calls updateComments", async () => {
+test("calls onChange function when input value changes", async () => {
   render(<CommentForm />);
 
   const commentLabel = screen.getByText("leave a comment");
