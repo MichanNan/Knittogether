@@ -10,7 +10,6 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Pagination from "../../components/Pattern/Pagination";
 import { useEffect } from "react";
 import Header from "../../components/Common/Heading";

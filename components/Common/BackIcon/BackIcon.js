@@ -5,7 +5,7 @@ import styled from "styled-components";
 export default function BackIcon({ handleGoBack }) {
   return (
     <BackItem onClick={handleGoBack}>
-      <FontAwesomeIcon icon={faChevronLeft} />
+      <FontAwesomeIcon icon={faChevronLeft} title="back" />
     </BackItem>
   );
 }
